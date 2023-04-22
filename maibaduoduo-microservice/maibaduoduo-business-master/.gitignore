@@ -39,6 +39,7 @@ mvnw
 *.iws
 *.iml
 *.ipr
+*.lck
 
 ### NetBeans ###
 nbproject/private/
