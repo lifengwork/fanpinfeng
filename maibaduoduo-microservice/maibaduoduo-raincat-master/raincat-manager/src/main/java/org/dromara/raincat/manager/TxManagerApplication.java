@@ -21,7 +21,6 @@ package org.dromara.raincat.manager;
 import org.dromara.raincat.manager.netty.NettyService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
@@ -31,7 +30,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  * @author xiaoyu
  */
 @SpringBootApplication
-@EnableEurekaServer
 @EnableScheduling
 public class  TxManagerApplication {
 
