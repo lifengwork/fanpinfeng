@@ -1,0 +1,3 @@
+1，rabbmitmq安装MQTT插件并开启mqtt协议。
+2，本地配置MQTT服务器：tcp://127.0.0.1:1883，以及客户端clientID
+3，如果客户端ID重复,连接会自动断开，另外rabbitmq插件支持QOS0|1|,对于QOS2发布设置QOS2，接收时broker使用QOS1来降级接收。

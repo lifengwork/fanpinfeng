@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration= com.maibaduoduo.configuration.GlobalConfiguration
+org.springframework.context.ApplicationContextInitializer=com.maibaduoduo.configuration.SaasSysInit
