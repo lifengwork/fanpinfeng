@@ -1,0 +1,62 @@
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+       driver-class-name: com.mysql.cj.jdbc.Driver
+       url: jdbc:mysql://localhost:3306/default?useUnicode=true&zeroDateTimeBehavior=CONVERT_TO_NULL&autoReconnect=true&characterEncoding=utf-8&serverTimezone=GMT&allowMultiQueries=true
+       username: root
+       password: 123456
+  mvc:
+    static-path-pattern: /static/**
+  resources:
+    static-locations: classpath:/static/
+  freemarker:
+    templateLoaderPath: classpath:/templates/
+    suffix: .ftl
+    charset: UTF-8
+    request-context-attribute: request
+    settings:
+      number_format: 0.##       #解決freemarker数字输出中的逗号问题
+      #      classic_compatible: true  #默认情况变量为null则替换为空字符串，如果需要自定义，写上${empty!"EmptyValue of fbysss"}的形式即可
+      whitespace_stripping: true      # 剥离前后空字符串
+      boolean_format: true,false      # 布尔类型格式化
+      datetime_format: yyyy-MM-dd HH:mm:ss  # dateTime 类型格式化， 使用日期类型时， 需要在参数后追加 ?datetime eg: ${date?datetime}
+      date_format: yyyy-MM-dd   # date 类型格式化， 使用日期类型时， 需要在参数后追加 ?date eg: ${date?date}
+      time_format: HH:mm:ss      # time 类型格式化， 使用日期类型时， 需要在参数后追加 ?time eg: ${date?time}
+      template_exception_handler: ignore   # 忽略模版异常
+      default_encoding: UTF-8      # 默认编码
+      url_escaping_charset: UTF-8  # url 转义编码
+#mybatis:
+#  mapper-locations: classpath:mybatis-mapper/*.xml
+
+mybatis-plus:
+  # 如果是放在src/main/java目录下 classpath:/com/yourpackage/*/mapper/*Mapper.xml
+  # 如果是放在resource目录 classpath:/mapper/*Mapper.xml
+  mapper-locations:
+    - classpath:mybatis-mapper/**/*Mapper.xml
+    #- classpath*:mapper_**/**/*Mapper.xml
+  #实体扫描，多个package用逗号或者分号分隔
+  typeAliasesPackage: com.xxl.job.admin.core.model
+  global-config:
+    db-config:
+      id-type: INPUT
+      insert-strategy: NOT_NULL
+      update-strategy: NOT_NULL
+      select-strategy: NOT_EMPTY
+    banner: false
+  configuration:
+    #配置返回数据库(column下划线命名&&返回java实体是驼峰命名)，自动匹配无需as（没开启这个，SQL需要写as： select user_id as userId）
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    #配置JdbcTypeForNull, oracle数据库必须配置
+    jdbc-type-for-null: 'null'
+
+logging:
+  level:
+    org.springframework.cloud.gateway: TRACE
+    org.springframework.http.server.reactive: DEBUG
+    org.springframework.web.reactive: DEBUG
+    reactor.ipc.netty: DEBUG
+    reactor.netty: DEBUG
+    com.maibaduoduo: DEBUG
+  config: classpath:logback-spring.xml
