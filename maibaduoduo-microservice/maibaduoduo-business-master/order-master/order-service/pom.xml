@@ -176,6 +176,12 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-hystrix-dashboard</artifactId>
         </dependency>
+        <!--加入事务补偿采用开源myth二次开发-->
+        <dependency>
+            <groupId>org.dromara</groupId>
+            <artifactId>myth-spring-boot-starter-springcloud</artifactId>
+            <version>2.0.0-RELEASE</version>
+        </dependency>
         <!--引入核心包 end-->
     </dependencies>
     <build>

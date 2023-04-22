@@ -97,15 +97,19 @@ ribbon:
   #NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RetryRule
   #NFLoadBalancerPingClassName: com.sansuolou.gateway.HealthExamination                     #判断服务是否可用
 
+#配置分布式事务补偿
+org:
+  dromara:
+    myth:
+      serializer: kryo
+        #repositorySupport : db
+        #mythDbConfig :
+        #driverClassName  : com.mysql.jdbc.Driver
+        #url :  jdbc:mysql://localhost:3306/myth?useUnicode=true&amp;characterEncoding=utf8
+        #username : root
+        #password : 123456
 
-#配置feign
-feign:
-  hystrix:
-    enabled: true
-  compression:   #配置压缩
-    request:
-      enabled: false
-      mime-types: text/xml,application/xml,application/json
-      min-request-size: 2048
-    response:
-      enabled: false
+        repositorySupport: redis
+        hostName: 127.0.0.1
+        port:  6379
+        password:
