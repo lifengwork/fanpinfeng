@@ -1,4 +1,0 @@
-org.dromara.raincat.common.serializer.KryoSerializer
-org.dromara.raincat.common.serializer.ProtostuffSerializer
-org.dromara.raincat.common.serializer.HessianSerializer
-org.dromara.raincat.common.serializer.JavaSerializer

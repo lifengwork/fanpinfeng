@@ -1,6 +1,0 @@
-node_modules
-dist
-# idea ignore
-.idea
-*.iml
-package-lock.json
