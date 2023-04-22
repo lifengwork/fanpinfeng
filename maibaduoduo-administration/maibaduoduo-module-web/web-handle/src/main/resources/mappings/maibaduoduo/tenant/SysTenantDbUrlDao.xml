@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.maibaduoduo.base.tenant.dao.SysTenantDbUrlDao">
+    <resultMap type="SysTenantDbUrl" id="sysTenantDbUrlResultMap">
+		    <id property="id" column="id" />
+		    <result column="tenant_id" property="tenantId"/>
+           <result column="employee" property="employee"/>
+           <result column="db_url" property="dbUrl"/>
+           <result column="remarks" property="remarks"/>
+           <result column="create_by" property="createBy.id"/>
+           <result column="create_date" property="createDate"/>
+           <result column="update_by" property="updateBy.id"/>
+           <result column="update_date" property="updateDate"/>
+           <result column="del_flag" property="delFlag"/>
+           <result column="init_data" property="initData"/>
+    </resultMap>
+	<sql id="sysTenantDbUrlColumns">
+a.id AS "id",
+        a.tenant_id AS "tenantId",
+        a.employee AS "employee",
+         a.db_url AS "dbUrl",
+         a.remarks AS "remarks",
+          a.create_by AS "createBy.id",
+          a.create_date AS "createDate",
+          a.update_by AS "updateBy.id",
+          a.update_date AS "updateDate",
+           a.del_flag AS "delFlag",
+           a.init_data AS "initData"
+
+	</sql>
+	
+	<sql id="sysTenantDbUrlJoins">
+	</sql>
+    
+	<select id="get" resultType="SysTenantDbUrl">
+		SELECT 
+			<include refid="sysTenantDbUrlColumns"/>
+		FROM sys_tenant_db_url a
+		<include refid="sysTenantDbUrlJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	<select id="findList" resultType="SysTenantDbUrl">
+		SELECT 
+			<include refid="sysTenantDbUrlColumns"/>
+		FROM sys_tenant_db_url a
+		<include refid="sysTenantDbUrlJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="tenantId != null and tenantId != ''">
+				AND a.tenant_id = #{tenantId}
+			</if>
+			<if test="employee != null and employee != ''">
+				AND a.employee LIKE 
+					<if test="dbName == 'oracle'">'%'||#{employee}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{employee}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{employee},'%')</if>
+			</if>
+			<if test="dbUrl != null and dbUrl != ''">
+				AND a.db_url LIKE 
+					<if test="dbName == 'oracle'">'%'||#{dbUrl}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{dbUrl}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{dbUrl},'%')</if>
+			</if>
+			<if test="remarks != null and remarks != ''">
+				AND a.remarks = #{remarks}
+			</if>
+			<if test="createBy != null and createBy.id != null and createBy.id != ''">
+				AND a.create_by = #{createBy.id}
+			</if>
+			<if test="createDate != null and createDate != ''">
+				AND a.create_date = #{createDate}
+			</if>
+			<if test="updateBy != null and updateBy.id != null and updateBy.id != ''">
+				AND a.update_by = #{updateBy.id}
+			</if>
+			<if test="updateDate != null and updateDate != ''">
+				AND a.update_date = #{updateDate}
+			</if>
+			<if test="delFlag != null and delFlag != ''">
+				AND a.del_flag = #{delFlag}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	<select id="findAllList" resultMap="sysTenantDbUrlResultMap">
+		SELECT 
+			<include refid="sysTenantDbUrlColumns"/>
+		FROM sys_tenant_db_url a
+		<include refid="sysTenantDbUrlJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert" parameterType="SysTenantDbUrl">
+		INSERT INTO sys_tenant_db_url(tenant_id, employee, db_url, remarks, create_by, create_date, update_by, update_date, del_flag,init_data) VALUES
+		 (#{tenantId}, #{employee}, #{dbUrl}, #{remarks}, #{createBy.id}, #{createDate}, #{updateBy.id}, #{updateDate}, #{delFlag}	,#{initData}	)
+	</insert>
+
+	<insert id="insertBatch" >
+	 INSERT INTO sys_tenant_db_url(
+tenant_id, employee, db_url, remarks, create_by, create_date, update_by, update_date, del_flag,init_data		) VALUES
+		<foreach collection="list" item="item" index="index" separator=",">
+( #{item.tenantId}, #{item.employee}, #{item.dbUrl}, #{item.remarks}, #{item.createBy.id},
+#{item.createDate}, #{item.updateBy.id}, #{item.updateDate}, #{item.delFlag} ,#{item.initData})       </foreach>
+     </insert>
+
+	<update id="update" parameterType="SysTenantDbUrl">
+		UPDATE sys_tenant_db_url
+		<trim prefix="SET" suffixOverrides=",">
+		    <if test='tenantId!=null'> tenant_id = #{tenantId},</if>
+		    <if test='employee!=null'> employee = #{employee},</if>
+		    <if test='dbUrl!=null'> db_url = #{dbUrl},</if>
+		    <if test='remarks!=null'> remarks = #{remarks},</if>
+		    <if test='delFlag!=null'> del_flag = #{delFlag},</if>
+		    <if test='initData!=null'> init_data = #{initData},</if>
+            </trim>
+		WHERE id = #{id}
+	</update>
+	<update id="batchUpdate" parameterType="SysTenantDbUrl">
+		UPDATE sys_tenant_db_url
+		<trim prefix="SET" suffixOverrides=",">
+					<trim prefix="tenant_id =case" suffix="end,">
+						 <foreach collection="list" item="item" index="index">
+							 <if test="tenantId !=null">
+								 when id=#{item.id} then #{tenantId}
+							 </if>
+						 </foreach>
+					</trim>
+					<trim prefix="employee =case" suffix="end,">
+						 <foreach collection="list" item="item" index="index">
+							 <if test="employee !=null">
+								 when id=#{item.id} then #{employee}
+							 </if>
+						 </foreach>
+					</trim>
+					<trim prefix="db_url =case" suffix="end,">
+						 <foreach collection="list" item="item" index="index">
+							 <if test="dbUrl !=null">
+								 when id=#{item.id} then #{dbUrl}
+							 </if>
+						 </foreach>
+					</trim>
+					<trim prefix="remarks =case" suffix="end,">
+						 <foreach collection="list" item="item" index="index">
+							 <if test="remarks !=null">
+								 when id=#{item.id} then #{remarks}
+							 </if>
+						 </foreach>
+					</trim>
+					<trim prefix="del_flag =case" suffix="end,">
+						 <foreach collection="list" item="item" index="index">
+							 <if test="delFlag !=null">
+								 when id=#{item.id} then #{delFlag}
+							 </if>
+						 </foreach>
+					</trim>
+		  </trim>
+		WHERE id in
+			<foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+				#{item.id}
+			</foreach>
+	</update>
+	<update id="delete" >
+		UPDATE sys_tenant_db_url SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	<delete id="batchDelete">
+	 DELETE FROM sys_tenant_db_url WHERE
+	     id in
+			<foreach collection="array" index="index" item="item" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+	</delete>
+</mapper>

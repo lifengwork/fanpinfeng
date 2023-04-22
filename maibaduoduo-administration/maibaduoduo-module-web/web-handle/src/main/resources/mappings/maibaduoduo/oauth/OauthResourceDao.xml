@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.maibaduoduo.web.oauth.dao.OauthResourceDao">
+	<sql id="oauthResourceColumns">
+        a.id AS "id", a.oauth_resource_id AS "oauthResourceId", a.prefix AS "prefix", a.oauth_resource_path AS "oauthResourcePath", a.oauth_service_id AS "oauthServiceId", a.role_id AS "roleId", a.create_by AS "createBy.id", a.create_date AS "createDate", a.update_by AS "updateBy.id", a.update_date AS "updateDate", a.remarks AS "remarks", a.del_flag AS "delFlag"
+
+	</sql>
+	
+	<sql id="oauthResourceJoins">
+	</sql>
+    
+	<select id="get" resultType="OauthResource">
+		SELECT 
+			<include refid="oauthResourceColumns"/>
+		FROM oauth_resource a
+		<include refid="oauthResourceJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	<select id="findList" resultType="OauthResource">
+		SELECT 
+			<include refid="oauthResourceColumns"/>
+		FROM oauth_resource a
+		<include refid="oauthResourceJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="prefix != null and prefix != ''">
+				AND a.prefix LIKE 
+					<if test="dbName == 'oracle'">'%'||#{prefix}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{prefix}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{prefix},'%')</if>
+			</if>
+			<if test="oauthResourcePath != null and oauthResourcePath != ''">
+				AND a.oauth_resource_path LIKE 
+					<if test="dbName == 'oracle'">'%'||#{oauthResourcePath}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{oauthResourcePath}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{oauthResourcePath},'%')</if>
+			</if>
+			<if test="oauthServiceId != null and oauthServiceId != ''">
+				AND a.oauth_service_id LIKE 
+					<if test="dbName == 'oracle'">'%'||#{oauthServiceId}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{oauthServiceId}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{oauthServiceId},'%')</if>
+			</if>
+			<if test="roleId != null and roleId != ''">
+				AND a.role_id = #{roleId}
+			</if>
+			<if test="beginCreateDate != null and endCreateDate != null">
+				AND a.create_date BETWEEN #{beginCreateDate} AND #{endCreateDate}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	<select id="findAllList" resultType="OauthResource">
+		SELECT 
+			<include refid="oauthResourceColumns"/>
+		FROM oauth_resource a
+		<include refid="oauthResourceJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert" parameterType="OauthResource">
+		INSERT INTO oauth_resource(oauth_resource_id, prefix, oauth_resource_path, oauth_service_id, role_id, create_by, create_date, update_by, update_date, remarks, del_flag) VALUES
+		 ( #{oauthResourceId}, #{prefix}, #{oauthResourcePath}, #{oauthServiceId}, #{roleId}, #{createBy.id}, #{createDate}, #{updateBy.id}, #{updateDate}, #{remarks}, #{delFlag}		)
+	</insert>
+
+	<insert id="insertBatch" >
+	 INSERT INTO oauth_resource(
+ oauth_resource_id, prefix, oauth_resource_path, oauth_service_id, role_id, create_by, create_date, update_by, update_date, remarks, del_flag		) VALUES
+		<foreach collection="list" item="item" index="index" separator=",">
+( #{oauthResourceId}, #{prefix}, #{oauthResourcePath}, #{oauthServiceId}, #{roleId}, #{createBy.id}, #{createDate}, #{updateBy.id}, #{updateDate}, #{remarks}, #{delFlag}        </foreach>
+     </insert>
+
+	<update id="update" parameterType="OauthResource">
+		UPDATE oauth_resource
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="oauthResourceId !=null">
+				oauth_resource_id =  #{oauthResourceId},
+			</if>
+			<if test="prefix !=null">
+				prefix = #{prefix},
+			</if>
+			<if test="oauthResourcePath !=null">
+				oauth_resource_path= #{oauthResourcePath},
+			</if>
+			<if test="oauthServiceId !=null">
+				oauth_service_id = #{oauthServiceId},
+			</if>
+			<if test="roleId !=null">
+				role_id= #{roleId},
+			</if>
+			<if test="updateBy.id !=null">
+				update_by=  #{updateBy.id},
+			</if>
+			<if test="updateDate !=null">
+				update_date = #{updateDate},
+			</if>
+			<if test="remarks !=null">
+				remarks =  #{remarks}
+			</if>
+            </trim>
+		WHERE id = #{id}
+	</update>
+	<update id="batchUpdate" parameterType="OauthResource">
+		UPDATE oauth_resource
+		<trim prefix="SET" suffixOverrides=",">
+					<trim prefix="oauth_resource_id =case" suffix="end,">
+						 <foreach collection="list" item="item" index="index">
+							 <if test="oauthResourceId !=null">
+								 when id=#{item.id} then #{oauthResourceId}
+							 </if>
+						 </foreach>
+					</trim>
+					<trim prefix="prefix =case" suffix="end,">
+						 <foreach collection="list" item="item" index="index">
+							 <if test="prefix !=null">
+								 when id=#{item.id} then #{prefix}
+							 </if>
+						 </foreach>
+					</trim>
+					<trim prefix="oauth_resource_path =case" suffix="end,">
+						 <foreach collection="list" item="item" index="index">
+							 <if test="oauthResourcePath !=null">
+								 when id=#{item.id} then #{oauthResourcePath}
+							 </if>
+						 </foreach>
+					</trim>
+					<trim prefix="oauth_service_id =case" suffix="end,">
+						 <foreach collection="list" item="item" index="index">
+							 <if test="oauthServiceId !=null">
+								 when id=#{item.id} then #{oauthServiceId}
+							 </if>
+						 </foreach>
+					</trim>
+					<trim prefix="role_id =case" suffix="end,">
+						 <foreach collection="list" item="item" index="index">
+							 <if test="roleId !=null">
+								 when id=#{item.id} then #{roleId}
+							 </if>
+						 </foreach>
+					</trim>
+					<trim prefix="update_by =case" suffix="end,">
+						 <foreach collection="list" item="item" index="index">
+							 <if test="updateBy.id !=null">
+								 when id=#{item.id} then #{updateBy.id}
+							 </if>
+						 </foreach>
+					</trim>
+					<trim prefix="update_date =case" suffix="end,">
+						 <foreach collection="list" item="item" index="index">
+							 <if test="updateDate !=null">
+								 when id=#{item.id} then #{updateDate}
+							 </if>
+						 </foreach>
+					</trim>
+					<trim prefix="remarks =case" suffix="end,">
+						 <foreach collection="list" item="item" index="index">
+							 <if test="remarks !=null">
+								 when id=#{item.id} then #{remarks}
+							 </if>
+						 </foreach>
+					</trim>
+		  </trim>
+		WHERE id in
+			<foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+				#{item.id}
+			</foreach>
+	</update>
+	<update id="delete" >
+		UPDATE oauth_resource SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	<delete id="batchDelete">
+	 DELETE FROM oauth_resource WHERE
+	     id in
+			<foreach collection="array" index="index" item="item" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+	</delete>
+</mapper>

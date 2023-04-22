@@ -1,0 +1,49 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/rabbit
+ 	http://www.springframework.org/schema/rabbit/spring-rabbit.xsd
+     http://www.springframework.org/schema/context
+     http://www.springframework.org/schema/context/spring-context-4.0.xsd
+ 	http://www.springframework.org/schema/beans
+ 	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+    <context:property-placeholder location="classpath:maibaduoduo.properties" ignore-unresolvable="true"/>
+    <context:property-placeholder location="classpath:tenant.properties" ignore-unresolvable="true"/>
+    <!-- 配置连接工厂 -->
+    <rabbit:connection-factory id="connectionFactory" host="${rabbit.host}" port="${rabbit.port}"
+                               username="${rabbit.username}" password="${rabbit.password}" publisher-confirms="true"
+                               publisher-returns="true"/>
+    <!-- 定义mq管理 -->
+    <rabbit:admin id="connectAdmin" connection-factory="connectionFactory"/>
+    <!-- 声明队列 -->
+    <rabbit:queue name="${saas.tenant_init_create_queue}" auto-declare="true" durable="true" declared-by="connectAdmin" ignore-declaration-exceptions="true"/>
+    <rabbit:queue name="${saas.tenant_authorization_queue}" auto-declare="true" durable="true" declared-by="connectAdmin" ignore-declaration-exceptions="true"/>
+    <rabbit:queue name="${saas.tenant_datasource_init_queue}" auto-declare="true" durable="true" declared-by="connectAdmin" ignore-declaration-exceptions="true"/>
+    <rabbit:direct-exchange name="${saas.tenant_authorization_exchange}" id="${saas.tenant_authorization_exchange}" declared-by="connectAdmin" ignore-declaration-exceptions="true">
+        <rabbit:bindings>
+            <rabbit:binding queue="${saas.tenant_authorization_queue}" key="${saas.tenant_authorization_queue}"/>
+        </rabbit:bindings>
+    </rabbit:direct-exchange>
+    <rabbit:direct-exchange name="${saas.tenant_datasource_init_exchange}" id="${saas.tenant_datasource_init_exchange}" declared-by="connectAdmin" ignore-declaration-exceptions="true">
+        <rabbit:bindings>
+            <rabbit:binding queue="${saas.tenant_datasource_init_queue}" key="${saas.tenant_datasource_init_queue}"/>
+        </rabbit:bindings>
+    </rabbit:direct-exchange>
+    <rabbit:direct-exchange name="${saas.tenant_init_create_exchange}" id="${saas.tenant_init_create_exchange}" declared-by="connectAdmin" ignore-declaration-exceptions="true">
+        <rabbit:bindings>
+            <rabbit:binding queue="${saas.tenant_init_create_queue}" key="${saas.tenant_init_create_queue}"/>
+        </rabbit:bindings>
+    </rabbit:direct-exchange>
+    <!--<rabbit:topic-exchange name="tenant.create.exchange" id="tenant.create.exchange" declared-by="connectAdmin">
+       &lt;!&ndash; <rabbit:bindings>
+            &lt;!&ndash;符号“#”表示匹配一个或多个词，符号“*”表示匹配一个词。*.fdsf.*.*.#&ndash;&gt;
+            <rabbit:binding queue="tenant.create.queue" pattern="tenant.create.*"/>
+        </rabbit:bindings>&ndash;&gt;
+    </rabbit:topic-exchange>-->
+    <!-- 消息对象json转换类 -->
+    <bean id="jsonMessageConverter" class="com.maibaduoduo.web.config.FastJsonMessageConverter"/>
+    <rabbit:template id="rabbitTemplateDirect" connection-factory="connectionFactory" message-converter="jsonMessageConverter" mandatory="true" />
+
+</beans>

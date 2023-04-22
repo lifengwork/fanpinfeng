@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.maibaduoduo.base.tenant.dao.TenantEmployeeInfoDao">
+    <resultMap type="TenantEmployeeInfo" id="tenantEmployeeInfoResultMap">
+		   <id column="tenant_employee_id" property="tenantEmployeeId"/>
+           <result column="tenant_id" property="tenantId"/>
+           <result column="tenant_name" property="tenantName"/>
+           <result column="tenant_employee_name" property="tenantEmployeeName"/>
+           <result column="create_by" property="createBy.id"/>
+           <result column="create_date" property="createDate"/>
+           <result column="update_by" property="updateBy.id"/>
+           <result column="update_date" property="updateDate"/>
+           <result column="del_flag" property="delFlag"/>
+           <result column="status" property="status"/>
+    </resultMap>
+	<sql id="tenantEmployeeInfoColumns">
+        a.tenant_id AS "tenantId", a.tenant_employee_id AS "tenantEmployeeId", a.tenant_name AS "tenantName", a.tenant_employee_name AS "tenantEmployeeName", a.create_by AS "createBy.id", a.create_date AS "createDate", a.update_by AS "updateBy.id", a.update_date AS "updateDate", a.del_flag AS "delFlag", a.status AS "status"
+
+	</sql>
+	
+	<sql id="tenantEmployeeInfoJoins">
+	</sql>
+    
+	<select id="get" resultType="TenantEmployeeInfo">
+		SELECT 
+			<include refid="tenantEmployeeInfoColumns"/>
+		FROM tenant_employee_info a
+		<include refid="tenantEmployeeInfoJoins"/>
+		WHERE a.tenant_employee_id = #{id}
+	</select>
+	<select id="findList" resultType="TenantEmployeeInfo">
+		SELECT 
+			<include refid="tenantEmployeeInfoColumns"/>
+		FROM tenant_employee_info a
+		<include refid="tenantEmployeeInfoJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="tenantName != null and tenantName != ''">
+				AND a.tenant_name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{tenantName}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{tenantName}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{tenantName},'%')</if>
+			</if>
+			<if test="tenantEmployeeName != null and tenantEmployeeName != ''">
+				AND a.tenant_employee_name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{tenantEmployeeName}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{tenantEmployeeName}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{tenantEmployeeName},'%')</if>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	<select id="findAllList" resultType="TenantEmployeeInfo">
+		SELECT 
+			<include refid="tenantEmployeeInfoColumns"/>
+		FROM tenant_employee_info a
+		<include refid="tenantEmployeeInfoJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert" parameterType="TenantEmployeeInfo">
+		INSERT INTO tenant_employee_info(tenant_id, tenant_employee_id, tenant_name, tenant_employee_name, create_by, create_date, update_by, update_date, del_flag, status) VALUES
+		 (#{tenantId}, #{tenantEmployeeId}, #{tenantName}, #{tenantEmployeeName}, #{createBy.id}, #{createDate}, #{updateBy.id}, #{updateDate}, #{delFlag}, #{status}		)
+	</insert>
+
+	<insert id="insertBatch" >
+	 INSERT INTO tenant_employee_info(
+tenant_id, tenant_employee_id, tenant_name, tenant_employee_name, create_by, create_date, update_by, update_date, del_flag, status		) VALUES
+		<foreach collection="list" item="item" index="index" separator=",">
+( #{item.tenantId}, #{item.tenantEmployeeId}, #{item.tenantName}, #{item.tenantEmployeeName}, #{item.createBy.id}, #{item.createDate}, #{item.updateBy.id}, #{item.updateDate}, #{item.delFlag}, #{item.status}        </foreach>
+     </insert>
+
+	<update id="update" parameterType="TenantEmployeeInfo">
+		UPDATE tenant_employee_info
+		<trim prefix="SET" suffixOverrides=",">
+		    <if test='tenantId!=null'> tenant_id = #{tenantId},</if>
+		    <if test='tenantEmployeeId!=null'> tenant_employee_id = #{tenantEmployeeId},</if>
+		    <if test='tenantName!=null'> tenant_name = #{tenantName},</if>
+		    <if test='tenantEmployeeName!=null'> tenant_employee_name = #{tenantEmployeeName},</if>
+		    <if test='createDate!=null'> create_date = #{createDate},</if>
+		    <if test='updateBy.id!=null'> update_by = #{updateBy.id},</if>
+		    <if test='updateDate!=null'> update_date = #{updateDate},</if>
+		    <if test='status!=null'> status = #{status},</if>
+            </trim>
+		WHERE tenant_employee_id = #{id}
+	</update>
+	<update id="batchUpdate" parameterType="TenantEmployeeInfo">
+		UPDATE tenant_employee_info
+		<trim prefix="SET" suffixOverrides=",">
+					<trim prefix="tenant_id =case" suffix="end,">
+						 <foreach collection="list" item="item" index="index">
+							 <if test="tenantId !=null">
+								 when id=#{item.id} then #{item.tenantId}
+							 </if>
+						 </foreach>
+					</trim>
+					<trim prefix="tenant_employee_id =case" suffix="end,">
+						 <foreach collection="list" item="item" index="index">
+							 <if test="tenantEmployeeId !=null">
+								 when id=#{item.id} then #{item.tenantEmployeeId}
+							 </if>
+						 </foreach>
+					</trim>
+					<trim prefix="tenant_name =case" suffix="end,">
+						 <foreach collection="list" item="item" index="index">
+							 <if test="tenantName !=null">
+								 when id=#{item.id} then #{item.tenantName}
+							 </if>
+						 </foreach>
+					</trim>
+					<trim prefix="tenant_employee_name =case" suffix="end,">
+						 <foreach collection="list" item="item" index="index">
+							 <if test="tenantEmployeeName !=null">
+								 when id=#{item.id} then #{item.tenantEmployeeName}
+							 </if>
+						 </foreach>
+					</trim>
+					<trim prefix="create_date =case" suffix="end,">
+						 <foreach collection="list" item="item" index="index">
+							 <if test="createDate !=null">
+								 when id=#{item.id} then #{item.createDate}
+							 </if>
+						 </foreach>
+					</trim>
+					<trim prefix="update_by =case" suffix="end,">
+						 <foreach collection="list" item="item" index="index">
+							 <if test="updateBy.id !=null">
+								 when id=#{item.id} then #{item.updateBy.id}
+							 </if>
+						 </foreach>
+					</trim>
+					<trim prefix="update_date =case" suffix="end,">
+						 <foreach collection="list" item="item" index="index">
+							 <if test="updateDate !=null">
+								 when id=#{item.id} then #{item.updateDate}
+							 </if>
+						 </foreach>
+					</trim>
+					<trim prefix="status =case" suffix="end,">
+						 <foreach collection="list" item="item" index="index">
+							 <if test="status !=null">
+								 when id=#{item.id} then #{item.status}
+							 </if>
+						 </foreach>
+					</trim>
+		  </trim>
+		WHERE id in
+			<foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+				#{item.id}
+			</foreach>
+	</update>
+	<update id="delete" >
+		UPDATE tenant_employee_info SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE tenant_employee_id = #{id}
+	</update>
+	<delete id="batchDelete">
+	 DELETE FROM tenant_employee_info WHERE
+		tenant_employee_id in
+			<foreach collection="array" index="index" item="item" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+	</delete>
+</mapper>

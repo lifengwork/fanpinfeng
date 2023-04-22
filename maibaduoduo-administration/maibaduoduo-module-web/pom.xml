@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+    <dependencies>
+        <dependency>
+            <groupId>com.maibaduoduo</groupId>
+            <artifactId>maibaduoduo-module-common</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+    <parent>
+        <artifactId>maibaduoduo-administration</artifactId>
+        <groupId>com.maibaduoduo</groupId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+	<artifactId>maibaduoduo-module-web</artifactId>
+	<packaging>pom</packaging>
+	<name>maibaduoduo-module-web</name>
+	<modules>
+        <module>web-base</module>
+        <module>web-handle</module>
+    </modules>
+</project>

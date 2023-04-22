@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.maibaduoduo.base.tenant.dao.SysTenantDao">
+    <sql id="sysTenantColumns">
+        a.id AS "id", a.org_code AS "orgCode", a.org_name AS "orgName", a.logo AS "logo", a.enterprise_describe AS "enterpriseDescribe", a.enterprise_domain AS "enterpriseDomain", a.duty AS "duty", a.expiration_time AS "expirationTime", a.password_expire AS "passwordExpire", a.is_multiple_login AS "isMultipleLogin", a.password_error_num AS "passwordErrorNum", a.password_error_lock_time AS "passwordErrorLockTime", a.status AS "status", a.create_date AS "createDate", a.create_by AS "createBy.id", a.update_date AS "updateDate", a.update_by AS "updateBy.id", a.tenant_name AS "tenantName", a.tenant_password AS "tenantPassword", a.tenant_phone AS "tenantPhone", a.mysql_server_ip AS "mysqlServerIp", a.mysql_port AS "mysqlPort", a.mysql_password AS "mysqlPassword", a.msyql_user_name AS "msyqlUserName", a.mysql_db_name AS "mysqlDbName", a.is_master_slave AS "isMasterSlave", a.slave_server_ip AS "slaveServerIp", a.remarks AS "remarks",
+         a.del_flag AS "delFlag",a.multi_tenant_type AS "multiTenantType"
+	</sql>
+
+    <sql id="sysTenantJoins">
+    </sql>
+
+    <select id="get" resultType="SysTenant">
+        SELECT
+        <include refid="sysTenantColumns"/>
+        FROM sys_tenant a
+        <include refid="sysTenantJoins"/>
+        WHERE a.id = #{id}
+    </select>
+    <select id="findList" resultType="SysTenant">
+        SELECT
+        <include refid="sysTenantColumns"/>
+        FROM sys_tenant a
+        <include refid="sysTenantJoins"/>
+        <where>
+            a.del_flag = #{DEL_FLAG_NORMAL}
+            <if test="orgCode != null and orgCode != ''">
+                AND a.org_code = #{orgCode}
+            </if>
+            <if test="orgName != null and orgName != ''">
+                AND a.org_name LIKE
+                <if test="dbName == 'oracle'">'%'||#{orgName}||'%'</if>
+                <if test="dbName == 'mssql'">'%'+#{orgName}+'%'</if>
+                <if test="dbName == 'mysql'">concat('%',#{orgName},'%')</if>
+            </if>
+            <if test="enterpriseDomain != null and enterpriseDomain != ''">
+                AND a.enterprise_domain LIKE
+                <if test="dbName == 'oracle'">'%'||#{enterpriseDomain}||'%'</if>
+                <if test="dbName == 'mssql'">'%'+#{enterpriseDomain}+'%'</if>
+                <if test="dbName == 'mysql'">concat('%',#{enterpriseDomain},'%')</if>
+            </if>
+            <if test="isMultipleLogin != null and isMultipleLogin != ''">
+                AND a.is_multiple_login = #{isMultipleLogin}
+            </if>
+            <if test="status != null and status != ''">
+                AND a.status = #{status}
+            </if>
+            <if test="beginCreateDate != null and endCreateDate != null and beginCreateDate != '' and endCreateDate != ''">
+                AND a.create_date BETWEEN #{beginCreateDate} AND #{endCreateDate}
+            </if>
+            <if test="tenantName != null and tenantName != ''">
+                AND a.tenant_name LIKE
+                <if test="dbName == 'oracle'">'%'||#{tenantName}||'%'</if>
+                <if test="dbName == 'mssql'">'%'+#{tenantName}+'%'</if>
+                <if test="dbName == 'mysql'">concat('%',#{tenantName},'%')</if>
+            </if>
+            <if test="tenantPhone != null and tenantPhone != ''">
+                AND a.tenant_phone LIKE
+                <if test="dbName == 'oracle'">'%'||#{tenantPhone}||'%'</if>
+                <if test="dbName == 'mssql'">'%'+#{tenantPhone}+'%'</if>
+                <if test="dbName == 'mysql'">concat('%',#{tenantPhone},'%')</if>
+            </if>
+            <if test="mysqlServerIp != null and mysqlServerIp != ''">
+                AND a.mysql_server_ip LIKE
+                <if test="dbName == 'oracle'">'%'||#{mysqlServerIp}||'%'</if>
+                <if test="dbName == 'mssql'">'%'+#{mysqlServerIp}+'%'</if>
+                <if test="dbName == 'mysql'">concat('%',#{mysqlServerIp},'%')</if>
+            </if>
+            <if test="isMasterSlave != null and isMasterSlave != ''">
+                AND a.is_master_slave = #{isMasterSlave}
+            </if>
+            <if test="slaveServerIp != null and slaveServerIp != ''">
+                AND a.slave_server_ip LIKE
+                <if test="dbName == 'oracle'">'%'||#{slaveServerIp}||'%'</if>
+                <if test="dbName == 'mssql'">'%'+#{slaveServerIp}+'%'</if>
+                <if test="dbName == 'mysql'">concat('%',#{slaveServerIp},'%')</if>
+            </if>
+        </where>
+        <choose>
+            <when test="page !=null and page.orderBy != null and page.orderBy != ''">
+                ORDER BY ${page.orderBy}
+            </when>
+            <otherwise>
+                ORDER BY a.update_date DESC
+            </otherwise>
+        </choose>
+    </select>
+    <select id="findAllList" resultType="SysTenant">
+        SELECT
+        <include refid="sysTenantColumns"/>
+        FROM sys_tenant a
+        <include refid="sysTenantJoins"/>
+        <where>
+            a.del_flag = #{DEL_FLAG_NORMAL}
+        </where>
+        <choose>
+            <when test="page !=null and page.orderBy != null and page.orderBy != ''">
+                ORDER BY ${page.orderBy}
+            </when>
+            <otherwise>
+                ORDER BY a.update_date DESC
+            </otherwise>
+        </choose>
+    </select>
+
+    <insert id="insert" parameterType="SysTenant">
+		INSERT INTO sys_tenant(id, org_code, org_name, logo, enterprise_describe, enterprise_domain, duty, expiration_time, password_expire, is_multiple_login, password_error_num, password_error_lock_time, status, create_date, create_by, update_date, update_by, tenant_name, tenant_password, tenant_phone, mysql_server_ip, mysql_port, mysql_password, msyql_user_name, mysql_db_name, is_master_slave, slave_server_ip, remarks, del_flag,multi_tenant_type) VALUES
+		 (#{id}, #{orgCode}, #{orgName}, #{logo}, #{enterpriseDescribe}, #{enterpriseDomain}, #{duty}, #{expirationTime}, #{passwordExpire}, #{isMultipleLogin}, #{passwordErrorNum}, #{passwordErrorLockTime}, #{status}, #{createDate}, #{createBy.id}, #{updateDate}, #{updateBy.id}, #{tenantName}, #{tenantPassword}, #{tenantPhone}, #{mysqlServerIp}, #{mysqlPort}, #{mysqlPassword}, #{msyqlUserName}, #{mysqlDbName}, #{isMasterSlave}, #{slaveServerIp}, #{remarks}, #{delFlag},#{multiTenantType}		)
+	</insert>
+
+    <insert id="insertBatch">
+        INSERT INTO sys_tenant(
+        id, org_code, org_name, logo, enterprise_describe, enterprise_domain, duty, expiration_time, password_expire,
+        is_multiple_login, password_error_num, password_error_lock_time, status, create_date, create_by, update_date,
+        update_by, tenant_name, tenant_password, tenant_phone, mysql_server_ip, mysql_port, mysql_password,
+        msyql_user_name, mysql_db_name, is_master_slave, slave_server_ip, remarks, del_flag ) VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            ( #{id}, #{orgCode}, #{orgName}, #{logo}, #{enterpriseDescribe}, #{enterpriseDomain}, #{duty},
+            #{expirationTime}, #{passwordExpire}, #{isMultipleLogin}, #{passwordErrorNum}, #{passwordErrorLockTime},
+            #{status}, #{createDate}, #{createBy.id}, #{updateDate}, #{updateBy.id}, #{tenantName}, #{tenantPassword},
+            #{tenantPhone}, #{mysqlServerIp}, #{mysqlPort}, #{mysqlPassword}, #{msyqlUserName}, #{mysqlDbName},
+            #{isMasterSlave}, #{slaveServerIp}, #{remarks}, #{delFlag}
+        </foreach>
+    </insert>
+
+    <update id="update" parameterType="SysTenant">
+        UPDATE sys_tenant
+        <trim prefix="SET" suffixOverrides=",">
+            <if test='orgCode!=null'>org_code = #{orgCode},</if>
+            <if test='orgName!=null'>org_name = #{orgName},</if>
+            <if test='logo!=null'>logo = #{logo},</if>
+            <if test='enterpriseDescribe!=null'>enterprise_describe = #{enterpriseDescribe},</if>
+            <if test='enterpriseDomain!=null'>enterprise_domain = #{enterpriseDomain},</if>
+            <if test='duty!=null'>duty = #{duty},</if>
+            <if test='isMultipleLogin!=null'>is_multiple_login = #{isMultipleLogin},</if>
+            <if test='status!=null'>status = #{status},</if>
+            <if test='createDate!=null'>create_date = #{createDate},</if>
+            <if test='updateDate!=null'>update_date = #{updateDate},</if>
+            <if test='updateBy.id!=null'>update_by = #{updateBy.id},</if>
+            <if test='tenantName!=null'>tenant_name = #{tenantName},</if>
+            <if test='tenantPassword!=null'>tenant_password = #{tenantPassword},</if>
+            <if test='tenantPhone!=null'>tenant_phone = #{tenantPhone},</if>
+            <if test='mysqlServerIp!=null'>mysql_server_ip = #{mysqlServerIp},</if>
+            <if test='mysqlPort!=null'>mysql_port = #{mysqlPort},</if>
+            <if test='mysqlPassword!=null'>mysql_password = #{mysqlPassword},</if>
+            <if test='msyqlUserName!=null'>msyql_user_name = #{msyqlUserName},</if>
+            <if test='mysqlDbName!=null'>mysql_db_name = #{mysqlDbName},</if>
+            <if test='isMasterSlave!=null'>is_master_slave = #{isMasterSlave},</if>
+            <if test='slaveServerIp!=null'>slave_server_ip = #{slaveServerIp},</if>
+            <if test='remarks!=null'>remarks = #{remarks},</if>
+            <if test='multiTenantType!=null'>multi_tenant_type = #{multiTenantType},</if>
+        </trim>
+        WHERE id = #{id}
+    </update>
+    <update id="batchUpdate" parameterType="SysTenant">
+        UPDATE sys_tenant
+        <trim prefix="SET" suffixOverrides=",">
+            <trim prefix="org_code =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="orgCode !=null">
+                        when id=#{item.id} then #{orgCode}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="org_name =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="orgName !=null">
+                        when id=#{item.id} then #{orgName}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="logo =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="logo !=null">
+                        when id=#{item.id} then #{logo}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="enterprise_describe =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="enterpriseDescribe !=null">
+                        when id=#{item.id} then #{enterpriseDescribe}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="enterprise_domain =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="enterpriseDomain !=null">
+                        when id=#{item.id} then #{enterpriseDomain}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="duty =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="duty !=null">
+                        when id=#{item.id} then #{duty}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="is_multiple_login =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="isMultipleLogin !=null">
+                        when id=#{item.id} then #{isMultipleLogin}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="status =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="status !=null">
+                        when id=#{item.id} then #{status}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="create_date =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="createDate !=null">
+                        when id=#{item.id} then #{createDate}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="update_date =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="updateDate !=null">
+                        when id=#{item.id} then #{updateDate}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="update_by =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="updateBy.id !=null">
+                        when id=#{item.id} then #{updateBy.id}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="tenant_name =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="tenantName !=null">
+                        when id=#{item.id} then #{tenantName}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="tenant_password =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="tenantPassword !=null">
+                        when id=#{item.id} then #{tenantPassword}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="tenant_phone =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="tenantPhone !=null">
+                        when id=#{item.id} then #{tenantPhone}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="mysql_server_ip =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="mysqlServerIp !=null">
+                        when id=#{item.id} then #{mysqlServerIp}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="mysql_port =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="mysqlPort !=null">
+                        when id=#{item.id} then #{mysqlPort}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="mysql_password =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="mysqlPassword !=null">
+                        when id=#{item.id} then #{mysqlPassword}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="msyql_user_name =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="msyqlUserName !=null">
+                        when id=#{item.id} then #{msyqlUserName}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="mysql_db_name =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="mysqlDbName !=null">
+                        when id=#{item.id} then #{mysqlDbName}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="is_master_slave =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="isMasterSlave !=null">
+                        when id=#{item.id} then #{isMasterSlave}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="slave_server_ip =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="slaveServerIp !=null">
+                        when id=#{item.id} then #{slaveServerIp}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="remarks =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="remarks !=null">
+                        when id=#{item.id} then #{remarks}
+                    </if>
+                </foreach>
+            </trim>
+        </trim>
+        WHERE id in
+        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+            #{item.id}
+        </foreach>
+    </update>
+    <update id="delete">
+		UPDATE sys_tenant SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+    <delete id="batchDelete">
+        DELETE FROM sys_tenant WHERE
+        id in
+        <foreach collection="array" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,19 @@
+LocaleContextHolder:存放request上下文到ThreadLocal
+servletContext > WebApplicationContext
+aware接口。
+
+Sprin中用到的各种解析器：
+        this.registerBeanDefinitionParser("property-placeholder", new PropertyPlaceholderBeanDefinitionParser());
+        this.registerBeanDefinitionParser("property-override", new PropertyOverrideBeanDefinitionParser());
+        this.registerBeanDefinitionParser("annotation-config", new AnnotationConfigBeanDefinitionParser());
+        this.registerBeanDefinitionParser("component-scan", new ComponentScanBeanDefinitionParser());
+        this.registerBeanDefinitionParser("load-time-weaver", new LoadTimeWeaverBeanDefinitionParser());
+        this.registerBeanDefinitionParser("spring-configured", new SpringConfiguredBeanDefinitionParser());
+        this.registerBeanDefinitionParser("mbean-export", new MBeanExportBeanDefinitionParser());
+        this.registerBeanDefinitionParser("mbean-server", new MBeanServerBeanDefinitionParser());
+
+        AopNamespaceHandler
+             this.registerBeanDefinitionParser("config", new ConfigBeanDefinitionParser());
+             this.registerBeanDefinitionParser("aspectj-autoproxy", new AspectJAutoProxyBeanDefinitionParser());
+             this.registerBeanDefinitionDecorator("scoped-proxy", new ScopedProxyBeanDefinitionDecorator());
+             this.registerBeanDefinitionParser("spring-configured", new SpringConfiguredBeanDefinitionParser());
