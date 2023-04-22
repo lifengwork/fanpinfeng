@@ -1,0 +1,61 @@
+server:
+  port: 9000
+  #ssl:
+    #enabled: true
+    #key-alias: client
+    #key-store: classpath:keystore.p12
+    #key-store-password: 123456789
+    #key-store-type: PKCS12
+
+# 服务管理配置
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"        #暴漏的接口，"*"表示所有web监控接口
+        exclude:            #不暴漏的接口
+      base-path: /actuator  #监控根路径
+      cors:
+        allowed-origins: "*"
+        allowed-methods: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
+    hystrix:
+      stream:
+        enabled: true
+
+spring:
+  boot:
+    admin:
+      client:
+        url: http://localhost:10002
+
+  application:
+    name: gateway-service
+  # 环境 dev|test|prod
+  profiles:
+    active: dev
+  cloud:
+    gateway:
+      httpclient:
+        wiretap: false
+      httpserver:
+        wiretap: false
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+        #namespace: ${spring.profiles.active}
+        namingLoadCacheAtStart: true   # 开启本地服务列表缓存，生产环境须开启
+      config:
+        server-addr: 127.0.0.1:8848
+        file-extension: yml
+        shared-configs:
+          - dataId: dev_01.yml
+            refresh: true
+          - dataId: dy_route_data_id-dev.yml
+            refresh: true
+        #namespace: ${spring.profiles.active}
+    config:
+      override-none: true
+      allow-override: false

@@ -1,0 +1,171 @@
+spring:
+  cloud:
+    gateway:
+      routes: #配置路由路径
+        - id: system-service
+          uri: lb://system-service
+          predicates:
+            - Path=/api/u/**
+          filters:
+            - StripPrefix=2
+            - name: Hystrix
+              args:
+                name: systemservice
+                fallbackUri: forward:/error/fallback
+        - id: system-service-app
+          uri: lb://system-service-app
+          predicates:
+              - Path=/api/app/**
+          filters:
+              - StripPrefix=1
+              - name: Hystrix
+                args:
+                  name: serviceapp
+                  fallbackUri: forward:/error/fallback
+        - id: system-service-file
+          uri: lb://system-service-file
+          predicates:
+              - Path=/api/f/**
+          filters:
+              - StripPrefix=1
+              - name: Hystrix
+                args:
+                  name: fileservice
+                  fallbackUri: forward:/error/fallback
+        - id: store-service
+          uri: lb://store-service
+          predicates:
+              - Path=/api/store/**
+          filters:
+              - StripPrefix=1
+              - name: Hystrix
+                args:
+                  name: storeservice
+                  fallbackUri: forward:/error/fallback
+        - id: order-service
+          uri: lb://order-service
+          predicates:
+            - Path=/api/saas/**
+          filters:
+            - StripPrefix=1
+            - name: Hystrix
+              args:
+                name: orderservice
+                fallbackUri: forward:/error/fallback
+      default-filters:
+        - AddResponseHeader=i-helloworld,java
+        - name: Retry
+          args:
+            retries: 3
+            statuses: BAD_GATEWAY,BAD_REQUEST,NOT_FOUND,UNAUTHORIZED,INTERNAL_SERVER_ERROR,GATEWAY_TIMEOUT
+            methods: GET,POST
+        - DedupeResponseHeader=Vary Access-Control-Allow-Origin Access-Control-Allow-Credentials,RETAIN_UNIQUE  #服务内部跨域处理
+#配置负载均衡和容错
+
+order-service:
+   ribbon:
+      #listOfServers: order-service:8094, order-service:8095, order-service:8096,order-service:8097                                     #自定义服务器
+      #NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule                         #负载均衡策略
+      #NFLoadBalancerRuleClassName: com.netflix.loadbalancer.BestAvailableRule
+      NFLoadBalancerRuleClassName: com.netflix.loadbalancer.AvailabilityFilteringRule
+      #NFLoadBalancerRuleClassName: com.netflix.loadbalancer.weightedResponseTimeRule
+      #NFLoadBalancerRuleClassName: com.netflix.loadbalancer.ZoneAvoidanceRule
+      #NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RetryRule
+      #NFLoadBalancerPingClassName: com.sansuolou.gateway.HealthExamination                     #判断服务是否可用
+
+hystrix:
+    command:
+      systemservice:
+        circuitBreakerEnabled: true
+        metrics:
+          rollingStats:
+            timeInMilliseconds: 10000
+          circuitBreaker:
+            forceClosed: true #
+            requestVolumeThreshold: 2  #窗口采样大小 20
+            sleepWindowInMilliseconds: 120000  #短路后休眠时间毫秒
+            errorThresholdPercentage: 50 #判断错误百分比
+        execution:
+          isolation:
+            strategy: SEMAPHORE  #也可以设置线程池
+            thread:
+              timeoutInMilliseconds: 2000
+          timeout:
+            enabled: true  #使用timeInMilliseconds作为超时，否则使用ribbon超时
+      orderservice:
+        circuitBreakerEnabled: true
+        metrics:
+          rollingStats:
+            timeInMilliseconds: 10000
+        circuitBreaker:
+           forceClosed: true #
+           requestVolumeThreshold: 2  #窗口采样大小 20
+           sleepWindowInMilliseconds: 120000  #短路后休眠时间毫秒
+           errorThresholdPercentage: 50 #判断错误百分比
+        execution:
+          isolation:
+            strategy: SEMAPHORE  #也可以设置线程池
+            thread:
+              timeoutInMilliseconds: 2000
+          timeout:
+            enabled: true  #使用timeInMilliseconds作为超时，否则使用ribbon超时
+      storeservice:
+        circuitBreakerEnabled: true
+        metrics:
+          rollingStats:
+            timeInMilliseconds: 10000
+        circuitBreaker:
+            forceClosed: true #
+            requestVolumeThreshold: 2  #窗口采样大小 20
+            sleepWindowInMilliseconds: 120000  #短路后休眠时间毫秒
+            errorThresholdPercentage: 50 #判断错误百分比
+        execution:
+          isolation:
+            strategy: SEMAPHORE  #也可以设置线程池
+            thread:
+              timeoutInMilliseconds: 2000
+          timeout:
+            enabled: true  #使用timeInMilliseconds作为超时，否则使用ribbon超时
+      sereviceapp:
+        circuitBreakerEnabled: true
+        metrics:
+          rollingStats:
+            timeInMilliseconds: 10000
+        circuitBreaker:
+            forceClosed: true #
+            requestVolumeThreshold: 2  #窗口采样大小 20
+            sleepWindowInMilliseconds: 120000  #短路后休眠时间毫秒
+            errorThresholdPercentage: 50 #判断错误百分比
+        execution:
+          isolation:
+            strategy: SEMAPHORE  #也可以设置线程池
+            thread:
+              timeoutInMilliseconds: 2000
+          timeout:
+            enabled: true  #使用timeInMilliseconds作为超时，否则使用ribbon超时
+      fileservice:
+        circuitBreakerEnabled: true
+        metrics:
+          rollingStats:
+            timeInMilliseconds: 10000
+        circuitBreaker:
+            forceClosed: true #
+            requestVolumeThreshold: 2  #窗口采样大小 20
+            sleepWindowInMilliseconds: 120000  #短路后休眠时间毫秒
+            errorThresholdPercentage: 50 #判断错误百分比
+        execution:
+          isolation:
+            strategy: SEMAPHORE  #也可以设置线程池
+            thread:
+              timeoutInMilliseconds: 2000
+          timeout:
+            enabled: true  #使用timeInMilliseconds作为超时，否则使用ribbon超时
+    shareSecurityContext: true
+
+#配置动态路由
+maiba:
+  gateway:
+    dyroute:
+      enable: true    #启动动态路由
+      dyType: nacos   #启动nacos配置
+      dy_group: DEFAULT_GROUP

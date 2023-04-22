@@ -1,0 +1,15 @@
+NettyWebServer
+ReactorHttpHandlerAdapter
+NettyRouteProvider
+WebFluxConfigurationSupport
+HttpHandlerAutoConfiguration
+ReactorServerHttpRequest
+ReactorServerHttpResponse
+HttpWebHandlerAdapter --> DispatcherHandler --> RoutePredicateHandlerMapping --> FilteringWebHandler。
+DefaultGatewayFilterChain
+
+RouteDefinitionRouteLocator
+
+NettyRoutingFIlter
+NettyWriteResponseFilter
+

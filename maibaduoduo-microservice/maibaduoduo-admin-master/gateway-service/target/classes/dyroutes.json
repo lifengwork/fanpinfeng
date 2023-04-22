@@ -1,0 +1,105 @@
+[
+   {
+    "id": "system-service",
+    "uri": "lb://system-service",
+    "predicates": [
+     {
+	  "name": "Path",
+	  "args": {
+	    "pattern": "/api/u/**"
+	   }
+	 } 
+    ],
+	"filters": [
+	  {
+	    "name": "StripPrefix",
+		"args": {
+		  "parts":"1"
+		}
+	  }
+	]
+  },
+  {
+    "id": "system-service-app",
+    "uri": "lb://system-service-app",
+    "predicates": [
+     {
+	  "name": "Path",
+	  "args": {
+	    "pattern": "/api/app/**"
+	   }
+	 } 
+    ],
+	"filters": [
+	  {
+	  "name": "StripPrefix",
+		"args": {
+		  "parts": "1"
+		}
+	  }
+	]
+  },
+  {
+    "id": "system-service-file",
+    "uri": "lb://system-service-file",
+    "predicates": [
+     {
+	  "name": "Path",
+	  "args": {
+	    "pattern": "/api/f/**"
+	   }
+	 } 
+    ],
+	"filters": [
+	  {
+	    "name": "StripPrefix",
+		"args": {
+		  "parts":"1"
+		}
+	  }
+	]
+  },
+  {
+    "id": "store-service",
+    "uri": "lb://store-service",
+    "predicates": [
+     {
+	  "name": "Path",
+	  "args": {
+	    "pattern": "/api/store/**"
+	   }
+	 } 
+    ],
+	"filters": [
+	  {
+	    "name": "StripPrefix",
+		"args": {
+		  "parts":"1"
+		}
+	  }
+	]
+  },
+  {
+    "id": "order-service",
+    "uri": "lb://order-service",
+    "predicates": [
+     {
+	  "name": "Path",
+	  "args": {
+	    "pattern": "/api/order/**"
+	   }
+	 } 
+    ],
+	"filters": [
+	  {
+	    "name": "StripPrefix",
+		"args": {
+		  "parts":"1"
+		}
+	  }
+	]
+  }
+  
+]
+
+ 

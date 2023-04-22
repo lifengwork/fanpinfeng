@@ -1,0 +1,63 @@
+2. Client 端
+只需要注册到Eureka Server 即可，无需做其他配置，若配置了 spring.boot.admin.url ，那么会在监控主页显示2个重复的client端。
+1）客户端要添加 spring-boot-starter-actuator 依赖，因为获取应用信息是通过 actuator 中的相关 endpoints 获取的。
+2）JMX-bean管理 和 Loglevel 管理 参考下面
+
+
+【动态修改环境变量值】
+1. 打开Server端的URL，如
+http://localhost:60003/
+2. 在Environment manager中可以指定property-name,修改property-value，然后update environment。可修改多个
+3. 修改后的值在 PropertySource manager 中会显示，在/env端点中也会显示。在@ConfigurationProperties绑定的类中的值会更新。此操作可用来动态更新业务配置
+4. 点击 Reset environment，修改的所有值会还原。@ConfigurationProperties绑定的类中的值也还原
+5. 进程重启后，所有环境变量值按初始化值
+
+
+【Spring Boot Admin Server 配置说明】
+spring.boot.admin.context-path Admin Server 保留的静态访问和API的前缀（当你在业务应用中使用而不是单独使用时就很有必要了）
+spring.boot.admin.monitor.period 默认10.000，更新应用信息的频率，单位毫秒
+spring.boot.admin.monitor.status-lifetime 默认10.000 被监控的应用信息的过期时间，单位毫秒
+
+
+【Spring Boot Admin Client 配置说明】
+Spring Boot Admin Client 注册到 Spring Boot Admin Server，Client 定期地发送 Http Post 到 admin 提供自己的应用信息。如果需要管理 loglevels 或 JMX-beans ，则要在依赖中添加 Jolokia ，使得 JMX-beans 也可以通过 http 访问。
+spring.boot.admin.client.enabled 默认true 默认开启
+spring.boot.admin.url admin server 的地址列表，此设置会触发自动配置，必须
+spring.boot.admin.api-path 注册到 admin server 端点的 Http-path
+spring.boot.admin.username 注册到 admin server 的账号
+spring.boot.admin.password 注册到 admin server 的密码
+spring.boot.admin.period 默认10.000 重试注册的间隔时间
+spring.boot.admin.auto-registration 默认true 应用启动后自动执行周期性的注册任务
+spring.boot.admin.auto-deregistration 默认false 当应用关闭时，自动取消注册
+spring.boot.admin.client.health-url
+spring.boot.admin.client.management-url
+spring.boot.admin.client.service-url
+spring.boot.admin.client.name 注册时的名字
+spring.boot.admin.client.prefer-ip 默认false
+
+
+【其他配置】
+1. 在spring boot admin中的info中显示的内容需在server或client中配置info，如：
+#Info配置
+info.aaa.description: Eureka
+info.aaa.url: https://github.com/jixuju/spring-cloud-test
+info.aaa.build-by: superwind20
+2. 在spring boot admin中的turbine中显示的hystrix信息，需在server中配置turbine，如：
+#turbine配置
+spring.boot.admin.turbine.url: http://localhost:60002/turbine.stream
+spring.boot.admin.turbine.clusters: PROVIDER-SERVICE,RIBBON-SERVICE,FEIGN-SERVICE
+3. JMX-bean管理（若需要管理JMX，则要配置）
+JMX-bean 管理需要使用第三方的 jolokia ，因为 spring-boot-admin-starter-client 会自动依赖 jolokia-core，所以这里不需要显示依赖了，下面的基于 Eureka 注册发现的配置中，由于没有配置spring-boot-admin-starter-client ，就需要显示地依赖：
+pom.xml
+<dependency>
+<groupId>org.jolokia</groupId>
+<artifactId>jolokia-core</artifactId>
+</dependency>
+4. Loglevel 管理（若需要管理Logging日志，则要配置）
+当前日志级别管理仅限 Logback，通过 JMX 实现，所以需要依赖 jolokia 。同时，还需要配置 Logback 的 JMXConfigurator：
+logback.xml
+<configuration>
+<include resource="org/springframework/boot/logging/logback/base.xml"/>
+<jmxConfigurator/>
+</configuration>
+这个 logback.xml 放在与 application.properties 同级的目录就可以了，如果不配置 Logback，那么 Spring Boot Admin 就无法管理应用的日志级别。

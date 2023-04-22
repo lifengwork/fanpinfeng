@@ -1,0 +1,104 @@
+[
+  {
+    "predicate": "Paths: [/api/u/**], match trailing slash: true",
+    "route_id": "system-service",
+    "filters": [
+      "[[DedupeResponseHeader Vary Access-Control-Allow-Origin Access-Control-Allow-Credentials = RETAIN_UNIQUE], order = 1]",
+      "[[StripPrefix parts = 1], order = 1]"
+    ],
+    "uri": "lb://system-service",
+    "order": 0
+  },
+  {
+    "predicate": "Paths: [/api/app/**], match trailing slash: true",
+    "route_id": "system-service-app",
+    "filters": [
+      "[[DedupeResponseHeader Vary Access-Control-Allow-Origin Access-Control-Allow-Credentials = RETAIN_UNIQUE], order = 1]",
+      "[[StripPrefix parts = 1], order = 1]"
+    ],
+    "uri": "lb://system-service-app",
+    "order": 0
+  },
+  {
+    "predicate": "Paths: [/api/f/**], match trailing slash: true",
+    "route_id": "system-service-file",
+    "filters": [
+      "[[DedupeResponseHeader Vary Access-Control-Allow-Origin Access-Control-Allow-Credentials = RETAIN_UNIQUE], order = 1]",
+      "[[StripPrefix parts = 1], order = 1]"
+    ],
+    "uri": "lb://system-service-file",
+    "order": 0
+  },
+  {
+    "predicate": "Paths: [/api/store/**], match trailing slash: true",
+    "route_id": "store-service",
+    "filters": [
+      "[[DedupeResponseHeader Vary Access-Control-Allow-Origin Access-Control-Allow-Credentials = RETAIN_UNIQUE], order = 1]",
+      "[[StripPrefix parts = 1], order = 1]"
+    ],
+    "uri": "lb://store-service",
+    "order": 0
+  },
+  {
+    "predicate": "Paths: [/api/order/**], match trailing slash: true",
+    "route_id": "order-service",
+    "filters": [
+      "[[DedupeResponseHeader Vary Access-Control-Allow-Origin Access-Control-Allow-Credentials = RETAIN_UNIQUE], order = 1]",
+      "[[StripPrefix parts = 1], order = 1]",
+      "[org.springframework.cloud.gateway.filter.factory.RequestRateLimiterGatewayFilterFactory$$Lambda$850/639294242@17166d0c, order = 2]"
+    ],
+    "uri": "lb://order-service",
+    "order": 0
+  },
+  {
+    "predicate": "Paths: [/api/u/**], match trailing slash: true",
+    "route_id": "system-service",
+    "filters": [
+      "[[DedupeResponseHeader Vary Access-Control-Allow-Origin Access-Control-Allow-Credentials = RETAIN_UNIQUE], order = 1]",
+      "[[StripPrefix parts = 2], order = 1]"
+    ],
+    "uri": "lb://system-service",
+    "order": 0
+  },
+  {
+    "predicate": "Paths: [/api/app/**], match trailing slash: true",
+    "route_id": "system-service-app",
+    "filters": [
+      "[[DedupeResponseHeader Vary Access-Control-Allow-Origin Access-Control-Allow-Credentials = RETAIN_UNIQUE], order = 1]",
+      "[[StripPrefix parts = 1], order = 1]"
+    ],
+    "uri": "lb://system-service-app",
+    "order": 0
+  },
+  {
+    "predicate": "Paths: [/api/f/**], match trailing slash: true",
+    "route_id": "system-service-file",
+    "filters": [
+      "[[DedupeResponseHeader Vary Access-Control-Allow-Origin Access-Control-Allow-Credentials = RETAIN_UNIQUE], order = 1]",
+      "[[StripPrefix parts = 1], order = 1]"
+    ],
+    "uri": "lb://system-service-file",
+    "order": 0
+  },
+  {
+    "predicate": "Paths: [/api/store/**], match trailing slash: true",
+    "route_id": "store-service",
+    "filters": [
+      "[[DedupeResponseHeader Vary Access-Control-Allow-Origin Access-Control-Allow-Credentials = RETAIN_UNIQUE], order = 1]",
+      "[[StripPrefix parts = 1], order = 1]"
+    ],
+    "uri": "lb://store-service",
+    "order": 0
+  },
+  {
+    "predicate": "Paths: [/api/order/**], match trailing slash: true",
+    "route_id": "order-service",
+    "filters": [
+      "[[DedupeResponseHeader Vary Access-Control-Allow-Origin Access-Control-Allow-Credentials = RETAIN_UNIQUE], order = 1]",
+      "[[StripPrefix parts = 1], order = 1]",
+      "[org.springframework.cloud.gateway.filter.factory.RequestRateLimiterGatewayFilterFactory$$Lambda$850/639294242@58e6ccb7, order = 2]"
+    ],
+    "uri": "lb://order-service",
+    "order": 0
+  }
+]

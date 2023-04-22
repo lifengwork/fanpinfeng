@@ -1,0 +1,42 @@
+spring:
+  application:
+    name: monitor-server
+  cloud:
+    nacos:
+      discovery:
+        enabled: true
+      server-addr: 127.0.0.1:8848
+# 服务端口
+server:
+  port: 10003
+
+# 服务管理配置
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"        #暴漏的接口，"*"表示所有web监控接口
+        exclude:            #不暴漏的接口
+      base-path: /actuator  #监控根路径
+      cors:
+        allowed-origins: "*"
+        allowed-methods: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
+
+
+# 配置nacos中的serviceId列表，表明监控哪些服务
+turbine:
+    aggregator:
+        clusterConfig: default
+    clusterNameExpression: new String("default")
+    combine-host-port: true
+    instanceUrlSuffix:
+         default: actuator/hystrix.stream
+    app-config: gateway-service,order-service,store-service
+
+#允许所有
+hystrix:
+  dashboard:
+    proxy-stream-allow-list: "*"
