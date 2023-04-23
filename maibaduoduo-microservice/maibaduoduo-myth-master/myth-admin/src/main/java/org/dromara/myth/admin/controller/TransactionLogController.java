@@ -67,7 +67,7 @@ public class TransactionLogController {
      * @param recoverQuery the recover query
      * @return the ajax response
      */
-    @Permission
+    //@Permission
     @PostMapping(value = "/listPage")
     public AjaxResponse listPage(@RequestBody final ConditionQuery recoverQuery) {
         return AjaxResponse.success(logService.listByPage(recoverQuery));
@@ -80,7 +80,7 @@ public class TransactionLogController {
      * @return the ajax response
      */
     @PostMapping(value = "/batchRemove")
-    @Permission
+    //@Permission
     public AjaxResponse batchRemove(@RequestBody final TransactionLogDTO transactionLogDTO) {
         final Boolean success = logService.batchRemove(transactionLogDTO.getIds(), transactionLogDTO.getApplicationName());
         return AjaxResponse.success(success);
@@ -94,7 +94,7 @@ public class TransactionLogController {
      * @return the ajax response
      */
     @PostMapping(value = "/update")
-    @Permission
+    //@Permission
     public AjaxResponse update(@RequestBody final TransactionLogDTO transactionLogDTO) {
         final Boolean success = logService.updateRetry(transactionLogDTO.getId(),
                 transactionLogDTO.getRetry(), transactionLogDTO.getApplicationName());
@@ -108,7 +108,7 @@ public class TransactionLogController {
      * @return the ajax response
      */
     @PostMapping(value = "/listAppName")
-    @Permission
+   // @Permission
     public AjaxResponse listAppName() {
         final List<String> list = appNameService.list();
         return AjaxResponse.success(list);

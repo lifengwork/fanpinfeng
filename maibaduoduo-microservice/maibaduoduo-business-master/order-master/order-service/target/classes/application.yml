@@ -110,6 +110,7 @@ org:
         #password : 123456
 
       repositorySupport: redis
-      hostName: 127.0.0.1
-      port    :     6379
-      password:
+      mythRedisConfig:
+                hostName: 127.0.0.1
+                port    :     6379
+                password:

@@ -1,31 +1,17 @@
 <template>
     <div class="fillcontain">
         <head-top></head-top>
-        <header class="admin_title">管理员信息</header>
+        <header class="admin_title">通知记录</header>
         <div class="admin_set">
             <ul>
                 <li>
-                    <span>姓名：</span><span></span>
+                    <span>事务ID：</span><span></span>
                 </li>
                 <li>
-                    <span>注册时间：</span><span></span>
+                    <span>发送时间：</span><span></span>
                 </li>
                 <li>
-                    <span>管理员权限：</span><span></span>
-                </li>
-                <li>
-                    <span>管理员 ID：</span><span></span>
-                </li>
-                <li>
-                    <span>更换头像：</span>
-                    <el-upload
-                      class="avatar-uploader"
-                      :show-file-list="false"
-                      :on-success="uploadImg"
-                      :before-upload="beforeImgUpload">
-                      <img  src="/static/assets/patrick.jpg" class="avatar">
-                      <i class="el-icon-plus avatar-uploader-icon"></i>
-                    </el-upload>
+                    <span>执行状态：</span><span></span>
                 </li>
             </ul>
         </div>

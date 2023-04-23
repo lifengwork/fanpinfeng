@@ -230,6 +230,7 @@
                     "transId": this.transId
                 }).then(
                     response => {
+                        debugger
                         if (response.body.code == 200 && response.body.data != null) {
                             let rp = response.body;
                             this.count = rp.data.page.totalCount;

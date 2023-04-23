@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 const explain = r => require.ensure([], () => r(require('../page/explain')), 'explain')
 const adminSet = r => require.ensure([], () => r(require('../page/adminSet')), 'adminSet')
+const sendMessage = r => require.ensure([], () => r(require('../page/sendMessage')), 'adminSet')
 const home = r => require.ensure([], () => r(require('../page/home')), 'home')
 const login = r => require.ensure([], () => r(require('../page/login')), 'login')
 const manage = r => require.ensure([], () => r(require('../page/manage')), 'manage')
@@ -27,7 +28,11 @@ export default new Router({
                 path: '/transactionLog',
                 component: transactionLog,
                 meta: ['事务日志管理', '事务日志信息列表'],
-            }, {
+            },, {
+                path: '/sendMessage',
+                component: sendMessage,
+                meta: ['设置', '发送通知'],
+            },{
                 path: '/adminSet',
                 component: adminSet,
                 meta: ['设置', '管理员设置'],

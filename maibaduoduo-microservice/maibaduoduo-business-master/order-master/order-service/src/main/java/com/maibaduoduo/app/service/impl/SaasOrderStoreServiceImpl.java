@@ -18,6 +18,7 @@ import com.maibaduoduo.order.dao.SaasOrderStoreDao;
 import com.maibaduoduo.order.entity.SaasOrderStoreEntity;
 import com.maibaduoduo.store.entity.SaasStoreEntity;
 import com.maibaduoduo.store.facade.api.StoreFacade;
+import org.dromara.myth.annotation.Myth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +39,7 @@ public class SaasOrderStoreServiceImpl extends ServiceImpl<SaasOrderStoreDao, Sa
         return new PageUtils(page);
     }
 
+    @Myth
     @Override
     public SaasStoreEntity querySassStoreEntity(Long orderId) {
         this.list();

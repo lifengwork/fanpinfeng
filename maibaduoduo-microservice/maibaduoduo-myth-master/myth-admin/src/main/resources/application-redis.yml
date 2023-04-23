@@ -1,6 +1,7 @@
 myth:
    redis:
       cluster: false
+      sentinel: false
     # clusterUrl : 127.0.0.1:70001;127.0.1:7002
       hostName: 127.0.0.1
       port: 6379
