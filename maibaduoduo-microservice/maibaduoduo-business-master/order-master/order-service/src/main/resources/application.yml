@@ -114,3 +114,10 @@ org:
                 hostName: 127.0.0.1
                 port    :     6379
                 password:
+
+logging:
+  level:
+    org.springframework.boot: DEBUG
+    org.springframework.web: DEBUG
+    com.maibaduoduo: DEBUG
+  config: classpath:logback-dev.xml

@@ -67,5 +67,5 @@ logging:
     org.springframework.web.reactive: DEBUG
     reactor.ipc.netty: DEBUG
     reactor.netty: DEBUG
-  path: "./logs"
+    com.maibaduoduo: DEBUG
   config: classpath:logback-dev.xml      
