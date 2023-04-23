@@ -39,7 +39,7 @@
   *   #### Git
   *   #### Idea/Eclipse 
   *   #### Nacos、Redis、RabbitMQ、MQTT、Mysql、Tomcat
-  *   #### MiniIo文件服务器
+  *   #### MinIo文件服务器
 
 # 系统结构
   SASS-FANPINFENG核心结构入如下:  
