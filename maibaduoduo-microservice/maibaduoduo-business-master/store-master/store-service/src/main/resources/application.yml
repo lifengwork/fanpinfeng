@@ -15,6 +15,7 @@ spring:
   # 环境 dev|test|prod
   profiles:
     active: dev
+    include: feign,hystrix,ribbon
   # jackson时间格式化
   jackson:
     time-zone: GMT+8
@@ -82,10 +83,6 @@ maibaduoduo:
           isSeata: false
           isSlave: true
 
-hystrix:
-  dashboard:
-    proxy-stream-allow-list: "*"
-
 #配置负载均衡和容错
 ribbon:
   #listOfServers: order-service:8094, order-service:8095, order-service:8096,order-service:8097                                     #自定义服务器
@@ -107,11 +104,12 @@ org:
         #driverClassName  : com.mysql.jdbc.Driver
         #url :  jdbc:mysql://localhost:3306/myth?useUnicode=true&amp;characterEncoding=utf8
         #username : root
-        #password : 123456
+      #password : 123456
 
-        repositorySupport: redis
+      repositorySupport: redis
+      mythRedisConfig:
         hostName: 127.0.0.1
-        port:  6379
+        port    :     6379
         password:
 
 logging:

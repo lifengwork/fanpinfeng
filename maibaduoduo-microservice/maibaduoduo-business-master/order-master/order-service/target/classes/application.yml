@@ -82,21 +82,6 @@ maibaduoduo:
           isSeata: false
           isSlave: true
 
-hystrix:
-  dashboard:
-    proxy-stream-allow-list: "*"
-
-#配置负载均衡和容错
-ribbon:
-  #listOfServers: order-service:8094, order-service:8095, order-service:8096,order-service:8097                                     #自定义服务器
-  #NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule                         #负载均衡策略
-  #NFLoadBalancerRuleClassName: com.netflix.loadbalancer.BestAvailableRule
-  NFLoadBalancerRuleClassName: com.netflix.loadbalancer.AvailabilityFilteringRule
-  #NFLoadBalancerRuleClassName: com.netflix.loadbalancer.weightedResponseTimeRule
-  #NFLoadBalancerRuleClassName: com.netflix.loadbalancer.ZoneAvoidanceRule
-  #NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RetryRule
-  #NFLoadBalancerPingClassName: com.sansuolou.gateway.HealthExamination                     #判断服务是否可用
-
 #配置分布式事务补偿
 org:
   dromara:
