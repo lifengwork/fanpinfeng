@@ -10,6 +10,7 @@ import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -84,7 +85,7 @@ public class MyMqttClient {
         MqttClient mqttClient = null;
         try {
             //注意：创建client需要连接的地址为tcp协议，端口号1883
-            mqttClient = new MqttClient(clientConfig.getBrokerUrl(), IDUtils.getId(),null);//这设置为空采用内存，否则会产生很多持久化文件，或者持久化类型改为自定义
+            mqttClient = new MqttClient(clientConfig.getBrokerUrl(), IDUtils.getId(),new MemoryPersistence());//这设置为空采用内存，否则会产生很多持久化文件，或者持久化类型改为自定义
             //设置client回调
             if(maxReconnTimes >0 && reconnInterval > 0){
                 mqttClient.setCallback(new MyMqttCallBack(this,mqttClient));

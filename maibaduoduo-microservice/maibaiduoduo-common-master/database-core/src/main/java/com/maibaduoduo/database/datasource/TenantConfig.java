@@ -4,6 +4,7 @@ import com.maibaduoduo.database.datasource.dynamic.properties.ServerProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 
 /**
  * @Description: //TODO
@@ -11,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
  * @Author: pm2022
  */
 @Configuration
+@PropertySource(encoding = "UTF-8", value = {"classpath:ddsc.yml"})
 public class TenantConfig {
     @Bean("loginProperties")
     @ConfigurationProperties(prefix = "maibaduoduo.login")
