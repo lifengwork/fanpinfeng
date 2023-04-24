@@ -29,12 +29,3 @@ management:
   endpoint:
     health:
       show-details: ALWAYS
-logging:
-  level:
-    org.springframework.cloud.gateway: DEBUG
-    org.springframework.http.server.reactive: DEBUG
-    org.springframework.web.reactive: DEBUG
-    reactor.ipc.netty: DEBUG
-    reactor.netty: DEBUG
-  path: "./logs"
-  config: classpath:logback-dev.xml

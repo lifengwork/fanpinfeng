@@ -62,10 +62,9 @@ spring:
       
 logging:
   level:
-    org.springframework.cloud.gateway: DEBUG
-    org.springframework.http.server.reactive: DEBUG
-    org.springframework.web.reactive: DEBUG
-    reactor.ipc.netty: DEBUG
-    reactor.netty: DEBUG
+    org.springframework.boot: DEBUG
+    org.springframework.web: DEBUG
     com.maibaduoduo: DEBUG
-  config: classpath:logback-dev.xml      
+  config: classpath:logback-dev.xml
+  file:
+    path: ../logs

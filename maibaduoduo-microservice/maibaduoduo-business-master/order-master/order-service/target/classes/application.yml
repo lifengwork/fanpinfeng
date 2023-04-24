@@ -15,6 +15,7 @@ spring:
   # 环境 dev|test|prod
   profiles:
     active: dev
+    include: feign,hystrix,ribbon
   # jackson时间格式化
   jackson:
     time-zone: GMT+8
@@ -106,3 +107,5 @@ logging:
     org.springframework.web: DEBUG
     com.maibaduoduo: DEBUG
   config: classpath:logback-dev.xml
+  file:
+    path: ../logs

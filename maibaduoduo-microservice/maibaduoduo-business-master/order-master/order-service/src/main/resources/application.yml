@@ -107,3 +107,5 @@ logging:
     org.springframework.web: DEBUG
     com.maibaduoduo: DEBUG
   config: classpath:logback-dev.xml
+  file:
+    path: ../logs

@@ -81,3 +81,10 @@ maibaduoduo:
           isSeata: false
           isSlave: true
 
+logging:
+  level:
+    org.springframework.web: DEBUG
+    com.maibaduoduo: DEBUG
+  config: classpath:logback-dev.xml
+  file:
+    path: ../logs
