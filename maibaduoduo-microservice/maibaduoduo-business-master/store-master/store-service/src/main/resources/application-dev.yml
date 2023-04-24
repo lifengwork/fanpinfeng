@@ -50,22 +50,6 @@ spring:
                 wall:
                     config:
                         multi-statement-allow: true
-    # 以下为 zipkin客户端配置
-    #@sleuth:
-        #sampler:
-            #probability: 1
-        #messaging:
-            #enabled: true
-            #rabbit:
-                #enabled: true
-    #zipkin:
-        #sender:
-            #type: rabbit
-#使用rabbit收集数据
-zipkin.rabbitmq.queue: zipkin
-
-# ###
-#注册中心
 
 # 服务管理配置
 management:

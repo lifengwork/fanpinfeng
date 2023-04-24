@@ -50,9 +50,6 @@ spring:
                 wall:
                     config:
                         multi-statement-allow: true
-# ###
-#注册中心
-
 # 服务管理配置
 management:
     endpoints:
