@@ -1,8 +1,9 @@
 package com.sansuolou.monitorserver;
 
-import com.maibaduoduo.banner.AbastractJboneBanner;
 
-public class MonitoServerBanner extends AbastractJboneBanner {
+import com.maibaduoduo.banner.SaasBanner;
+
+public class MonitoServerBanner extends SaasBanner {
 
     @Override
     protected String getTitle() {

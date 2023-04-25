@@ -59,3 +59,12 @@ spring:
     config:
       override-none: true
       allow-override: false
+      
+logging:
+  level:
+    org.springframework.boot: DEBUG
+    org.springframework.web: DEBUG
+    com.maibaduoduo: DEBUG
+  config: classpath:logback-dev.xml
+  file:
+    path: ../logs

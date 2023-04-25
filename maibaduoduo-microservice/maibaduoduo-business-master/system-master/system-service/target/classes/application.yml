@@ -13,6 +13,7 @@ spring:
   # 环境 dev|test|prod
   profiles:
     active: dev
+    include: feign,hystrix,ribbon
   # jackson时间格式化
   jackson:
     time-zone: GMT+8
@@ -82,10 +83,8 @@ maibaduoduo:
 
 logging:
   level:
-    org.springframework.cloud.gateway: DEBUG
-    org.springframework.http.server.reactive: DEBUG
-    org.springframework.web.reactive: DEBUG
-    reactor.ipc.netty: DEBUG
-    reactor.netty: DEBUG
+    org.springframework.web: DEBUG
     com.maibaduoduo: DEBUG
-  config: classpath:logback-spring.xml
+  config: classpath:logback-dev.xml
+  file:
+    path: ../logs
