@@ -16,6 +16,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * mybatis-plus配置,添加租户编码
@@ -44,7 +45,7 @@ public class MybatisPlusConfig {
                     public Expression getTenantId(boolean select) {
                         TenantDataSource.AuthorizationInfo authorizationInfo = TenantDataSource.instanceSingletonObject()
                                 .tenant(((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest());
-                        if (StringUtils.isEmpty(authorizationInfo.getTenantId())) {
+                        if (Objects.isNull(authorizationInfo)||StringUtils.isEmpty(authorizationInfo.getTenantId())) {
                             return null;
                         }
                         return new StringValue(authorizationInfo.getTenantId());

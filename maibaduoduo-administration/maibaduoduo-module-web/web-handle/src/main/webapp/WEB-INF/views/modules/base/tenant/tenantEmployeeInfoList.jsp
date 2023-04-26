@@ -5,8 +5,23 @@
 	<title>开通登录权限管理</title>
 	<meta name="decorator" content="default"/>
 	<script type="text/javascript">
+		function tenantInit(){
+			showTip('正在进行租户数据初始化，请稍等...','info',5000,500);
+			$.ajax({
+				type: "get",
+				url: "${ctx}/base/tenant/tenantEmployeeInfo/init",
+				dataType: 'json',
+				success: function(data, textStatus) {
+					if (data.code==0) {
+						console.log("租户初始化成功.");
+					} else {
+						console.log("租户初始化失败.");
+					}
+				}
+			});
+		}
 		$(document).ready(function() {
-			
+
 		});
 		function page(n,s){
 			$("#pageNo").val(n);
@@ -25,6 +40,9 @@
 		<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
 		<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}"/>
 		<ul class="ul-form">
+			<li><label>租户编码：</label>
+				<form:input path="tenantId" htmlEscape="false" maxlength="32" class="input-medium"/>
+			</li>
 			<li><label>租户名称：</label>
 				<form:input path="tenantName" htmlEscape="false" maxlength="32" class="input-medium"/>
 			</li>
@@ -32,6 +50,7 @@
 				<form:input path="tenantEmployeeName" htmlEscape="false" maxlength="32" class="input-medium"/>
 			</li>
 			<li class="btns"><input id="btnSubmit" class="btn btn-primary" type="submit" value="查询"/></li>
+			<li class="btns"><input onclick="tenantInit()" class="btn btn-primary" type="button" value="租户初始化"/></li>
 			<li class="clearfix"></li>
 		</ul>
 	</form:form>

@@ -6,7 +6,7 @@ server:
     #key-store: classpath:keystore.p12
     #key-store-password: 123456789
     #key-store-type: PKCS12
-
+  
 # 服务管理配置
 management:
   endpoints:
@@ -30,18 +30,13 @@ spring:
     admin:
       client:
         url: http://localhost:10002
-
   application:
     name: ${project.artifactId}
   # 环境 dev|test|prod
   profiles:
     active: ${profile.active}
+    include: ribbon,hystrix
   cloud:
-    gateway:
-      httpclient:
-        wiretap: false
-      httpserver:
-        wiretap: false
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848

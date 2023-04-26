@@ -108,6 +108,11 @@
 			<artifactId>front-useragentutils</artifactId>
 			<version>1.13</version>
 		</dependency>
+		<dependency>
+			<groupId>com.maibaduoduo</groupId>
+			<artifactId>jwt-starter</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
 	</dependencies>
 	<build>
 		<plugins>

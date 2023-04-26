@@ -2,49 +2,67 @@
 <configuration>
     <include resource="org/springframework/boot/logging/logback/defaults.xml" />
 
-    <springProperty scope="context" name="springAppName" source="spring.application.name" />
-    <!-- Example for logging into the build folder of your project -->
-    <property name="LOG_FILE" value="${BUILD_FOLDER:-build}/${springAppName}" />
-
-    <property name="CONSOLE_LOG_PATTERN"
-              value="%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr([${springAppName:-},%X{X-B3-TraceId:-},%X{X-B3-SpanId:-},%X{X-B3-ParentSpanId:-},%X{X-Span-Export:-}]){yellow} %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}" />
-    <!-- Appender to log to console -->
-    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
-        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <!-- Minimum logging level to be presented in the console logs -->
-            <level>DEBUG</level>
+    <springProperty scope="context" name="LOG_HOME" source="logging.file.path"/>
+    <springProperty scope="context" name="APP_NAME"  source="spring.application.name"/>
+    <!-- 日志输出格式 -->
+    <property name="PATTERN" value=" %d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] [%thread] [%X{requestId}],[%X{X-B3-TraceId:-},%X{X-B3-SpanId:-}] %logger{50} [%line] - %msg%n"/>
+    <!-- 控制台日志：输出全部日志到控制台 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+    <!-- 文件日志：输出全部日志到文件 -->
+    <appender name="FILE_INFO_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/info-${APP_NAME}.log</file>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>DENY</onMatch>
+            <onMismatch>ACCEPT</onMismatch>
         </filter>
-        <!-- <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
-             &lt;!&ndash; 请求主动断开导致netty无法处理channel，报出异常，请求状态499，可以忽略。&ndash;&gt;
-             <evaluator>
-                 <expression>return message.contains("Operator called default onErrorDropped");</expression>
-             </evaluator>
-             <OnMatch>DENY</OnMatch>
-             <OnMismatch>ACCEPT</OnMismatch>
-         </filter>-->
-        <encoder>
-            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
-            <charset>utf8</charset>
-        </encoder>
-    </appender>
-    <!-- Appender to log to file -->
-    <appender name="RollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOG_FILE}</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${LOG_FILE}.%d{yyyy-MM-dd}.gz</fileNamePattern>
-            <maxHistory>7</maxHistory>
+            <fileNamePattern>${LOG_HOME}/info-${APP_NAME}.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <maxHistory>180</maxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>50MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
         </rollingPolicy>
-        <encoder>
-            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
-            <charset>utf8</charset>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${PATTERN}</pattern>
+            <charset>UTF-8</charset>
         </encoder>
     </appender>
-
-    <!-- Appender to log to file in a JSON format -->
-    <!-- <appender name="logstash" class="ch.qos.logback.core.rolling.RollingFileAppender">
-         <file>${LOG_FILE}.json</file>
+    <!-- 错误日志：用于将错误日志输出到独立文件 -->
+    <appender name="FILE_ERROR_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/error-${APP_NAME}.log</file>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/error-${APP_NAME}.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <maxHistory>180</maxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>50MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+    <!-- Appender to log to file in a JSON format
+    <appender name="logstash" class="ch.qos.logback.core.rolling.RollingFileAppender">
+         <file>${LOG_HOME}.json</file>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>DENY</onMatch>
+            <onMismatch>ACCEPT</onMismatch>
+        </filter>
          <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-             <fileNamePattern>${LOG_FILE}.json.%d{yyyy-MM-dd}.gz</fileNamePattern>
+             <fileNamePattern>${LOG_HOME}.json.%d{yyyy-MM-dd}.gz</fileNamePattern>
              <maxHistory>7</maxHistory>
          </rollingPolicy>
          <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
@@ -70,17 +88,14 @@
                  </pattern>
              </providers>
          </encoder>
-     </appender>-->
-    <!-- <logger name="org.springframework.cloud.gateway" level="INFO" additivity="true"/>
-     <logger name="org.springframework.http.server.reactive" level="INFO" additivity="true"/>
-     <logger name="org.springframework.web.reactive" level="INFO" additivity="true"/>
-     <logger name="org.springframework.boot.autoconfigure.web" level="INFO" additivity="true"/>-->
+     </appender> -->
     <logger name="reactor.netty" level="INFO" additivity="true"/>
     <logger name="com.maibaduoduo" level="INFO" />
-    <logger name="org.springframework" level="INFO" />
+    <logger name="org.springframework.boot" level="INFO" />
     <root level="INFO">
-        <appender-ref ref="console" />
-        <!--  <appender-ref ref="logstash" />-->
-        <appender-ref ref="RollingFile" />
+        <appender-ref ref="STDOUT" />
+        <!--<appender-ref ref="logstash" />-->
+        <appender-ref ref="FILE_ERROR_LOG"/>
+        <appender-ref ref="FILE_INFO_LOG"/>
     </root>
 </configuration>

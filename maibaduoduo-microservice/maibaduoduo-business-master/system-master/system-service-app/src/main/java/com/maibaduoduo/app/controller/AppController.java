@@ -61,7 +61,7 @@ public class AppController{
     @Login
     @GetMapping("userId")
     @ApiOperation("获取用户ID")
-    public R userInfo(@RequestAttribute("userId") Integer userId){
+    public R userInfo(@RequestParam("userId") String userId){
         return R.ok().put("userId", userId);
     }
 

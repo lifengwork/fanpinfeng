@@ -11,7 +11,8 @@ import com.maibaduoduo.app.annotation.Login;
 import com.maibaduoduo.common.exception.RRException;
 import com.maibaduoduo.common.utils.RedisUtils;
 import com.maibaduoduo.database.datasource.utils.JwtUtils;
-import io.jsonwebtoken.Claims;
+import com.maibaduoduo.jwt.TokenUtil;
+import com.maibaduoduo.jwt.model.AuthorizationInfo;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Objects;
 
 /**
  * 权限(Token)验证
@@ -31,6 +33,9 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
     private RedisUtils redisUtils;
     @Autowired
     private JwtUtils jwtUtils;
+
+    @Autowired
+    private TokenUtil tokenUtil;
 
     public static String USER_KEY = "token-app";
 
@@ -50,16 +55,16 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
             token = request.getParameter(USER_KEY);
         }
         if(StringUtils.isBlank(token)){
-            throw new RRException(USER_KEY + "不能为空", HttpStatus.UNAUTHORIZED.value());
+            throw new RRException("TOKEN" + "不能为空", HttpStatus.UNAUTHORIZED.value());
         }
-        //校验TOKEN
-        Claims claims = jwtUtils.getClaimByToken(token);
-        if(claims == null || jwtUtils.isTokenExpired(claims.getExpiration())){
-            throw new RRException(USER_KEY + "失效，请重新登录", HttpStatus.UNAUTHORIZED.value());
-        }
-        String claim=claims.getSubject();
-        if(StringUtils.isNotEmpty(claim)){
-            request.setAttribute(USER_KEY, Long.parseLong(claim.split(",")[1]));
+        //TOKEN认证信息
+        try{
+            AuthorizationInfo authorizationInfo = tokenUtil.parseJWT(token);
+            if(Objects.nonNull(authorizationInfo)){
+                request.setAttribute(USER_KEY,authorizationInfo.getMobile());
+            }
+        }catch (Exception e){
+            throw new RRException(e.getMessage(), HttpStatus.UNAUTHORIZED.value());
         }
         return true;
     }

@@ -1,8 +1,6 @@
 package com.maibaduoduo.jwt.common.code;
 
 /**
- * @author zuihou
- * @createTime 2017-12-25 13:46
  */
 public interface BaseExceptionCode {
     /**

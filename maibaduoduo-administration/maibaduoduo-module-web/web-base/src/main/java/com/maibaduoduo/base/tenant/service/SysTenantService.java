@@ -96,7 +96,7 @@ public class SysTenantService extends CrudService<SysTenantDao, SysTenant> {
 									 public String getPrefix() {
 										 return  "TENANT_";
 									 }
-								 },"DB_URL_MASTER"+sysTenantDbUrlMaster.getEmployee(),
+								 },"DB_URL_"+sysTenantDbUrlMaster.getEmployee(),
 						new TenantInfo().setTenantInfo(sysTenantDbUrlMaster.getTenantId(),
 								sysTenantDbUrlMaster.getEmployee(),sysTenantDbUrlMaster.getDbUrl()
 								,dbName
@@ -132,7 +132,7 @@ public class SysTenantService extends CrudService<SysTenantDao, SysTenant> {
 					public String getPrefix() {
 						return  "TENANT_";
 					}
-				},"DB_URL_SLAVE"+sysTenantDbUrlSlave.getEmployee(),
+				},"DB_URL_"+sysTenantDbUrlSlave.getEmployee(),
 						new TenantInfo().setTenantInfo(sysTenantDbUrlSlave.getTenantId(),
 								sysTenantDbUrlSlave.getEmployee(),sysTenantDbUrlSlave.getDbUrl()
 								,dbName
@@ -154,7 +154,7 @@ public class SysTenantService extends CrudService<SysTenantDao, SysTenant> {
 									 public String getPrefix() {
 										 return  "TENANT_";
 									 }
-								 },"DB_URL_MASTER"+sysTenantDbUrlMaster.getEmployee(),
+								 },"DB_URL_"+sysTenantDbUrlMaster.getEmployee(),
 						new TenantInfo().setTenantInfo(sysTenantDbUrlMaster.getTenantId(),
 								sysTenantDbUrlMaster.getEmployee(),sysTenantDbUrlMaster.getDbUrl()
 								,dbName,
@@ -176,7 +176,7 @@ public class SysTenantService extends CrudService<SysTenantDao, SysTenant> {
 									 public String getPrefix() {
 										 return  "TENANT_";
 									 }
-								 },"DB_URL_MASTER"+sysTenantDbUrlMaster.getEmployee(),
+								 },"DB_URL_"+sysTenantDbUrlMaster.getEmployee(),
 						new TenantInfo().setTenantInfo(sysTenantDbUrlMaster.getTenantId(),
 								sysTenantDbUrlMaster.getEmployee(),sysTenantDbUrlMaster.getDbUrl()
 								,dbName,sysTenantDbUrlMaster.getRemarks()));
@@ -210,7 +210,7 @@ public class SysTenantService extends CrudService<SysTenantDao, SysTenant> {
 									 public String getPrefix() {
 										 return "TENANT_";
 									 }
-								 },"DB_URL_SLAVE"+sysTenantDbUrlSlave.getEmployee(),
+								 },"DB_URL_"+sysTenantDbUrlSlave.getEmployee(),
 						new TenantInfo().setTenantInfo(sysTenantDbUrlSlave.getTenantId(),
 								sysTenantDbUrlSlave.getEmployee(),sysTenantDbUrlSlave.getDbUrl(),
 								dbName,sysTenantDbUrlSlave.getRemarks()));
@@ -230,7 +230,7 @@ public class SysTenantService extends CrudService<SysTenantDao, SysTenant> {
 									 public String getPrefix() {
 										 return "TENANT_";
 									 }
-								 },"DB_URL_MASTER"+sysTenantDbUrlMaster.getEmployee(),
+								 },"DB_URL_"+sysTenantDbUrlMaster.getEmployee(),
 						new TenantInfo().setTenantInfo(sysTenantDbUrlMaster.getTenantId(),
 								sysTenantDbUrlMaster.getEmployee(),sysTenantDbUrlMaster.getDbUrl(),
 								dbName,sysTenantDbUrlMaster.getRemarks()));
@@ -273,61 +273,61 @@ public class SysTenantService extends CrudService<SysTenantDao, SysTenant> {
 	public void insertBatch(SysTenant list) {
 		dao.insertBatch(list);
 	}
-}
 
-class TenantInfo{
-	private String tenantId;		// tenant_id
-	private String employee;		// employee
-	private String dbUrl;		// db_url
-	private String dbName;
-	private String dataType;
+	static class TenantInfo{
+		private String tenantId;		// tenant_id
+		private String employee;		// employee
+		private String dbUrl;		// db_url
+		private String dbName;
+		private String dataType;
 
-	public TenantInfo setTenantInfo(String tenantId,String employee,String dbUrl,String dbName,String dataType){
-		this.dbUrl=dbUrl;
-		this.tenantId=tenantId;
-		this.employee=employee;
-		this.dbName=dbName;
-		this.dataType=dataType;
-		return this;
-	}
+		public TenantInfo setTenantInfo(String tenantId,String employee,String dbUrl,String dbName,String dataType){
+			this.dbUrl=dbUrl;
+			this.tenantId=tenantId;
+			this.employee=employee;
+			this.dbName=dbName;
+			this.dataType=dataType;
+			return this;
+		}
 
-	public String getTenantId() {
-		return tenantId;
-	}
+		public String getTenantId() {
+			return tenantId;
+		}
 
-	public void setTenantId(String tenantId) {
-		this.tenantId = tenantId;
-	}
+		public void setTenantId(String tenantId) {
+			this.tenantId = tenantId;
+		}
 
-	public String getEmployee() {
-		return employee;
-	}
+		public String getEmployee() {
+			return employee;
+		}
 
-	public void setEmployee(String employee) {
-		this.employee = employee;
-	}
+		public void setEmployee(String employee) {
+			this.employee = employee;
+		}
 
-	public String getDbUrl() {
-		return dbUrl;
-	}
+		public String getDbUrl() {
+			return dbUrl;
+		}
 
-	public void setDbUrl(String dbUrl) {
-		this.dbUrl = dbUrl;
-	}
+		public void setDbUrl(String dbUrl) {
+			this.dbUrl = dbUrl;
+		}
 
-	public String getDbName() {
-		return dbName;
-	}
+		public String getDbName() {
+			return dbName;
+		}
 
-	public void setDbName(String dbName) {
-		this.dbName = dbName;
-	}
+		public void setDbName(String dbName) {
+			this.dbName = dbName;
+		}
 
-	public String getDataType() {
-		return dataType;
-	}
+		public String getDataType() {
+			return dataType;
+		}
 
-	public void setDataType(String dataType) {
-		this.dataType = dataType;
+		public void setDataType(String dataType) {
+			this.dataType = dataType;
+		}
 	}
 }

@@ -4,7 +4,7 @@ import cn.hutool.core.util.ObjectUtil;
 import com.maibaduoduo.database.datasource.dynamic.TenantInfo;
 import com.maibaduoduo.database.datasource.dynamic.properties.LoginProperties;
 import com.maibaduoduo.database.datasource.utils.*;
-import io.jsonwebtoken.Claims;
+import com.maibaduoduo.jwt.TokenUtil;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -25,7 +25,7 @@ import java.util.Set;
 public class TenantDataSource {
     private final Logger logger = LoggerFactory.getLogger(TenantDataSource.class);
     private JedisPool jedisPool = (JedisPool) CommSpringContextUtil.getBean("jedisPool");
-    private JwtUtils jwtUtils = (JwtUtils) CommSpringContextUtil.getBean("jwtUtils");
+    private TokenUtil tokenUtil = (TokenUtil)CommSpringContextUtil.getBean("tokenUtil");
     private LoginProperties loginProperties = (LoginProperties) CommSpringContextUtil.getBean("loginProperties");
 
     private TenantDataSource() {
@@ -69,13 +69,17 @@ public class TenantDataSource {
 
     public AuthorizationInfo tenant(HttpServletRequest httpServletRequest){
         String tenant=null;
+        com.maibaduoduo.jwt.model.AuthorizationInfo authJwtInfo=null;
         if (UserAgentUtils.isComputer(httpServletRequest)) {
             tenant = httpServletRequest.getHeader(loginProperties.getPcTokenName());//userName
             if (StringUtils.isEmpty(tenant) || "null".equals(tenant)) {
                 return null;
             }
             if (!loginProperties.getPcUrI().equals(httpServletRequest.getRequestURI())) {
-                tenant = this.parseTenant(tenant);
+                authJwtInfo = tokenUtil.parseJWT(tenant);
+            }else{
+                //用户注册或者登录时会用户信息放入缓存，这里获取
+                return BeanUtils.stringToBean(jedisPool.getResource().get(tenant), AuthorizationInfo.class);
             }
         }
         if (UserAgentUtils.isMobileOrTablet(httpServletRequest)
@@ -86,10 +90,18 @@ public class TenantDataSource {
                 return null;
             }
             if (!loginProperties.getAppUri().equals(httpServletRequest.getRequestURI())) {
-                tenant = this.parseTenant(tenant);
+                authJwtInfo = tokenUtil.parseJWT(tenant);
+            }else{
+                //用户注册或者登录时会用户信息放入缓存，这里获取
+                return BeanUtils.stringToBean(jedisPool.getResource().get(tenant), AuthorizationInfo.class);
             }
         }
-        return BeanUtils.stringToBean(jedisPool.getResource().get(tenant), AuthorizationInfo.class);
+        AuthorizationInfo authorizationInfo = new AuthorizationInfo();
+        authorizationInfo.setMobile(authJwtInfo.getMobile());
+        authorizationInfo.setTenantId(authJwtInfo.getTenantId());
+        authorizationInfo.setUserName(authJwtInfo.getUserName());
+        authorizationInfo.setUserId(String.valueOf(authJwtInfo.getUserId()));
+        return authorizationInfo;
     }
 
     public String getCurrentTenantDatasource() throws Exception {
@@ -100,26 +112,6 @@ public class TenantDataSource {
             currentDs = DynamicDataSourceContextHolder.getDataSourceKey();
         }
         return currentDs;
-    }
-
-    /**
-     * 从Token中解析租户信息
-     *
-     * @param token
-     * @return
-     */
-    private String parseTenant(String token) {
-        String tenant = null;
-        try {
-            Claims claims = jwtUtils.getClaimByToken(token);
-            String claim = claims.getSubject();
-            if (StringUtils.isNotEmpty(claim)) {
-                tenant = claim.split(",")[1];
-            }
-        } catch (Exception e) {
-            logger.error("[无效token]");
-        }
-        return tenant;
     }
 
     /**

@@ -11,6 +11,9 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.maibaduoduo.common.utils.R;
 import com.maibaduoduo.common.utils.TokenGenerator;
 import com.maibaduoduo.database.datasource.utils.JwtUtils;
+import com.maibaduoduo.jwt.TokenUtil;
+import com.maibaduoduo.jwt.model.AuthorizationInfo;
+import com.maibaduoduo.jwt.model.JwtUserInfo;
 import com.maibaduoduo.service.SysUserTokenService;
 import com.maibaduoduo.sys.dao.SysUserTokenDao;
 import com.maibaduoduo.sys.entity.SysUserTokenEntity;
@@ -29,16 +32,22 @@ public class SysUserTokenServiceImpl extends ServiceImpl<SysUserTokenDao, SysUse
 	private JedisPool jedisPool;
 	@Autowired
 	private JwtUtils jwtUtils;
+
+	@Autowired
+	private TokenUtil tokenUtil;
+
 	@Override
 	public R createToken(String tenantId,String userName,Long userId) {
 
 		//生成一个token
 		//String token = TokenGenerator.generateValue();
-		String token = jwtUtils.generateToken(tenantId,userName);
-		//当前时间
+		//String token = jwtUtils.generateToken(tenantId,userName);
+		AuthorizationInfo authorizationInfo = tokenUtil.createAuthInfo(new JwtUserInfo().setValue(userId,null,userName,tenantId),null);
+		String token = authorizationInfo.getToken();
+//		//当前时间
 		Date now = new Date();
-		//过期时间
-		Date expireTime = new Date(now.getTime() + EXPIRE * 1000);
+//		//过期时间
+//		Date expireTime = new Date(now.getTime() + EXPIRE * 1000);
 
 		//判断是否生成过token
 		SysUserTokenEntity tokenEntity = this.getById(userId);
@@ -48,14 +57,14 @@ public class SysUserTokenServiceImpl extends ServiceImpl<SysUserTokenDao, SysUse
 			tokenEntity.setToken(token);
 			tokenEntity.setUpdateTime(now);
 			tokenEntity.setTenantId(tenantId);
-			tokenEntity.setExpireTime(expireTime);
+			tokenEntity.setExpireTime(authorizationInfo.getExpiration());
 
 			//保存token
 			this.save(tokenEntity);
 		}else{
 			tokenEntity.setToken(token);
 			tokenEntity.setUpdateTime(now);
-			tokenEntity.setExpireTime(expireTime);
+			tokenEntity.setExpireTime(authorizationInfo.getExpiration());
 
 			//更新token
 			this.updateById(tokenEntity);

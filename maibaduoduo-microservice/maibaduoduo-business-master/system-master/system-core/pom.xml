@@ -145,6 +145,11 @@
 			<artifactId>database-core</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>com.maibaduoduo</groupId>
+			<artifactId>jwt-starter</artifactId>
+			<version>${project.version}</version>
+		</dependency>
     </dependencies>
 	<build>
 		<plugins>

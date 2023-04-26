@@ -169,6 +169,7 @@
             <artifactId>hibernate-validator</artifactId>
             <version>${hibernate-validator.version}</version>
         </dependency>
+
         <!--引入核心包 end-->
     </dependencies>
     <build>

@@ -16,7 +16,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.List;
 
-
 /**
   * @Description Web配置类
   * @Param
@@ -31,7 +30,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        //registry.addInterceptor(authorizationInterceptor).addPathPatterns("/saas/**");
+        registry.addInterceptor(authorizationInterceptor).addPathPatterns("/saas/**");
     }
 
     @Override

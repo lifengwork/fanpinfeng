@@ -13,9 +13,12 @@ import com.maibaduoduo.common.exception.RRException;
 import com.maibaduoduo.common.form.LoginForm;
 import com.maibaduoduo.common.utils.RedisUtils;
 import com.maibaduoduo.database.datasource.utils.JwtUtils;
+import com.maibaduoduo.jwt.TokenUtil;
+import com.maibaduoduo.jwt.model.JwtUserInfo;
 import com.maibaduoduo.sys.entity.SysUserEntity;
 import com.maibaduoduo.validator.Assert;
 import lombok.Data;
+import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -33,8 +36,10 @@ public class AppUserServiceImpl extends AppUserService {
     @Autowired
     private RedisUtils redisUtils;
 
-    @Autowired
-    private JwtUtils jwtUtils;
+   /* @Autowired
+    private JwtUtils jwtUtils;*/
+   @Autowired
+   private TokenUtil tokenUtil;
 
     @Override
     public SysUserEntity queryByMobile(String mobile) {
@@ -61,9 +66,12 @@ public class AppUserServiceImpl extends AppUserService {
         SysUserEntity userEntity = this.queryByMobile(form.getMobile());
         Assert.isNull(userEntity, "手机号或密码错误");
         if(!userEntity.getPassword().equals(new Sha256Hash(form.getPassword(), userEntity.getSalt()).toHex())){
-            throw new RRException("手机号或密码错误");
+            throw new RRException("用户密码错误");
         }
-        return jwtUtils.generateToken(userEntity.getUsername(),userEntity.getTenantId());
+        //return jwtUtils.generateToken(userEntity.getUsername(),userEntity.getTenantId());
+        return tokenUtil.createAuthInfo(new JwtUserInfo().setValue(userEntity.getUserId(),userEntity.getMobile(),
+                userEntity.getUsername(), StringUtils.isEmpty(userEntity.getTenantId())?"0":userEntity.getTenantId()),null)
+                .getToken();
     }
 }
 @Data

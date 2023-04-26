@@ -8,15 +8,12 @@ import static com.maibaduoduo.jwt.JwtProperties.PREFIX;
 
 /**
  * 认证服务端 属性
- *
- * @author zuihou
- * @date 2018/11/20
  */
 @Data
 @NoArgsConstructor
 @ConfigurationProperties(prefix = PREFIX)
 public class JwtProperties {
-    public static final String PREFIX = "authentication";
+    public static final String PREFIX = "saas.jwt";
 
     /**
      * 过期时间 2h

@@ -12,6 +12,8 @@ import com.maibaduoduo.common.exception.RRException;
 import com.maibaduoduo.common.utils.RedisUtils;
 import com.maibaduoduo.configuration.props.UserAgentUtils;
 import com.maibaduoduo.database.datasource.utils.JwtUtils;
+import com.maibaduoduo.jwt.TokenUtil;
+import com.maibaduoduo.jwt.model.AuthorizationInfo;
 import io.jsonwebtoken.Claims;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Objects;
 
 /**
  * 权限(Token)验证
@@ -31,6 +34,8 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
     private RedisUtils redisUtils;
     @Autowired
     private JwtUtils jwtUtils;
+    @Autowired
+    private TokenUtil tokenUtil;
 
     public static final String USER_KEY = "token-app";
 
@@ -41,7 +46,6 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
             if(StringUtils.isEmpty(request.getHeader("token"))){
                 return false;
             }
-            /*DynamicDataSourceContextHolder.setDataSourceKey(redisUtils.get(request.getHeader("token")));*/
             return true;
         }
         //获取用户Token
@@ -53,18 +57,17 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
             throw new RRException(USER_KEY + "不能为空", HttpStatus.UNAUTHORIZED.value());
         }
 
-        /*DynamicDataSourceContextHolder.setDataSourceKey(redisUtils.get(token));*/
+        //TOKEN认证信息
+        try{
+            AuthorizationInfo authorizationInfo = tokenUtil.parseJWT(token);
+            if(Objects.nonNull(authorizationInfo)){
+                request.setAttribute(USER_KEY,authorizationInfo.getMobile());
+                BaseContextHandler.set("token-app",token);
+            }
+        }catch (Exception e){
+            throw new RRException(e.getMessage(), HttpStatus.UNAUTHORIZED.value());
+        }
 
-        //校验TOKEN
-        Claims claims = jwtUtils.getClaimByToken(token);
-        if(claims == null || jwtUtils.isTokenExpired(claims.getExpiration())){
-            throw new RRException(USER_KEY + "失效，请重新登录", HttpStatus.UNAUTHORIZED.value());
-        }
-        String claim=claims.getSubject();
-        if(StringUtils.isNotEmpty(claim)){
-            request.setAttribute(USER_KEY, Long.parseLong(claim.split(",")[1]));
-            BaseContextHandler.set("token-app",token);
-        }
         return true;
     }
 }

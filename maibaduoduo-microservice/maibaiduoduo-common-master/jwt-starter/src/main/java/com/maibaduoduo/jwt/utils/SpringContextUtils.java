@@ -5,7 +5,7 @@
  *
  * https://www.maibaduoduo.com
  */
-package com.maibaduoduo.common.utils;
+package com.maibaduoduo.jwt.utils;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

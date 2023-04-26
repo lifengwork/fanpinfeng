@@ -1,12 +1,14 @@
 package com.maibaduoduo.jwt;
 
 import cn.hutool.core.convert.Convert;
-import com.maibaduoduo.jwt.model.AuthInfo;
+import com.maibaduoduo.jwt.model.AuthorizationInfo;
 import com.maibaduoduo.jwt.model.JwtUserInfo;
 import com.maibaduoduo.jwt.model.Token;
 import com.maibaduoduo.jwt.utils.JwtUtil;
 import io.jsonwebtoken.Claims;
 import lombok.AllArgsConstructor;
+import lombok.Data;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -17,8 +19,6 @@ import static com.maibaduoduo.jwt.common.BaseContextConstants.*;
 /**
  * 认证工具类
  *
- * @author zuihou
- * @date 2020年03月31日19:03:47
  */
 @AllArgsConstructor
 public class TokenUtil {
@@ -34,7 +34,7 @@ public class TokenUtil {
      * @param userInfo 用户信息
      * @return token
      */
-    public AuthInfo createAuthInfo(JwtUserInfo userInfo, Long expireMillis) {
+    public AuthorizationInfo createAuthInfo(JwtUserInfo userInfo, Long expireMillis) {
 		
         if (expireMillis == null || expireMillis <= 0) {
             expireMillis = authServerProperties.getExpire();
@@ -44,15 +44,17 @@ public class TokenUtil {
         Map<String, String> param = new HashMap<>(16);
         param.put(JWT_KEY_TOKEN_TYPE, BEARER_HEADER_KEY);
         param.put(JWT_KEY_USER_ID, Convert.toStr(userInfo.getUserId(), "0"));
-        param.put(JWT_KEY_ACCOUNT, userInfo.getAccount());
-        param.put(JWT_KEY_NAME, userInfo.getName());
+        param.put(JWT_KEY_MOBILE, userInfo.getMobile());
+        param.put(JWT_KEY_NAME, userInfo.getUserName());
+        param.put(JWT_KEY_TENANT, userInfo.getTenantId());
 
         Token token = JwtUtil.createJWT(param, expireMillis);
 
-        AuthInfo authInfo = new AuthInfo();
-        authInfo.setAccount(userInfo.getAccount());
-        authInfo.setName(userInfo.getName());
+        AuthorizationInfo authInfo = new AuthorizationInfo();
+        authInfo.setUserName(userInfo.getUserName());
+        authInfo.setMobile(userInfo.getMobile());
         authInfo.setUserId(userInfo.getUserId());
+        authInfo.setTenantId(userInfo.getTenantId());
         authInfo.setTokenType(BEARER_HEADER_KEY);
         authInfo.setToken(token.getToken());
         authInfo.setExpire(token.getExpire());
@@ -71,41 +73,19 @@ public class TokenUtil {
         Map<String, String> param = new HashMap<>(16);
         param.put(JWT_KEY_TOKEN_TYPE, REFRESH_TOKEN_KEY);
         param.put(JWT_KEY_USER_ID, Convert.toStr(userInfo.getUserId(), "0"));
+        param.put(JWT_KEY_MOBILE, Convert.toStr(userInfo.getMobile(), "0"));
+        param.put(JWT_KEY_TENANT, Convert.toStr(userInfo.getTenantId(), "0"));
+        param.put(JWT_KEY_NAME, Convert.toStr(userInfo.getUserName(), "0"));
         return JwtUtil.createJWT(param, authServerProperties.getRefreshExpire());
     }
 
     /**
      * 解析token
      *
-     * @param token token
-     * @return 用户信息
-     */
-    public AuthInfo getAuthInfo(String token) {
-        Claims claims = JwtUtil.getClaims(token);
-        String tokenType = Convert.toStr(claims.get(JWT_KEY_TOKEN_TYPE));
-        Long userId = Convert.toLong(claims.get(JWT_KEY_USER_ID));
-        String account = Convert.toStr(claims.get(JWT_KEY_ACCOUNT));
-        String name = Convert.toStr(claims.get(JWT_KEY_NAME));
-        Date expiration = claims.getExpiration();
-        return new AuthInfo().setToken(token)
-                .setExpire(expiration != null ? expiration.getTime() : 0L)
-                .setTokenType(tokenType).setUserId(userId)
-                .setAccount(account).setName(name);
-    }
-
-    /**
-     * 解析刷新token
-     *
      * @param token
      * @return
      */
-    public AuthInfo parseJWT(String token) {
-        Claims claims = JwtUtil.parseJWT(token);
-        String tokenType = Convert.toStr(claims.get(JWT_KEY_TOKEN_TYPE));
-        Long userId = Convert.toLong(claims.get(JWT_KEY_USER_ID));
-        Date expiration = claims.getExpiration();
-        return new AuthInfo().setToken(token)
-                .setExpire(expiration != null ? expiration.getTime() : 0L)
-                .setTokenType(tokenType).setUserId(userId);
+    public AuthorizationInfo parseJWT(String token) {
+       return JwtUtil.getAuthorizationInfo(token).setToken(token);
     }
 }

@@ -14,6 +14,21 @@
 			$("#searchForm").submit();
         	return false;
         }
+		function tenantInit(){
+			showTip('正在进行租户数据源初始化，请稍等...','info',5000,500);
+			$.ajax({
+				type: "get",
+				url: "${ctx}/base/tenant/sysTenantDbUrl/init",
+				dataType: 'json',
+				success: function(data, textStatus) {
+					if (data.code==0) {
+						console.log("租户数据源初始化成功.");
+					} else {
+						console.log("租户数据源初始化失败.");
+					}
+				}
+			});
+		}
 	</script>
 </head>
 <body>
@@ -46,6 +61,7 @@
 					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
 			</li>
 			<li class="btns"><input id="btnSubmit" class="btn btn-primary" type="submit" value="查询"/></li>
+			<li class="btns"><input onclick="tenantInit()" class="btn btn-primary" type="button" value="数据源初始化"/></li>
 			<li class="clearfix"></li>
 		</ul>
 	</form:form>

@@ -2,9 +2,7 @@ package com.maibaduoduo.jwt.common;
 
 /**
  * 异常接口类
- *
- * @author zuihou
- * @version 1.0,
+
  */
 public interface BaseException {
 

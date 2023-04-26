@@ -9,10 +9,6 @@ import java.util.Map;
 
 /**
  * 获取当前域中的 用户id appid 用户昵称
- * 注意： appid 通过token解析，  用户id 和 用户昵称必须在前端 通过请求头的方法传入。 否则这里无法获取
- *
- * @author zuihou
- * @createTime 2017-12-13 16:52
  */
 public class BaseContextHandler {
     private static final ThreadLocal<Map<String, String>> THREAD_LOCAL = new ThreadLocal<>();
@@ -51,19 +47,6 @@ public class BaseContextHandler {
     }
 
 
-    public static Boolean getBoot() {
-        return get(BaseContextConstants.IS_BOOT, Boolean.class, false);
-    }
-
-    /**
-     * 账号id
-     *
-     * @param val
-     */
-    public static void setBoot(Boolean val) {
-        set(BaseContextConstants.IS_BOOT, val);
-    }
-
     /**
      * 账号id
      *
@@ -89,25 +72,6 @@ public class BaseContextHandler {
     public static void setUserId(String userId) {
         set(BaseContextConstants.JWT_KEY_USER_ID, userId);
     }
-
-    /**
-     * 账号表中的name
-     *
-     * @return
-     */
-    public static String getAccount() {
-        return get(BaseContextConstants.JWT_KEY_ACCOUNT, String.class);
-    }
-
-    /**
-     * 账号表中的name
-     *
-     * @param name
-     */
-    public static void setAccount(String name) {
-        set(BaseContextConstants.JWT_KEY_ACCOUNT, name);
-    }
-
 
     /**
      * 登录的账号
@@ -147,14 +111,6 @@ public class BaseContextHandler {
 
     public static void setTenant(String val) {
         set(BaseContextConstants.JWT_KEY_TENANT, val);
-    }
-
-    public static String getGrayVersion() {
-        return get(BaseContextConstants.GRAY_VERSION, String.class);
-    }
-
-    public static void setGrayVersion(String val) {
-        set(BaseContextConstants.GRAY_VERSION, val);
     }
 
     public static void remove() {

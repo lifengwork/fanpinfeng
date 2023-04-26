@@ -1,0 +1,88 @@
+hystrix:
+  command:
+    systemservice:
+      circuitBreakerEnabled: true
+      metrics:
+        rollingStats:
+          timeInMilliseconds: 10000
+        circuitBreaker:
+          forceClosed: true #
+          requestVolumeThreshold: 2  #窗口采样大小 20
+          sleepWindowInMilliseconds: 120000  #短路后休眠时间毫秒
+          errorThresholdPercentage: 50 #判断错误百分比
+      execution:
+        isolation:
+          strategy: SEMAPHORE  #也可以设置线程池
+          thread:
+            timeoutInMilliseconds: 2000
+        timeout:
+          enabled: true  #使用timeInMilliseconds作为超时，否则使用ribbon超时
+    orderservice:
+      circuitBreakerEnabled: true
+      metrics:
+        rollingStats:
+          timeInMilliseconds: 10000
+      circuitBreaker:
+        forceClosed: true #
+        requestVolumeThreshold: 2  #窗口采样大小 20
+        sleepWindowInMilliseconds: 120000  #短路后休眠时间毫秒
+        errorThresholdPercentage: 50 #判断错误百分比
+      execution:
+        isolation:
+          strategy: SEMAPHORE  #也可以设置线程池
+          thread:
+            timeoutInMilliseconds: 2000
+        timeout:
+          enabled: true  #使用timeInMilliseconds作为超时，否则使用ribbon超时
+    storeservice:
+      circuitBreakerEnabled: true
+      metrics:
+        rollingStats:
+          timeInMilliseconds: 10000
+      circuitBreaker:
+        forceClosed: true #
+        requestVolumeThreshold: 2  #窗口采样大小 20
+        sleepWindowInMilliseconds: 120000  #短路后休眠时间毫秒
+        errorThresholdPercentage: 50 #判断错误百分比
+      execution:
+        isolation:
+          strategy: SEMAPHORE  #也可以设置线程池
+          thread:
+            timeoutInMilliseconds: 2000
+        timeout:
+          enabled: true  #使用timeInMilliseconds作为超时，否则使用ribbon超时
+    sereviceapp:
+      circuitBreakerEnabled: true
+      metrics:
+        rollingStats:
+          timeInMilliseconds: 10000
+      circuitBreaker:
+        forceClosed: true #
+        requestVolumeThreshold: 2  #窗口采样大小 20
+        sleepWindowInMilliseconds: 120000  #短路后休眠时间毫秒
+        errorThresholdPercentage: 50 #判断错误百分比
+      execution:
+        isolation:
+          strategy: SEMAPHORE  #也可以设置线程池
+          thread:
+            timeoutInMilliseconds: 2000
+        timeout:
+          enabled: true  #使用timeInMilliseconds作为超时，否则使用ribbon超时
+    fileservice:
+      circuitBreakerEnabled: true
+      metrics:
+        rollingStats:
+          timeInMilliseconds: 10000
+      circuitBreaker:
+        forceClosed: true #
+        requestVolumeThreshold: 2  #窗口采样大小 20
+        sleepWindowInMilliseconds: 120000  #短路后休眠时间毫秒
+        errorThresholdPercentage: 50 #判断错误百分比
+      execution:
+        isolation:
+          strategy: SEMAPHORE  #也可以设置线程池
+          thread:
+            timeoutInMilliseconds: 2000
+        timeout:
+          enabled: true  #使用timeInMilliseconds作为超时，否则使用ribbon超时
+  shareSecurityContext: true

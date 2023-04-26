@@ -1,12 +1,14 @@
 package com.maibaduoduo.jwt.utils;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 
-@ConfigurationProperties("rsa.key")
+@Component("rsaKeyProperties")
+@ConfigurationProperties("saas.jwt.rsa.key")
 public class RsaKeyProperties {
 
     private String pubKeyFile;

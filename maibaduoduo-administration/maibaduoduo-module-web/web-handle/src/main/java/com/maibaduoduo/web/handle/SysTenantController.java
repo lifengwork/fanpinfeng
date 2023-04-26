@@ -4,9 +4,8 @@ import com.maibaduoduo.base.base.BaseController;
 import com.maibaduoduo.base.tenant.entity.SysTenant;
 import com.maibaduoduo.base.tenant.service.SysTenantService;
 import com.maibaduoduo.common.entity.Page;
-import com.maibaduoduo.common.utils.Global;
-import com.maibaduoduo.common.utils.SnowflakeUtil;
-import com.maibaduoduo.common.utils.StringUtils;
+import com.maibaduoduo.common.redis.RedisService;
+import com.maibaduoduo.common.utils.*;
 import com.maibaduoduo.init.BaseCreate;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +34,7 @@ public class SysTenantController extends BaseController {
     private SysTenantService sysTenantService;
     @Autowired
     private BaseCreate baseCreate;
+
 
     private SnowflakeUtil snowflakeUtil = new SnowflakeUtil();
 
@@ -124,6 +124,5 @@ public class SysTenantController extends BaseController {
         addMessage(redirectAttributes, "保存租户信息成功");
         return "redirect:" + Global.getAdminPath() + "/tenant/sysTenant/?repage";
     }
-
 
 }

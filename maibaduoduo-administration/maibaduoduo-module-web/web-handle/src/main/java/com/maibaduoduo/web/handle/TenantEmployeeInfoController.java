@@ -4,7 +4,11 @@ import com.maibaduoduo.base.base.BaseController;
 import com.maibaduoduo.base.tenant.entity.TenantEmployeeInfo;
 import com.maibaduoduo.base.tenant.service.TenantEmployeeInfoService;
 import com.maibaduoduo.common.entity.Page;
+import com.maibaduoduo.common.redis.KeyPrefix;
+import com.maibaduoduo.common.redis.RedisService;
+import com.maibaduoduo.common.utils.ExceptionUtils;
 import com.maibaduoduo.common.utils.Global;
+import com.maibaduoduo.common.utils.Result;
 import com.maibaduoduo.common.utils.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +17,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.naming.ldap.PagedResultsResponseControl;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
@@ -31,7 +37,10 @@ public class TenantEmployeeInfoController extends BaseController {
 
 	@Autowired
 	private TenantEmployeeInfoService tenantEmployeeInfoService;
-	
+
+	@Autowired
+	private RedisService redisService;
+
 	@ModelAttribute
 	public TenantEmployeeInfo get(@RequestParam(required=false) String id) {
 		TenantEmployeeInfo entity = null;
@@ -43,7 +52,36 @@ public class TenantEmployeeInfoController extends BaseController {
 		}
 		return entity;
 	}
-	
+
+	/**
+	 * 租户登录信息初始化
+	 * @return
+	 */
+	@RequiresPermissions("base:tenant:tenantEmployeeInfo:view")
+	@RequestMapping(value = {"init"})
+	@ResponseBody
+	public Result tenantInit(){
+		try{
+			TenantEmployeeInfo tenantEmployeeInfo = new TenantEmployeeInfo();
+			tenantEmployeeInfo.setStatus(1);
+			tenantEmployeeInfo.setDelFlag("0");
+			tenantEmployeeInfoService.findList(tenantEmployeeInfo).stream().forEach(user-> redisService.set(new KeyPrefix() {
+				@Override
+				public int expireSeconds() {
+					return -1;
+				}
+				@Override
+				public String getPrefix() {
+					return "";
+				}
+			},user.getTenantEmployeeId(),user.getTenantId()));
+		}catch (Exception e){
+			logger.error(ExceptionUtils.getExceptionMessage(e));
+			return Result.error("租户数据初始化错误");
+		}
+     return Result.ok("租户数据初始化成功");
+	}
+
 	@RequiresPermissions("base:tenant:tenantEmployeeInfo:view")
 	@RequestMapping(value = {"list", ""})
 	public String list(TenantEmployeeInfo tenantEmployeeInfo, HttpServletRequest request, HttpServletResponse response, Model model) {

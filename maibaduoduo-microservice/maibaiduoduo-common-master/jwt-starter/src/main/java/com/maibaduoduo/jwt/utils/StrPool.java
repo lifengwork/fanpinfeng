@@ -3,8 +3,6 @@ package com.maibaduoduo.jwt.utils;
 /**
  * 常用字符串
  *
- * @author zuihou
- * @date 2019/07/25
  */
 public interface StrPool {
     String AMPERSAND = "&";
@@ -39,6 +37,7 @@ public interface StrPool {
     String ON = "on";
     String PERCENT = "%";
     String PIPE = "|";
+    String PIPEV="\\|";
     String PLUS = "+";
     String QUESTION_MARK = "?";
     String EXCLAMATION_MARK = "!";

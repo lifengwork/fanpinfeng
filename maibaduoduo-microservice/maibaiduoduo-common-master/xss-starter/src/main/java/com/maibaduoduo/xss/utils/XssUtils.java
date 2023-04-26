@@ -12,9 +12,6 @@ import java.util.List;
 
 /**
  * XSS 工具类， 用于过滤特殊字符
- *
- * @author zuihou
- * @date 2019/07/02
  */
 public class XssUtils {
     private static Logger log = LoggerFactory.getLogger(XssUtils.class);

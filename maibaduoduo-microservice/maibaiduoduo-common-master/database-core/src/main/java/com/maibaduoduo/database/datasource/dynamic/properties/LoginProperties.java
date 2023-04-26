@@ -15,7 +15,7 @@ public class LoginProperties {
     private String appTokenName="token-app";
     private String appUri="/app/login";
     private List<String> filterInvalidToken= Lists.newArrayList();
-    private String dbCachePrefix="TENANT_DB_URL_MASTER*";
+    private String dbCachePrefix="TENANT_DB_URL_*";
 
     public String getDbCachePrefix() {
         return dbCachePrefix;

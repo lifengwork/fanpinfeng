@@ -8,10 +8,6 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 import java.util.Date;
 
-/**
- * @author zuihou¬
- * @createTime 2017-12-15 11:22
- */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

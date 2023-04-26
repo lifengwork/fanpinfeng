@@ -22,9 +22,6 @@ package com.maibaduoduo.jwt.common.code;
  * 运维服务平台 异常编码 范围：  105000-109999
  * 统一监管平台异常 编码 范围：  110000-114999
  * 认证方面的异常编码  范围：115000-115999
- *
- * @author zuihou
- * @createTime 2017-12-13 16:22
  */
 public enum ExceptionCode implements BaseExceptionCode {
 

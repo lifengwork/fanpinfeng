@@ -2,34 +2,30 @@ package com.maibaduoduo.jwt.common;
 
 /**
  * 常量工具类
- *
- * @author zuihou
- * @date 2018/12/21
  */
 public class BaseContextConstants {
-
     /**
      * JWT中封装的 用户id
      */
-    public static final String JWT_KEY_USER_ID = "userid";
+    public static final String JWT_KEY_USER_ID = "user_id";
     /**
      * JWT中封装的 用户名称
      */
-    public static final String JWT_KEY_NAME = "name";
+    public static final String JWT_KEY_NAME = "user_name";
+
+    /**
+     * JWT中封装的 用户手机号
+     */
+    public static final String JWT_KEY_MOBILE = "user_mobile";
+
     /**
      * JWT中封装的 token 类型
      */
     public static final String JWT_KEY_TOKEN_TYPE = "token_type";
     /**
-     * JWT中封装的 用户账号
-     */
-    public static final String JWT_KEY_ACCOUNT = "account";
-
-    /**
      * JWT中封装的 客户端id
      */
     public static final String JWT_KEY_CLIENT_ID = "client_id";
-
 
     /**
      * JWT token 签名
@@ -39,7 +35,7 @@ public class BaseContextConstants {
     /**
      * JWT中封装的 租户编码
      */
-    public static final String JWT_KEY_TENANT = "tenant";
+    public static final String JWT_KEY_TENANT = "tenant_id";
     /**
      * 刷新 Token
      */
@@ -74,11 +70,6 @@ public class BaseContextConstants {
     public static final String BASIC_HEADER_PREFIX_EXT = "Basic%20";
 
     /**
-     * 是否boot项目
-     */
-    public static final String IS_BOOT = "boot";
-
-    /**
      * 日志链路追踪id信息头
      */
     public static final String TRACE_ID_HEADER = "x-trace-header";
@@ -87,20 +78,4 @@ public class BaseContextConstants {
      */
     public static final String LOG_TRACE_ID = "trace";
 
-    /**
-     * 租户 编码
-     */
-//    @Deprecated
-//    public static final String TENANT = JWT_KEY_TENANT;
-
-    /**
-     * token
-     */
-    @Deprecated
-    public static final String TOKEN_NAME = BEARER_HEADER_KEY;
-
-    /**
-     * 灰度发布版本号
-     */
-    public static final String GRAY_VERSION = "grayversion";
 }

@@ -3,9 +3,6 @@ package com.maibaduoduo.jwt.common;
 /**
  * 非业务异常
  * 用于在处理非业务逻辑时，进行抛出的异常。
- *
- * @author zuihou
- * @version 1.0
  * @see Exception
  */
 public class CommonException extends BaseCheckedException {

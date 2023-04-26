@@ -8,7 +8,7 @@
 package com.maibaduoduo.web.controller;
 
 import com.maibaduoduo.common.utils.RedisUtils;
-import com.maibaduoduo.common.utils.SpringContextUtils;
+import com.maibaduoduo.common.utils.SystemSpringContextUtils;
 import com.maibaduoduo.sys.entity.SysCaptchaEntity;
 import com.maibaduoduo.sys.entity.SysUserEntity;
 import org.apache.shiro.SecurityUtils;
@@ -42,7 +42,7 @@ public abstract class AbstractController {
     }
 
     protected boolean validate(SysCaptchaEntity captchaEntity, String code) {
-        redisUtils = (RedisUtils) SpringContextUtils.getBean("redisUtils");
+        redisUtils = (RedisUtils) SystemSpringContextUtils.getBean("redisUtils");
         if (captchaEntity == null) {
             return false;
         }

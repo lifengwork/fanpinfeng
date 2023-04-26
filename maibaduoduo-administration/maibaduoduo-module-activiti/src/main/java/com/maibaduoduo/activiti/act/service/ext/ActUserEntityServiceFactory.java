@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @version 2013-11-03
  */
 public class ActUserEntityServiceFactory implements SessionFactory {
-	s
 	@Autowired
 	private ActUserEntityService actUserEntityService;
 

@@ -15,7 +15,7 @@ spring:
   # 环境 dev|test|prod
   profiles:
     active: dev
-    include: feign,hystrix,ribbon,redis,tx
+    include: feign,hystrix,ribbon,redis,tx,datasource
   # jackson时间格式化
   jackson:
     time-zone: GMT+8
@@ -78,3 +78,10 @@ logging:
   config: classpath:logback-dev.xml
   file:
     path: ../logs
+
+saas:
+  jwt:
+    rsa:
+      key:
+        pubKeyFile: D:\fanpinfeng\gitpro\rsa\public_rsa.txt
+        priKeyFile: D:\fanpinfeng\gitpro\rsa\private_rsa.txt
