@@ -115,16 +115,6 @@
 			<version>${kaptcha.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-swagger2</artifactId>
-			<version>${swagger.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-swagger-ui</artifactId>
-			<version>${swagger.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>joda-time</groupId>
 			<artifactId>joda-time</artifactId>
 			<version>${joda.time.version}</version>
@@ -182,6 +172,17 @@
 		<dependency>
 			<groupId>com.maibaduoduo</groupId>
 			<artifactId>maibaduoduo-banner</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.maibaduoduo</groupId>
+			<artifactId>swagger2-starter</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.cloud</groupId>
+					<artifactId>spring-cloud-gateway-server</artifactId>
+				</exclusion>
+			</exclusions>
 			<version>${project.version}</version>
 		</dependency>
 	</dependencies>

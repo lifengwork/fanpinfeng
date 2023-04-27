@@ -77,6 +77,11 @@
    > git clone git@github.com:lifengwork/fanpinfeng.git
    
    ```
+* #### 接口文档访问地址
+   ```
+      http://localhost:port/doc.html		
+ 
+  ```
 * #### execute this sql       
   
 

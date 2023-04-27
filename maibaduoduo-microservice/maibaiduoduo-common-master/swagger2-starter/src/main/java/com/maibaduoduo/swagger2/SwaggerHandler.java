@@ -14,7 +14,7 @@ import java.util.Optional;
  * 自定义Swagger的各个配置节点
  * Created by macro on 2020/7/9.
  */
-@RestController
+//@RestController
 public class SwaggerHandler {
 
     @Autowired(required = false)

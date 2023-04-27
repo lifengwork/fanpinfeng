@@ -13,7 +13,7 @@ spring:
   # 环境 dev|test|prod
   profiles:
     active: dev
-    include: feign,hystrix,ribbon,datasource,redis,tx
+    include: feign,hystrix,ribbon,datasource,redis,tx,cache
   # jackson时间格式化
   jackson:
     time-zone: GMT+8
@@ -62,7 +62,9 @@ mybatis-plus:
     jdbc-type-for-null: 'null'
 
 maibaduoduo:
-        # APP模块，是通过jwt认证的，如果要使用APP模块，则需要修改【加密秘钥】
+        swagger:
+          enabled: true
+  # APP模块，是通过jwt认证的，如果要使用APP模块，则需要修改【加密秘钥】
         jwt:
           # 加密秘钥
           secret: f4e2e52034348f86b67cde581c0f9eb5[www.maibaduoduo.com]
@@ -88,3 +90,10 @@ logging:
   config: classpath:logback-dev.xml
   file:
     path: ../logs
+
+saas:
+  jwt:
+    rsa:
+      key:
+        pubKeyFile: D:\fanpinfeng\gitpro\rsa\public_rsa.txt
+        priKeyFile: D:\fanpinfeng\gitpro\rsa\private_rsa.txt

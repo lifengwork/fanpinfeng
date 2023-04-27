@@ -8,7 +8,9 @@
 package com.maibaduoduo.service.impl;
 
 
+import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.maibaduoduo.common.utils.CacheUtils;
 import com.maibaduoduo.common.utils.Constant;
 import com.maibaduoduo.common.utils.MapUtils;
 import com.maibaduoduo.service.SysMenuService;
@@ -21,10 +23,13 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 @Service("sysMenuService")
 public class SysMenuServiceImpl extends ServiceImpl<SysMenuDao, SysMenuEntity> implements SysMenuService {
+	@Autowired
+	private CacheUtils cacheUtils;
 	@Autowired
 	private SysUserService sysUserService;
 	@Autowired
@@ -32,7 +37,15 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuDao, SysMenuEntity> i
 	
 	@Override
 	public List<SysMenuEntity> queryListParentId(Long parentId, List<Long> menuIdList) {
-		List<SysMenuEntity> menuList = queryListParentId(parentId);
+		List<SysMenuEntity> menuList = null;
+		Object cacheValue = cacheUtils.get(CacheUtils.SYS_CACHE,parentId);
+		if(Objects.isNull(cacheValue)){
+			menuList = queryListParentId(parentId);
+			cacheUtils.put(CacheUtils.SYS_CACHE,String.valueOf(parentId),menuList);
+		}else{
+			menuList = (List<SysMenuEntity>)cacheValue;
+		}
+
 		if(menuIdList == null){
 			return menuList;
 		}
@@ -62,9 +75,15 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuDao, SysMenuEntity> i
 		if(userId == Constant.SUPER_ADMIN){
 			return getAllMenuList(null);
 		}
-		
 		//用户菜单列表
-		List<Long> menuIdList = sysUserService.queryAllMenuId(userId);
+		List<Long> menuIdList =null;
+		Object cacheValue = cacheUtils.get(CacheUtils.SYS_CACHE,userId);
+		if(Objects.isNull(cacheValue)){
+			menuIdList = sysUserService.queryAllMenuId(userId);
+			cacheUtils.put(CacheUtils.SYS_CACHE,String.valueOf(userId),menuIdList);
+		}else{
+			menuIdList = (List<Long>)cacheValue;
+		}
 		return getAllMenuList(menuIdList);
 	}
 

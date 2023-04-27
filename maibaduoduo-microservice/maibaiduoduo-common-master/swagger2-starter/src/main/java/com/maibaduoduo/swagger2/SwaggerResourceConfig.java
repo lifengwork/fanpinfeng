@@ -2,6 +2,7 @@ package com.maibaduoduo.swagger2;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.config.GatewayProperties;
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.support.NameUtils;
@@ -18,13 +19,15 @@ import java.util.List;
  * Created by admin on 2020/7/9.
  */
 @Slf4j
-@Component
+//@Component
 @Primary
-@AllArgsConstructor
+//@AllArgsConstructor
 public class SwaggerResourceConfig implements SwaggerResourcesProvider {
 
-    private final RouteLocator routeLocator;
-    private final GatewayProperties gatewayProperties;
+    @Autowired
+    private RouteLocator routeLocator=null;
+    @Autowired
+    private GatewayProperties gatewayProperties=null;
 
     @Override
     public List<SwaggerResource> get() {

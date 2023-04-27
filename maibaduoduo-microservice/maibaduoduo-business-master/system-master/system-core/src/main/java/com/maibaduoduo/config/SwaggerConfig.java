@@ -24,8 +24,8 @@ import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
 
-@Configuration
-@EnableSwagger2
+//@Configuration
+//@EnableSwagger2
 public class SwaggerConfig implements WebMvcConfigurer {
 
     @Bean

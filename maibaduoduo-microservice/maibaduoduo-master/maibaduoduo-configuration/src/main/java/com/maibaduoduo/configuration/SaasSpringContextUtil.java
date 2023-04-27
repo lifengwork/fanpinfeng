@@ -5,11 +5,10 @@
  *
  * https://www.maibaduoduo.com
  */
-package com.maibaduoduo.common.utils;
+package com.maibaduoduo.configuration;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.ApplicationContext;
@@ -29,10 +28,10 @@ import java.util.Objects;
  * @author Mark lifengwork@yeah.net
  */
 @Component
-public class SystemSpringContextUtils implements BeanFactoryPostProcessor, ApplicationContextAware {
+public class SaasSpringContextUtil implements BeanFactoryPostProcessor, ApplicationContextAware {
 
 	/** 日志记录器 */
-	private static final Logger LOGGER = LoggerFactory.getLogger(SystemSpringContextUtils.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(SaasSpringContextUtil.class);
 
 	/** ApplicationContext */
 	private static ApplicationContext context;
@@ -50,7 +49,7 @@ public class SystemSpringContextUtils implements BeanFactoryPostProcessor, Appli
 	 * Constructor<br>
 	 * 私有化工具类的构造函数
 	 */
-	private SystemSpringContextUtils() {
+	private SaasSpringContextUtil() {
 	}
 
 	/**

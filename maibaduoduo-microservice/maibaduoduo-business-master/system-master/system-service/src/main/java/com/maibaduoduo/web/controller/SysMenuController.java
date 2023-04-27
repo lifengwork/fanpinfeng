@@ -14,6 +14,7 @@ import com.maibaduoduo.common.utils.R;
 import com.maibaduoduo.service.ShiroService;
 import com.maibaduoduo.service.SysMenuService;
 import com.maibaduoduo.sys.entity.SysMenuEntity;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +46,7 @@ public class SysMenuController extends AbstractController {
 		Set<String> permissions = shiroService.getUserPermissions(getUserId());
 		return R.ok().put("menuList", menuList).put("permissions", permissions);
 	}
-	
+	@ApiOperation("系统菜单")
 	/**
 	 * 所有菜单列表
 	 */
