@@ -1,4 +1,4 @@
-package com.macro.cloud.handler;
+package com.maibaduoduo.swagger2;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

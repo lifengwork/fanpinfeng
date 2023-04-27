@@ -10,12 +10,16 @@ package com.maibaduoduo.app.controller;
 import com.maibaduoduo.app.service.SaasOrderStoreService;
 import com.maibaduoduo.common.utils.PageUtils;
 import com.maibaduoduo.common.utils.R;
+import com.maibaduoduo.common.utils.ValidatorUtils;
+import com.maibaduoduo.order.entity.PassWordEntity;
 import com.maibaduoduo.order.entity.SaasOrderStoreEntity;
 import com.maibaduoduo.store.entity.SaasStoreEntity;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotEmpty;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -54,6 +58,16 @@ public class SaasOrderStoreController {
 		//SaasOrderStoreEntity saasOrderStore = saasOrderStoreService.getById(id);
         SaasStoreEntity saasStoreEntity = saasOrderStoreService.querySassStoreEntity(id);
         return R.ok().put("saasStoreEntity", saasStoreEntity);
+    }
+
+    /**
+     * 信息
+     */
+    @RequestMapping("/validator")
+    @RequiresPermissions("generator:saasorderstore:info")
+    public R infovalidator(@RequestBody PassWordEntity passWordEntity){
+        ValidatorUtils.validateEntity(passWordEntity);
+        return R.ok();
     }
 
     /**

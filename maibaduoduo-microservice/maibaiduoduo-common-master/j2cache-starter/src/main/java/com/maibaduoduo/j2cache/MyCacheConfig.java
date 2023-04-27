@@ -1,4 +1,4 @@
-package com.github.zuihou.j2cache;
+package com.maibaduoduo.j2cache;
 
 import cn.hutool.core.collection.CollUtil;
 import org.springframework.cache.Cache;

@@ -17,8 +17,6 @@
 	        <module>lock-starter</module>
 	        <module>rabbitmq-starter</module>
 	        <module>swagger2-starter</module>
-	        <module>validator-starter</module>
-	        <module>xss-starter</module>
 	        <module>j2cache-starter</module>
 			<module>database-core</module>
     </modules>

@@ -11,6 +11,7 @@ import com.maibaduoduo.common.exception.RRException;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
+import javax.validation.groups.Default;
 import java.util.Set;
 
 /**
@@ -42,6 +43,20 @@ public class ValidatorUtils {
                 msg.append(constraint.getMessage()).append("<br>");
             }
             throw new RRException(msg.toString());
+        }
+    }
+    /**
+     *
+     * @param obj
+     * @param propertyName
+     */
+    public static void validateProperty(Object obj, String propertyName) {
+        Set<ConstraintViolation<Object>> constraintViolationSetProperty = validator.validateProperty(obj, propertyName, Default.class);
+        if (!constraintViolationSetProperty.isEmpty()) {
+            StringBuilder msg = new StringBuilder();
+            for (ConstraintViolation<Object> constraintViolation : constraintViolationSetProperty) {
+                msg.append(constraintViolation.getMessage()).append("<br>");
+            }
         }
     }
 }

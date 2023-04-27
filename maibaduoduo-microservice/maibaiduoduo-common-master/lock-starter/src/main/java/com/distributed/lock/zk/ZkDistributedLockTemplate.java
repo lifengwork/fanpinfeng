@@ -21,7 +21,6 @@ public class ZkDistributedLockTemplate implements DistributedLockTemplate {
     }
 
 
-
     private boolean tryLock(ZkReentrantLock distributedReentrantLock,Long timeout) throws Exception {
         return distributedReentrantLock.tryLock(timeout, TimeUnit.MILLISECONDS);
     }
