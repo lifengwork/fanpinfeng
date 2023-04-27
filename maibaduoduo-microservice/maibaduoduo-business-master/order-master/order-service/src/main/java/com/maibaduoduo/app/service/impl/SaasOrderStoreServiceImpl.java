@@ -14,6 +14,8 @@ import com.maibaduoduo.app.service.SaasOrderStoreService;
 import com.maibaduoduo.common.utils.PageUtils;
 import com.maibaduoduo.common.utils.Query;
 import com.maibaduoduo.common.utils.R;
+import com.maibaduoduo.lock.Callback;
+import com.maibaduoduo.lock.redis.RedisDistributedLockTemplate;
 import com.maibaduoduo.order.dao.SaasOrderStoreDao;
 import com.maibaduoduo.order.entity.SaasOrderStoreEntity;
 import com.maibaduoduo.store.entity.SaasStoreEntity;
@@ -21,7 +23,9 @@ import com.maibaduoduo.store.facade.api.StoreFacade;
 import org.dromara.myth.annotation.Myth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import redis.clients.jedis.JedisPool;
 
+import javax.annotation.Resource;
 import java.util.Map;
 
 @Service("saasOrderStoreService")
@@ -29,6 +33,9 @@ public class SaasOrderStoreServiceImpl extends ServiceImpl<SaasOrderStoreDao, Sa
 
     @Autowired
     private StoreFacade storeFacade;
+    @Autowired
+    private RedisDistributedLockTemplate redisDistributedLockTemplate;
+
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
         IPage<SaasOrderStoreEntity> page = this.page(
@@ -42,12 +49,23 @@ public class SaasOrderStoreServiceImpl extends ServiceImpl<SaasOrderStoreDao, Sa
     @Myth
     @Override
     public SaasStoreEntity querySassStoreEntity(Long orderId) {
-        this.list();
-        SaasStoreEntity saasStoreEntity = new SaasStoreEntity();
-        saasStoreEntity.setId(orderId);
-        R r = storeFacade.info(orderId);
-        saasStoreEntity.setStoreDescription(r.toString());
-        return saasStoreEntity;
+        //this.list();
+        //TEST STORE Lock 获取锁超时时间5000
+        redisDistributedLockTemplate.execute("测试库存分布式锁", 5000, new Callback() {
+            @Override
+            public Object onGetLock() throws InterruptedException {
+                SaasStoreEntity saasStoreEntity = new SaasStoreEntity();
+                saasStoreEntity.setId(orderId);
+                R r = storeFacade.info(orderId);
+                saasStoreEntity.setStoreDescription(r.toString());
+                return saasStoreEntity;
+            }
+            @Override
+            public Object onTimeout() throws InterruptedException {
+                return "获取锁超时请检查";
+            }
+        });
+        return null;
     }
 
 }

@@ -1,16 +1,10 @@
-package com.distributed.lock.redis;
+package com.maibaduoduo.lock.redis;
 
-import com.distributed.lock.DistributedReentrantLock;
+import com.maibaduoduo.lock.DistributedReentrantLock;
 import com.google.common.collect.Maps;
-import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.exceptions.JedisException;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 import java.util.concurrent.ConcurrentMap;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 

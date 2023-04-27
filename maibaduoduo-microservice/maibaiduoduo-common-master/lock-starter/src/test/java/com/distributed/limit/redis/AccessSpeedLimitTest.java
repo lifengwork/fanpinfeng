@@ -1,12 +1,13 @@
 package com.distributed.limit.redis;
 
-import com.distributed.lock.redis.RedisDistributedLockTemplate;
+import com.maibaduoduo.limit.redis.AccessSpeedLimit;
+import com.maibaduoduo.limit.redis.LimitRule;
+import com.maibaduoduo.lock.redis.RedisDistributedLockTemplate;
 import org.junit.Test;
 import redis.clients.jedis.JedisPool;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by sunyujia@aliyun.com on 2016/2/27.

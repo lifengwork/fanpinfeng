@@ -1,10 +1,8 @@
-package com.distributed.limit.redis;
+package com.maibaduoduo.limit.redis;
 
 import org.slf4j.LoggerFactory;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.exceptions.JedisConnectionException;
-import redis.clients.jedis.exceptions.JedisException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,7 +77,12 @@ public class AccessSpeedLimit {
         }
     }
 
-
+    /**
+     * ARGV：
+     * tonumber：
+     * @param limitRule
+     * @return
+     */
     private String buildLuaScript(LimitRule limitRule){
         StringBuilder lua=new StringBuilder();
         lua.append("\nlocal c");

@@ -1,10 +1,10 @@
-package com.distributed.lock.redis;
+package com.maibaduoduo.lock.redis;
 
-import com.distributed.lock.Callback;
-import com.distributed.lock.DistributedLockTemplate;
-import com.distributed.lock.redis.RedisReentrantLock;
-import org.apache.curator.framework.CuratorFramework;
+import com.maibaduoduo.lock.Callback;
+import com.maibaduoduo.lock.DistributedLockTemplate;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.DependsOn;
+import org.springframework.stereotype.Component;
 import redis.clients.jedis.JedisPool;
 
 import java.util.concurrent.TimeUnit;
@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by sunyujia@aliyun.com on 2016/2/26.
  */
+@Component
 public class RedisDistributedLockTemplate implements DistributedLockTemplate {
     private static final org.slf4j.Logger log = LoggerFactory.getLogger(RedisDistributedLockTemplate.class);
 

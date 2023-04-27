@@ -1,4 +1,4 @@
-package com.distributed.lock;
+package com.maibaduoduo.lock;
 
 /**
  * 分布式锁模板类

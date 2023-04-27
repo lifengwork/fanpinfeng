@@ -1,17 +1,11 @@
 package com.distributed.lock.redis;
 
-import com.distributed.lock.Callback;
-import com.distributed.lock.zk.ZkDistributedLockTemplate;
-import org.apache.curator.RetryPolicy;
-import org.apache.curator.framework.CuratorFramework;
-import org.apache.curator.framework.CuratorFrameworkFactory;
-import org.apache.curator.retry.ExponentialBackoffRetry;
+import com.maibaduoduo.lock.Callback;
+import com.maibaduoduo.lock.redis.RedisDistributedLockTemplate;
 import org.junit.Test;
 import redis.clients.jedis.JedisPool;
 
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**

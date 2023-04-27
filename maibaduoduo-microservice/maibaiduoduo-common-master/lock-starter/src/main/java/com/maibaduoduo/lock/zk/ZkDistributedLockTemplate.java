@@ -1,7 +1,7 @@
- package com.distributed.lock.zk;
+ package com.maibaduoduo.lock.zk;
 
-import com.distributed.lock.Callback;
-import com.distributed.lock.DistributedLockTemplate;
+import com.maibaduoduo.lock.Callback;
+import com.maibaduoduo.lock.DistributedLockTemplate;
 import org.apache.curator.framework.CuratorFramework;
 import org.slf4j.LoggerFactory;
 

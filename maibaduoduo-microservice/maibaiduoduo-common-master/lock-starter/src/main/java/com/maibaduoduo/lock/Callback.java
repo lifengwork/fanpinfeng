@@ -1,4 +1,4 @@
-package com.distributed.lock;
+package com.maibaduoduo.lock;
 
 /**
  * Created by sunyujia@aliyun.com on 2016/2/23.

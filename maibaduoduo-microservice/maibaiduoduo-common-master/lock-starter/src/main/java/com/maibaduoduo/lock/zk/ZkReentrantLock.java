@@ -1,17 +1,13 @@
-package com.distributed.lock.zk;
+package com.maibaduoduo.lock.zk;
 
-import com.distributed.lock.DistributedReentrantLock;
-import com.google.common.collect.Maps;
+import com.maibaduoduo.lock.DistributedReentrantLock;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.recipes.locks.InterProcessMutex;
-import org.apache.curator.framework.recipes.locks.LockInternalsDriver;
-import org.apache.curator.framework.recipes.locks.StandardLockInternalsDriver;
 import org.apache.zookeeper.KeeperException;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.concurrent.*;
-import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * 基于Zookeeper的可重入互斥锁(关于重入:仅限于持有zk锁的jvm内重入)

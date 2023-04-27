@@ -1,4 +1,4 @@
-package com.distributed.limit.redis;
+package com.maibaduoduo.limit.redis;
 
 import java.util.concurrent.TimeUnit;
 

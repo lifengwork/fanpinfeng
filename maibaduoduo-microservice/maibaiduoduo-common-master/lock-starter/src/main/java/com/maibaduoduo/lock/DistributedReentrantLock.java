@@ -1,4 +1,4 @@
-package com.distributed.lock;
+package com.maibaduoduo.lock;
 
 import java.util.concurrent.TimeUnit;
 

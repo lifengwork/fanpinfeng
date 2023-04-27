@@ -1,30 +1,21 @@
-package com.distributed.lock.zk;
+package com.maibaduoduo.sequence.zk;
 
+import com.maibaduoduo.lock.zk.ZkReentrantLockCleanerTask;
+import com.maibaduoduo.sequence.DistributedSequence;
 import org.apache.curator.RetryPolicy;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-
 /**
  * Created by sunyujia@aliyun.com on 2016/2/25.
  */
-public class ZkReentrantLockCleanerTask extends TimerTask {
+public class ZkDistributedSequence implements DistributedSequence {
     private static final org.slf4j.Logger log = LoggerFactory.getLogger(ZkReentrantLockCleanerTask.class);
 
     private CuratorFramework client;
-
-    private Timer timer;
-
-    /**
-     * 检查周期
-     */
-    private long period=5000;
-    /**
+     /**
      * Curator RetryPolicy maxRetries
      */
     private int maxRetries=3;
@@ -33,7 +24,7 @@ public class ZkReentrantLockCleanerTask extends TimerTask {
      */
     private final int baseSleepTimeMs=1000;
 
-    public ZkReentrantLockCleanerTask(String zookeeperAddress) {
+    public ZkDistributedSequence(String zookeeperAddress){
         try{
             RetryPolicy retryPolicy = new ExponentialBackoffRetry(baseSleepTimeMs, maxRetries);
             client = CuratorFrameworkFactory.newClient(zookeeperAddress, retryPolicy);
@@ -46,34 +37,25 @@ public class ZkReentrantLockCleanerTask extends TimerTask {
         }
     }
 
-    public void start(){
-        timer.schedule(this,0,period);
+    public int getMaxRetries() {
+        return maxRetries;
     }
 
-    private boolean isEmpty(List<String> list){
-        return list==null||list.isEmpty();
+    public void setMaxRetries(int maxRetries) {
+        this.maxRetries = maxRetries;
     }
 
+    public int getBaseSleepTimeMs() {
+        return baseSleepTimeMs;
+    }
 
-    @Override
-    public void run() {
+    public Long sequence(String sequenceName) {
         try {
-            List<String> childrenPaths=this.client.getChildren().forPath(ZkReentrantLock.ROOT_PATH);
-            for(String path:childrenPaths){
-                cleanNode(path);
-            }
+            int value=client.setData().withVersion(-1).forPath("/"+sequenceName,"".getBytes()).getVersion();
+            return new Long(value);
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    private void cleanNode(String path){
-        try {
-            if(isEmpty(this.client.getChildren().forPath(path))){
-                this.client.delete().forPath(path);//利用存在子节点无法删除和zk的原子性这两个特性.
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        return null;
     }
 }

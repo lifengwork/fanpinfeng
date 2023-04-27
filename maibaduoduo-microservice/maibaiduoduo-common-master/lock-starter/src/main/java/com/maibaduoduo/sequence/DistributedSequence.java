@@ -1,4 +1,4 @@
-package com.distributed.sequence;
+package com.maibaduoduo.sequence;
 
 /**
  * Created by sunyujia@aliyun.com on 2016/2/25.

@@ -1,13 +1,11 @@
 package com.distributed.lock.redis;
 
-import com.distributed.lock.Callback;
-import org.junit.Test;
+import com.maibaduoduo.lock.Callback;
+import com.maibaduoduo.lock.redis.RedisDistributedLockTemplate;
+import com.maibaduoduo.lock.redis.RedisReentrantLock;
 import redis.clients.jedis.JedisPool;
 
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Created by sunyujia@aliyun.com on 2016/2/24.
@@ -19,9 +17,11 @@ public class SimpleTest {
         RedisReentrantLock lock=new RedisReentrantLock(jedisPool,"订单流水号");
         try {
             if (lock.tryLock(5000L, TimeUnit.MILLISECONDS)) {
+                System.out.println("获得锁后要做的事");
                 //TODO 获得锁后要做的事
             }else{
                 //TODO 获得锁超时后要做的事
+                System.out.println("获得锁超时后要做的事");
             }
         }finally {
             lock.unlock();

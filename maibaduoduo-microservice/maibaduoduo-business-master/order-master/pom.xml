@@ -185,6 +185,11 @@
 			</exclusions>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>com.maibaduoduo</groupId>
+			<artifactId>lock-starter</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 	</dependencies>
 
 	<build>
