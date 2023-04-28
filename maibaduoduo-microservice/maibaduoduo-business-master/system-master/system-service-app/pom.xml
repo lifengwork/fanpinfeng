@@ -163,11 +163,6 @@
             <artifactId>hibernate-validator</artifactId>
             <version>${hibernate-validator.version}</version>
         </dependency>
-        <dependency>
-            <groupId>com.maibaduoduo</groupId>
-            <artifactId>jwt-starter</artifactId>
-            <version>${project.version}</version>
-        </dependency>
         <!-- CACHE begin -->
         <dependency>
             <groupId>net.sf.ehcache</groupId>

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Cache工具类
@@ -20,7 +21,7 @@ import java.util.List;
 public class CacheUtils {
 	private static Logger logger = LoggerFactory.getLogger(CacheUtils.class);
 	@Autowired
-	private static CacheManager ehcacheManager;
+	private CacheManager ehcacheManager;
 	public static final String SYS_CACHE = "saas_sys_cache_local";
 
 	/**
@@ -31,6 +32,7 @@ public class CacheUtils {
 	 */
 	public Object get(String cacheName, String key) {
 		Cache cache = getCache(cacheName);
+		if(Objects.isNull(cache)) return  null;
 		Element element = cache.get(key);
 		return element == null ? null : element.getObjectValue();
 	}
@@ -154,7 +156,8 @@ public class CacheUtils {
 	private Cache getCache(String cacheName){
 		Cache cache = ehcacheManager.getCache(cacheName);
 		if (cache == null){
-			throw new RuntimeException("当前系统中没有定义“"+cacheName+"”这个缓存。");
+			logger.error("当前系统中没有定义“"+cacheName+"”这个缓存。");
+			return null;
 		}
 		return cache;
 	}

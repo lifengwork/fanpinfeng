@@ -2,6 +2,9 @@ package com.maibaduoduo.database.datasource.dynamic.properties;
 
 import com.google.common.collect.Lists;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Objects;
@@ -12,6 +15,8 @@ import java.util.Objects;
  * @Author: pm2022
  */
 @Data
+@NoArgsConstructor
+@ConfigurationProperties(prefix = "maibaduoduo.server")
 public class ServerProperties {
     private List<Server> serverList;
 

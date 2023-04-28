@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd" updateCheck="false"
-         maxBytesLocalHeap="100K">
+         xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd" updateCheck="false">
     <!--timeToIdleSeconds 当缓存闲置n秒后销毁 -->
     <!--timeToLiveSeconds 当缓存存活n秒后销毁 -->
     <!-- 缓存配置
@@ -34,4 +33,6 @@
         <persistence strategy="localTempSwap"/>
     </defaultCache>
 
+    <cache name="saas_sys_cache_local" maxElementsInMemory="10000" eternal="false" overflowToDisk="true" statistics="true"/>
+    <cache name="cmsCache" maxEntriesLocalHeap="1000" eternal="true" overflowToDisk="true" statistics="true"/>
 </ehcache>

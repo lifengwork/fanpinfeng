@@ -9,6 +9,7 @@ package com.maibaduoduo.service.impl;
 
 
 import cn.hutool.core.collection.CollectionUtil;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.maibaduoduo.common.utils.CacheUtils;
 import com.maibaduoduo.common.utils.Constant;
@@ -20,6 +21,7 @@ import com.maibaduoduo.sys.dao.SysMenuDao;
 import com.maibaduoduo.sys.entity.SysMenuEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +40,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuDao, SysMenuEntity> i
 	@Override
 	public List<SysMenuEntity> queryListParentId(Long parentId, List<Long> menuIdList) {
 		List<SysMenuEntity> menuList = null;
-		Object cacheValue = cacheUtils.get(CacheUtils.SYS_CACHE,parentId);
+		Object cacheValue = cacheUtils.get(String.valueOf(parentId));
 		if(Objects.isNull(cacheValue)){
 			menuList = queryListParentId(parentId);
 			cacheUtils.put(CacheUtils.SYS_CACHE,String.valueOf(parentId),menuList);
@@ -77,7 +79,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuDao, SysMenuEntity> i
 		}
 		//用户菜单列表
 		List<Long> menuIdList =null;
-		Object cacheValue = cacheUtils.get(CacheUtils.SYS_CACHE,userId);
+		Object cacheValue = cacheUtils.get(String.valueOf(userId));
 		if(Objects.isNull(cacheValue)){
 			menuIdList = sysUserService.queryAllMenuId(userId);
 			cacheUtils.put(CacheUtils.SYS_CACHE,String.valueOf(userId),menuIdList);

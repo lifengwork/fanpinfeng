@@ -45,7 +45,9 @@ public class MybatisPlusConfig {
                     public Expression getTenantId(boolean select) {
                         TenantDataSource.AuthorizationInfo authorizationInfo = TenantDataSource.instanceSingletonObject()
                                 .tenant(((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest());
-                        if (Objects.isNull(authorizationInfo)||StringUtils.isEmpty(authorizationInfo.getTenantId())) {
+
+                        if (Objects.isNull(authorizationInfo)||StringUtils.isEmpty(authorizationInfo.getTenantId())
+                                ||"0".equals(authorizationInfo.getTenantId())) {
                             return null;
                         }
                         return new StringValue(authorizationInfo.getTenantId());
