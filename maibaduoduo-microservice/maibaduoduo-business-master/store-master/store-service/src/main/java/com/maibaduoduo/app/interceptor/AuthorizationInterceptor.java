@@ -8,9 +8,9 @@
 package com.maibaduoduo.app.interceptor;
 
 import com.maibaduoduo.common.config.BaseContextHandler;
-import com.maibaduoduo.common.exception.RRException;
-import com.maibaduoduo.common.utils.RedisUtils;
+import com.maibaduoduo.configuration.exception.SaasException;
 import com.maibaduoduo.configuration.props.UserAgentUtils;
+import com.maibaduoduo.configuration.utils.RedisUtils;
 import com.maibaduoduo.database.datasource.utils.JwtUtils;
 import com.maibaduoduo.jwt.TokenUtil;
 import com.maibaduoduo.jwt.model.AuthorizationInfo;
@@ -54,7 +54,7 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
             token = request.getParameter(USER_KEY);
         }
         if(StringUtils.isBlank(token)){
-            throw new RRException(USER_KEY + "不能为空", HttpStatus.UNAUTHORIZED.value());
+            throw new SaasException(USER_KEY + "不能为空", HttpStatus.UNAUTHORIZED.value());
         }
 
         //TOKEN认证信息
@@ -65,7 +65,7 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
                 BaseContextHandler.set("token-app",token);
             }
         }catch (Exception e){
-            throw new RRException(e.getMessage(), HttpStatus.UNAUTHORIZED.value());
+            throw new SaasException(e.getMessage(), HttpStatus.UNAUTHORIZED.value());
         }
 
         return true;

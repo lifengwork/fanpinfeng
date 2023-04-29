@@ -8,8 +8,8 @@
 package com.maibaduoduo.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.maibaduoduo.common.utils.R;
-import com.maibaduoduo.common.utils.TokenGenerator;
+import com.maibaduoduo.configuration.utils.R;
+import com.maibaduoduo.configuration.utils.TokenGenerator;
 import com.maibaduoduo.database.datasource.utils.JwtUtils;
 import com.maibaduoduo.jwt.TokenUtil;
 import com.maibaduoduo.jwt.model.AuthorizationInfo;
@@ -37,7 +37,7 @@ public class SysUserTokenServiceImpl extends ServiceImpl<SysUserTokenDao, SysUse
 	private TokenUtil tokenUtil;
 
 	@Override
-	public R createToken(String tenantId,String userName,Long userId) {
+	public R createToken(String tenantId, String userName, Long userId) {
 
 		//生成一个token
 		//String token = TokenGenerator.generateValue();

@@ -8,8 +8,8 @@
 package com.maibaduoduo.app.controller;
 
 import com.maibaduoduo.app.service.SaasStoreService;
-import com.maibaduoduo.common.utils.PageUtils;
-import com.maibaduoduo.common.utils.R;
+import com.maibaduoduo.configuration.utils.PageUtils;
+import com.maibaduoduo.configuration.utils.R;
 import com.maibaduoduo.store.entity.SaasStoreEntity;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;

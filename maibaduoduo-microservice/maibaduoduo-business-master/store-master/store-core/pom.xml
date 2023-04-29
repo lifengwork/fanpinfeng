@@ -135,7 +135,12 @@
 			<artifactId>database-core</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-    </dependencies>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-core</artifactId>
+            <version>3.3.2</version>
+        </dependency>
+	</dependencies>
 	<build>
 		<plugins>
 			<plugin>

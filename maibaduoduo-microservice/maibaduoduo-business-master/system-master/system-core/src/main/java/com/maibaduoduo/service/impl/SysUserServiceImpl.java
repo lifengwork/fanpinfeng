@@ -10,11 +10,11 @@ package com.maibaduoduo.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.maibaduoduo.common.exception.RRException;
-import com.maibaduoduo.common.utils.Constant;
-import com.maibaduoduo.common.utils.PageUtils;
-import com.maibaduoduo.common.utils.Query;
-import com.maibaduoduo.common.utils.RedisUtils;
+import com.maibaduoduo.configuration.exception.SaasException;
+import com.maibaduoduo.configuration.utils.Constant;
+import com.maibaduoduo.configuration.utils.PageUtils;
+import com.maibaduoduo.configuration.utils.Query;
+import com.maibaduoduo.configuration.utils.RedisUtils;
 import com.maibaduoduo.event.EmployeeInfo;
 import com.maibaduoduo.service.SysRoleService;
 import com.maibaduoduo.service.SysUserRoleService;
@@ -184,7 +184,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUserEntity> i
 
 		//判断是否越权
 		if(!roleIdList.containsAll(user.getRoleIdList())){
-			throw new RRException("新增用户所选角色，不是本人创建");
+			throw new SaasException("新增用户所选角色，不是本人创建");
 		}
 	}
 }

@@ -7,7 +7,7 @@
  */
 package com.maibaduoduo.event;
 
-import com.maibaduoduo.common.utils.IdGen;
+import com.maibaduoduo.configuration.utils.IdGen;
 import org.springframework.context.ApplicationEvent;
 
 /**

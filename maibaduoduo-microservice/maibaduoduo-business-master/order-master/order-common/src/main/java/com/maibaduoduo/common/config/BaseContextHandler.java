@@ -1,3 +1,10 @@
+/**
+ * Copyright (c) 2019-2023 SAAS开源 All rights reserved.
+ *
+ * SAAS系统设计研发交流
+ *
+ * https://www.maibaduoduo.com
+ */
 package com.maibaduoduo.common.config;
 
 import cn.hutool.core.convert.Convert;
@@ -8,9 +15,6 @@ import java.util.Map;
 
 
 /**
- * 获取当前域中的 用户id appid 用户昵称
- * 注意： appid 通过token解析，  用户id 和 用户昵称必须在前端 通过请求头的方法传入。 否则这里无法获取
- *
  * @author maibaduoduo
  * @createTime 2017-12-13 16:52
  */

@@ -7,7 +7,7 @@
  */
 package com.maibaduoduo.config;
 
-import com.maibaduoduo.common.utils.xss.XssFilter;
+import com.maibaduoduo.configuration.utils.xss.XssFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

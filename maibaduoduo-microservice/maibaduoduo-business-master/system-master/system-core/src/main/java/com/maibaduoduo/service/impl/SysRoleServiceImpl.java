@@ -10,10 +10,10 @@ package com.maibaduoduo.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.maibaduoduo.common.exception.RRException;
-import com.maibaduoduo.common.utils.Constant;
-import com.maibaduoduo.common.utils.PageUtils;
-import com.maibaduoduo.common.utils.Query;
+import com.maibaduoduo.configuration.exception.SaasException;
+import com.maibaduoduo.configuration.utils.Constant;
+import com.maibaduoduo.configuration.utils.PageUtils;
+import com.maibaduoduo.configuration.utils.Query;
 import com.maibaduoduo.service.SysRoleMenuService;
 import com.maibaduoduo.service.SysRoleService;
 import com.maibaduoduo.service.SysUserRoleService;
@@ -117,7 +117,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleDao, SysRoleEntity> i
 		
 		//判断是否越权
 		if(!menuIdList.containsAll(role.getMenuIdList())){
-			throw new RRException("新增角色的权限，已超出你的权限范围");
+			throw new SaasException("新增角色的权限，已超出你的权限范围");
 		}
 	}
 }

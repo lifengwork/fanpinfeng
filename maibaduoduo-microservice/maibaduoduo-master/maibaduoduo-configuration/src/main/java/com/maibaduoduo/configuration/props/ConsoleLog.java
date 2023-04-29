@@ -8,7 +8,6 @@
 package com.maibaduoduo.configuration.props;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.NestedExceptionUtils;
 import org.springframework.core.env.Environment;
 
 import java.net.InetAddress;
@@ -20,7 +19,7 @@ public class ConsoleLog {
         try {
             log.info("\n----------------------------------------------------------\n\t" +
                             "应用 '{}' 运行成功! 访问连接:\n\t" +
-                            "Swagger文档: \t\thttp://{}:{}/doc.html\n\t" +
+                            "接口文档: \t\thttp://{}:{}/doc.html\n\t" +
                             "数据库监控: \t\thttp://{}:{}/druid\n" +
                             "----------------------------------------------------------",
                     env.getProperty("spring.application.name"),

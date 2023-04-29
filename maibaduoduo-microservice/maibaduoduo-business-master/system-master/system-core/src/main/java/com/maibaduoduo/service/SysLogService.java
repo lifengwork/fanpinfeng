@@ -9,7 +9,7 @@ package com.maibaduoduo.service;
 
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.maibaduoduo.common.utils.PageUtils;
+import com.maibaduoduo.configuration.utils.PageUtils;
 import com.maibaduoduo.sys.entity.SysLogEntity;
 
 import java.util.Map;
