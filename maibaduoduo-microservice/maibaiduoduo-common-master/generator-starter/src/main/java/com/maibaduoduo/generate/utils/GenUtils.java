@@ -1,3 +1,10 @@
+/**
+ * Copyright (c) 2019-2023 SAAS开源 All rights reserved.
+ *
+ * SAAS系统设计研发交流
+ *
+ * https://www.maibaduoduo.com
+ */
 package com.maibaduoduo.generate.utils;
 
 import com.maibaduoduo.generate.entity.ColumnEntity;
@@ -58,6 +65,7 @@ public class GenUtils {
         tableEntity.setComments(table.get("tableComment" ));
         //表名转换成Java类名
         String className = tableToJava(tableEntity.getTableName(), config.getStringArray("tablePrefix"));
+        config.setProperty("moduleName",className.toLowerCase());
         tableEntity.setClassName(className);
         tableEntity.setClassname(StringUtils.uncapitalize(className));
 
@@ -134,7 +142,7 @@ public class GenUtils {
                 IOUtils.closeQuietly(sw);
                 zip.closeEntry();
             } catch (IOException e) {
-                throw new RRException("渲染模板失败，表名：" + tableEntity.getTableName(), e);
+                throw new SaasException("渲染模板失败，表名：" + tableEntity.getTableName(), e);
             }
         }
     }
@@ -160,13 +168,28 @@ public class GenUtils {
     }
 
     /**
+     * 添加模块名称
+     * @param moduleName
+     * @return
+     */
+    public static Configuration getConfig(String moduleName) {
+        try {
+            PropertiesConfiguration propertiesConfiguration = new PropertiesConfiguration("generator.properties" );
+            propertiesConfiguration.setProperty("moduleName",moduleName);
+            return propertiesConfiguration;
+        } catch (ConfigurationException e) {
+            throw new SaasException("获取配置文件失败，", e);
+        }
+    }
+
+    /**
      * 获取配置信息
      */
     public static Configuration getConfig() {
         try {
             return new PropertiesConfiguration("generator.properties" );
         } catch (ConfigurationException e) {
-            throw new RRException("获取配置文件失败，", e);
+            throw new SaasException("获取配置文件失败，", e);
         }
     }
 

@@ -1,15 +1,14 @@
 /**
- * Copyright (c) 2018 人人开源 All rights reserved.
+ * Copyright (c) 2019-2023 SAAS开源 All rights reserved.
  *
- * https://www.renren.io
+ * SAAS系统设计研发交流
  *
- * 版权所有，侵权必究！
+ * https://www.maibaduoduo.com
  */
-
 package com.maibaduoduo.generate.config;
 
 import com.maibaduoduo.generate.dao.*;
-import com.maibaduoduo.generate.utils.RRException;
+import com.maibaduoduo.generate.utils.SaasException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -23,7 +22,7 @@ import org.springframework.context.annotation.Primary;
  */
 @Configuration
 public class DbConfig {
-    @Value("${renren.database: mysql}")
+    @Value("${maibaduoduo.database: mysql}")
     private String database;
     @Autowired
     private MySQLGeneratorDao mySQLGeneratorDao;
@@ -46,7 +45,7 @@ public class DbConfig {
         }else if("postgresql".equalsIgnoreCase(database)){
             return postgreSQLGeneratorDao;
         }else {
-            throw new RRException("不支持当前数据库：" + database);
+            throw new SaasException("不支持当前数据库：" + database);
         }
     }
 }
