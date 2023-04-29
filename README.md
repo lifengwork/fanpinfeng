@@ -23,7 +23,7 @@
 - 引入APIFACADE模式，采用FEGIN来调用接口可以进行服务之间的交互，和实际业务端接口解耦便于开发维护
 - 请求数据校验采用Hibernate Validator校验框架
 - 实现了跨域、已经XSS、sql注入解决方案
-- 文件存储采用MiniIo作为分布式文件操作解决方案
+- 文件存储采用MinIO作为分布式文件操作解决方案
 - 实现了微服务组件注册中心、配置中心、微服务ADMINSEVICE管理监控服务的运行状态，以及使用HYSTRIX来监控服务的调用情况。
 - 引入swagger2文档支持，便于接口的调试和阅读
 - 实现了分布式事务（消息补偿机制）数据最终一致性解决方案
@@ -39,7 +39,7 @@
   *   #### Git
   *   #### Idea/Eclipse 
   *   #### Nacos、Redis、RabbitMQ、MQTT、Mysql、Tomcat
-  *   #### MinIo文件服务器
+  *   #### MinIO文件服务器
 
 # 系统结构
   SASS-FANPINFENG核心结构入如下:  
@@ -55,19 +55,21 @@
   |--maibaduoduo-admin-vue      saas业务前端系统  
 
 # 核心技术选型
- - SpringCloud  微服务所需组件
- - Springboot   便捷服务启动发布
+ - SpringCloud     微服务所需组件
+ - Springboot      便捷服务启动发布
+ - SpringCloudGateWay  微服务网关
  - Redis、ehcache  数据缓存
  - RabbitMq    支持高并发消息队列
  - Mysql     关系行数据存储数据
  - Vue2      前端框架
  - Nacos     服务注册发现、数据配置
  - Fegin(Ribbon、Hystrix)  负载均衡、服务容错回调、断路器等
- - Mqtt3     高效互联网协议
+ - Mqtt3     高效物联网协议
  - Apache Shiro    轻量级认证授权会话管理
  - JWT(TOKEN)    登录认证
  - MyBatisPlus   数据持久层框架
  - Druid    数据库链接池
+ - Tomcat9     web容器
  - XXL-JOB     定时任务管理
  - logback     日志记录
  - Swagger2    接口文档管理
