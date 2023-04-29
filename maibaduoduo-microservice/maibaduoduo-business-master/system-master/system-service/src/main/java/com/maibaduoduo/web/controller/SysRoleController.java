@@ -9,13 +9,13 @@ package com.maibaduoduo.web.controller;
 
 
 import com.maibaduoduo.common.annotation.SysLog;
-import com.maibaduoduo.common.utils.Constant;
-import com.maibaduoduo.common.utils.PageUtils;
-import com.maibaduoduo.common.utils.R;
+import com.maibaduoduo.configuration.utils.Constant;
+import com.maibaduoduo.configuration.utils.PageUtils;
+import com.maibaduoduo.configuration.utils.R;
+import com.maibaduoduo.configuration.utils.ValidatorUtils;
 import com.maibaduoduo.service.SysRoleMenuService;
 import com.maibaduoduo.service.SysRoleService;
 import com.maibaduoduo.sys.entity.SysRoleEntity;
-import com.maibaduoduo.validator.ValidatorUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

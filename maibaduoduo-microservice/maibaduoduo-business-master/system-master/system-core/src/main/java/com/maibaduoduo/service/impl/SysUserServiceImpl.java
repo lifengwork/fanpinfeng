@@ -10,11 +10,11 @@ package com.maibaduoduo.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.maibaduoduo.common.exception.RRException;
-import com.maibaduoduo.common.utils.Constant;
-import com.maibaduoduo.common.utils.PageUtils;
-import com.maibaduoduo.common.utils.Query;
-import com.maibaduoduo.common.utils.RedisUtils;
+import com.maibaduoduo.configuration.exception.SaasException;
+import com.maibaduoduo.configuration.utils.Constant;
+import com.maibaduoduo.configuration.utils.PageUtils;
+import com.maibaduoduo.configuration.utils.Query;
+import com.maibaduoduo.configuration.utils.RedisUtils;
 import com.maibaduoduo.event.EmployeeInfo;
 import com.maibaduoduo.service.SysRoleService;
 import com.maibaduoduo.service.SysUserRoleService;
@@ -82,7 +82,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUserEntity> i
 		return baseMapper.queryByMobile(mobile);
 	}
 	@Override
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	public void saveUser(SysUserEntity user) {
 		user.setCreateTime(new Date());
 		user.setStatus(0);//内部用户创建默认是禁用
@@ -92,12 +92,15 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUserEntity> i
 		user.setTenantId(user.getTenantId());
 		user.setSalt(salt);
 		this.save(user);
-		redisUtils.set(user.getUsername(),user);
+
 		//检查角色是否越权
 		checkRole(user);
 		
 		//保存用户与角色关系
 		sysUserRoleService.saveOrUpdate(user.getUserId(), user.getRoleIdList());
+
+		//用户信息放入缓存
+		redisUtils.set(user.getUsername(),user);
 
 		//业务端创建租户下的用户后通知SAAS运营端
 		EmployeeInfo employeeInfo = new EmployeeInfo(1);
@@ -112,7 +115,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUserEntity> i
 	 * 接收运营端的数据并保存，创建租户在业务端的管理账号
 	 * @param user
 	 */
-	@Transactional
+	@Transactional(rollbackFor = RuntimeException.class)
 	public void saveUserFromSaas(SysUserEntity user) {
 		//设置租户为系统管理员角色
 		List<Long> roleIdList = new ArrayList<Long>();
@@ -126,13 +129,16 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUserEntity> i
 		user.setTenantId(user.getTenantId());
 		user.setSalt(salt);
 		this.save(user);
-		redisUtils.set(user.getUsername(),user);
+
 		//保存用户与角色关系
 		sysUserRoleService.saveOrUpdate(user.getUserId(), user.getRoleIdList());
+
+		//用户信息放入缓存
+		redisUtils.set(user.getUsername(),user);
 	}
 
 	@Override
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	public void update(SysUserEntity user) {
 		if(StringUtils.isBlank(user.getPassword())){
 			user.setPassword(null);
@@ -178,7 +184,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUserEntity> i
 
 		//判断是否越权
 		if(!roleIdList.containsAll(user.getRoleIdList())){
-			throw new RRException("新增用户所选角色，不是本人创建");
+			throw new SaasException("新增用户所选角色，不是本人创建");
 		}
 	}
 }

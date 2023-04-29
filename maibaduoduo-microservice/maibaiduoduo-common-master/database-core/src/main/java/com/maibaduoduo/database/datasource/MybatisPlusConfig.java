@@ -1,3 +1,10 @@
+/**
+ * Copyright (c) 2019-2023 SAAS开源 All rights reserved.
+ *
+ * SAAS系统设计研发交流
+ *
+ * https://www.maibaduoduo.com
+ */
 package com.maibaduoduo.database.datasource;
 
 import cn.hutool.core.util.ObjectUtil;
@@ -45,7 +52,9 @@ public class MybatisPlusConfig {
                     public Expression getTenantId(boolean select) {
                         TenantDataSource.AuthorizationInfo authorizationInfo = TenantDataSource.instanceSingletonObject()
                                 .tenant(((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest());
-                        if (Objects.isNull(authorizationInfo)||StringUtils.isEmpty(authorizationInfo.getTenantId())) {
+
+                        if (Objects.isNull(authorizationInfo)||StringUtils.isEmpty(authorizationInfo.getTenantId())
+                                ||"0".equals(authorizationInfo.getTenantId())) {
                             return null;
                         }
                         return new StringValue(authorizationInfo.getTenantId());

@@ -31,11 +31,6 @@
 			<artifactId>system-core</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>com.maibaduoduo</groupId>
-			<artifactId>maibaduoduo-configuration</artifactId>
-			<version>${project.version}</version>
-		</dependency>
         <!--引入项目依赖 end-->
 	</dependencies>
 	<build>

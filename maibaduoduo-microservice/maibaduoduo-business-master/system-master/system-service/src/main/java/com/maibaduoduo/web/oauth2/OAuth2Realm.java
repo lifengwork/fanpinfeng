@@ -6,6 +6,8 @@
  * https://www.maibaduoduo.com
  */
 package com.maibaduoduo.web.oauth2;
+import cn.hutool.core.util.StrUtil;
+import com.maibaduoduo.jwt.common.BaseContextConstants;
 import com.maibaduoduo.service.ShiroService;
 import com.maibaduoduo.sys.entity.SysUserEntity;
 import com.maibaduoduo.sys.entity.SysUserTokenEntity;
@@ -54,7 +56,12 @@ public class OAuth2Realm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         String accessToken = (String) token.getPrincipal();
-        SysUserTokenEntity tokenEntity = shiroService.queryByToken(accessToken);
+        SysUserTokenEntity tokenEntity=null;
+        try{
+            tokenEntity =shiroService.queryByToken(StrUtil.subAfter(accessToken, BaseContextConstants.BEARER_HEADER_PREFIX, false));
+        }catch (Exception e){
+            throw new IncorrectCredentialsException(e.getMessage());
+        }
         if(Objects.isNull(tokenEntity) || tokenEntity.getExpireTime().getTime() < System.currentTimeMillis()){
             throw new IncorrectCredentialsException("token失效，请重新登录");
         }

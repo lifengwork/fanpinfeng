@@ -9,8 +9,8 @@ package com.maibaduoduo.aspect;
 
 import com.google.gson.Gson;
 import com.maibaduoduo.common.annotation.SysLog;
-import com.maibaduoduo.common.utils.HttpContextUtils;
-import com.maibaduoduo.common.utils.IPUtils;
+import com.maibaduoduo.configuration.utils.HttpContextUtils;
+import com.maibaduoduo.configuration.utils.IPUtils;
 import com.maibaduoduo.service.SysLogService;
 import com.maibaduoduo.sys.entity.SysLogEntity;
 import com.maibaduoduo.sys.entity.SysUserEntity;

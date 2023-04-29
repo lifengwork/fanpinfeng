@@ -7,7 +7,7 @@
  */
 package com.maibaduoduo.service.impl;
 
-import com.maibaduoduo.common.utils.Constant;
+import com.maibaduoduo.configuration.utils.Constant;
 import com.maibaduoduo.service.ShiroService;
 import com.maibaduoduo.sys.dao.SysMenuDao;
 import com.maibaduoduo.sys.dao.SysUserDao;

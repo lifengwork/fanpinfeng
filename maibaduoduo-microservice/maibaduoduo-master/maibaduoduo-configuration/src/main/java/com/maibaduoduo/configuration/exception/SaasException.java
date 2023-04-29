@@ -1,48 +1,60 @@
+/**
+ * Copyright (c) 2019-2023 SAAS开源 All rights reserved.
+ *
+ * SAAS系统设计研发交流
+ *
+ * https://www.maibaduoduo.com
+ */
 package com.maibaduoduo.configuration.exception;
 
-public class SaasException extends BaseUnCheckException {
-    private static final long serialVersionUID = -3843907364558373817L;
+/**
+ * 自定义异常
+ *
+ * @author Mark lifengwork@yeah.net
+ */
+public class SaasException extends RuntimeException {
+	private static final long serialVersionUID = 1L;
+	
+    private String msg;
+    private int code = 500;
+    
+    public SaasException(String msg) {
+		super(msg);
+		this.msg = msg;
+	}
+	
+	public SaasException(String msg, Throwable e) {
+		super(msg, e);
+		this.msg = msg;
+	}
+	
+	public SaasException(String msg, int code) {
+		super(msg);
+		this.msg = msg;
+		this.code = code;
+	}
+	
+	public SaasException(String msg, int code, Throwable e) {
+		super(msg, e);
+		this.msg = msg;
+		this.code = code;
+	}
 
-    public SaasException(Throwable throwable){super(throwable);}
+	public String getMsg() {
+		return msg;
+	}
 
-    public SaasException(String message) {
-        super(-1, message);
-    }
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
 
-    public SaasException(int code, String message) {
-        super(code, message);
-    }
+	public int getCode() {
+		return code;
+	}
 
-    public SaasException(int code, String message, Object... args) {
-        super(code, message, args);
-    }
-
-    /**
-     * 实例化异常
-     *
-     * @param code    自定义异常编码
-     * @param message 自定义异常消息
-     * @param args    已定义异常参数
-     * @return
-     */
-    public static SaasException wrap(int code, String message, Object... args) {
-        return new SaasException(code, message, args);
-    }
-
-    public static SaasException wrap(String message, Object... args) {
-        return new SaasException(-1, message, args);
-    }
-
-    public static SaasException validFail(String message, Object... args) {
-        return new SaasException(-9, message, args);
-    }
-
-    public static SaasException wrap(BaseExceptionCode ex) {
-        return new SaasException(ex.getCode(), ex.getMsg());
-    }
-
-    @Override
-    public String toString() {
-        return "BizException [message=" + message + ", code=" + code + "]";
-    }
+	public void setCode(int code) {
+		this.code = code;
+	}
+	
+	
 }

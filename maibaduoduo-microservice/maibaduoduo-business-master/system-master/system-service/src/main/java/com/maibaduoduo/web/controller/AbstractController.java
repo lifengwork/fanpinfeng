@@ -7,8 +7,8 @@
  */
 package com.maibaduoduo.web.controller;
 
-import com.maibaduoduo.common.utils.RedisUtils;
-import com.maibaduoduo.common.utils.SystemSpringContextUtils;
+import com.maibaduoduo.configuration.utils.RedisUtils;
+import com.maibaduoduo.configuration.utils.SystemSpringContextUtils;
 import com.maibaduoduo.sys.entity.SysCaptchaEntity;
 import com.maibaduoduo.sys.entity.SysUserEntity;
 import org.apache.shiro.SecurityUtils;

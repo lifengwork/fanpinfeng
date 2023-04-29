@@ -8,7 +8,7 @@
 package com.maibaduoduo.system.facade.api;
 
 import com.maibaduoduo.common.form.LoginForm;
-import com.maibaduoduo.common.utils.R;
+import com.maibaduoduo.configuration.utils.R;
 import feign.hystrix.FallbackFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

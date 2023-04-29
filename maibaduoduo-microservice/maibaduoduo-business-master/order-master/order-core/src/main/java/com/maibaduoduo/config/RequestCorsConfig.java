@@ -7,7 +7,7 @@
  */
 package com.maibaduoduo.config;
 
-import com.maibaduoduo.common.utils.HttpContextUtils;
+import com.maibaduoduo.configuration.utils.HttpContextUtils;
 import org.springframework.context.annotation.Configuration;
 
 import javax.servlet.*;

@@ -9,9 +9,9 @@ package com.maibaduoduo.app.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.maibaduoduo.app.service.AppUserService;
-import com.maibaduoduo.common.exception.RRException;
 import com.maibaduoduo.common.form.LoginForm;
-import com.maibaduoduo.common.utils.RedisUtils;
+import com.maibaduoduo.configuration.exception.SaasException;
+import com.maibaduoduo.configuration.utils.RedisUtils;
 import com.maibaduoduo.database.datasource.utils.JwtUtils;
 import com.maibaduoduo.jwt.TokenUtil;
 import com.maibaduoduo.jwt.model.JwtUserInfo;
@@ -51,7 +51,7 @@ public class AppUserServiceImpl extends AppUserService {
         SysUserEntity userEntity = this.queryByMobile(form.getMobile());
         Assert.isNull(userEntity, "手机号或密码错误");
         if(!userEntity.getPassword().equals(new Sha256Hash(form.getPassword(), userEntity.getSalt()).toHex())){
-            throw new RRException("手机号或密码错误");
+            throw new SaasException("手机号或密码错误");
         }
         return userEntity.getUserId();
     }
@@ -66,7 +66,7 @@ public class AppUserServiceImpl extends AppUserService {
         SysUserEntity userEntity = this.queryByMobile(form.getMobile());
         Assert.isNull(userEntity, "手机号或密码错误");
         if(!userEntity.getPassword().equals(new Sha256Hash(form.getPassword(), userEntity.getSalt()).toHex())){
-            throw new RRException("用户密码错误");
+            throw new SaasException("用户密码错误");
         }
         //return jwtUtils.generateToken(userEntity.getUsername(),userEntity.getTenantId());
         return tokenUtil.createAuthInfo(new JwtUserInfo().setValue(userEntity.getUserId(),userEntity.getMobile(),

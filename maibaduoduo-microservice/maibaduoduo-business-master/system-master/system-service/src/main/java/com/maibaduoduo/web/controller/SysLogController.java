@@ -7,8 +7,8 @@
  */
 package com.maibaduoduo.web.controller;
 
-import com.maibaduoduo.common.utils.PageUtils;
-import com.maibaduoduo.common.utils.R;
+import com.maibaduoduo.configuration.utils.PageUtils;
+import com.maibaduoduo.configuration.utils.R;
 import com.maibaduoduo.service.SysLogService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;

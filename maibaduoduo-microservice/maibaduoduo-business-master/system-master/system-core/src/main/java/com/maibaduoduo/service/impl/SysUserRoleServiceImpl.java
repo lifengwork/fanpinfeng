@@ -8,7 +8,7 @@
 package com.maibaduoduo.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.maibaduoduo.common.utils.MapUtils;
+import com.maibaduoduo.configuration.utils.MapUtils;
 import com.maibaduoduo.service.SysUserRoleService;
 import com.maibaduoduo.sys.dao.SysUserRoleDao;
 import com.maibaduoduo.sys.entity.SysUserRoleEntity;

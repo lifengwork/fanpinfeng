@@ -124,11 +124,12 @@ public class JwtUtil {
                 .decryptStr(claims.getSubject(), Charsets.UTF_8);
         authorizationInfo.setExpiration(claims.getExpiration());
         authorizationInfo.setExpire(claims.getExpiration() != null ? claims.getExpiration().getTime() : 0L);
-        authorizationInfo.setTokenType(claim.split(StrPool.PIPEV)[0]);
-        authorizationInfo.setUserId(Long.valueOf(claim.split(StrPool.PIPEV)[1]));
-        authorizationInfo.setMobile(claim.split(StrPool.PIPEV)[2]);
-        authorizationInfo.setUserName(claim.split(StrPool.PIPEV)[3]);
-        authorizationInfo.setTenantId(claim.split(StrPool.PIPEV)[4]);
+        String[] claimArr = claim.split(StrPool.PIPEV);
+        authorizationInfo.setTokenType(claimArr[0]);
+        authorizationInfo.setUserId(Long.valueOf(claimArr[1]));
+        authorizationInfo.setMobile(claimArr[2]);
+        authorizationInfo.setUserName(claimArr[3]);
+        authorizationInfo.setTenantId(claimArr[4]);
         return authorizationInfo;
     }
 

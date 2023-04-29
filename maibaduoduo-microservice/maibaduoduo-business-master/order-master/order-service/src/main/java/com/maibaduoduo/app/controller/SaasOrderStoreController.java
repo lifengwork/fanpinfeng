@@ -8,9 +8,9 @@
 package com.maibaduoduo.app.controller;
 
 import com.maibaduoduo.app.service.SaasOrderStoreService;
-import com.maibaduoduo.common.utils.PageUtils;
-import com.maibaduoduo.common.utils.R;
-import com.maibaduoduo.common.utils.ValidatorUtils;
+import com.maibaduoduo.configuration.utils.PageUtils;
+import com.maibaduoduo.configuration.utils.R;
+import com.maibaduoduo.configuration.utils.ValidatorUtils;
 import com.maibaduoduo.order.entity.PassWordEntity;
 import com.maibaduoduo.order.entity.SaasOrderStoreEntity;
 import com.maibaduoduo.store.entity.SaasStoreEntity;

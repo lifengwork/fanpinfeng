@@ -1,14 +1,6 @@
-/**
- * Copyright (c) 2016-2019 人人开源 All rights reserved.
- *
- * https://www.maibaduoduo.com
- *
- * 版权所有，侵权必究！
- */
-
 package com.maibaduoduo.utils;
 
-import com.maibaduoduo.common.exception.RRException;
+import com.maibaduoduo.configuration.exception.SaasException;
 import com.maibaduoduo.sys.entity.SysUserEntity;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
@@ -52,7 +44,7 @@ public class ShiroUtils {
 	public static String getKaptcha(String key) {
 		Object kaptcha = getSessionAttribute(key);
 		if(kaptcha == null){
-			throw new RRException("验证码已失效");
+			throw new SaasException("验证码已失效");
 		}
 		getSession().removeAttribute(key);
 		return kaptcha.toString();

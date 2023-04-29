@@ -158,6 +158,11 @@
             <artifactId>hibernate-validator</artifactId>
             <version>${hibernate-validator.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.maibaduoduo</groupId>
+            <artifactId>jwt-starter</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <!--引入核心包 end-->
     </dependencies>
     <build>

@@ -140,7 +140,12 @@
 			<artifactId>jwt-starter</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-    </dependencies>
+		<dependency>
+			<groupId>com.baomidou</groupId>
+			<artifactId>mybatis-plus-core</artifactId>
+			<version>${mybatisplus.version}</version>
+		</dependency>
+	</dependencies>
 	<build>
 		<plugins>
 			<plugin>

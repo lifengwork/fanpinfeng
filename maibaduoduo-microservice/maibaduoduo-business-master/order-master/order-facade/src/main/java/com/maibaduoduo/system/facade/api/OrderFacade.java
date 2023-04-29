@@ -7,7 +7,7 @@
  */
 package com.maibaduoduo.system.facade.api;
 
-import com.maibaduoduo.common.utils.R;
+import com.maibaduoduo.configuration.utils.R;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;

@@ -8,8 +8,8 @@
 package com.maibaduoduo.web.oauth2;
 
 import com.google.gson.Gson;
-import com.maibaduoduo.common.utils.HttpContextUtils;
-import com.maibaduoduo.common.utils.R;
+import com.maibaduoduo.configuration.utils.HttpContextUtils;
+import com.maibaduoduo.configuration.utils.R;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpStatus;
 import org.apache.shiro.authc.AuthenticationException;

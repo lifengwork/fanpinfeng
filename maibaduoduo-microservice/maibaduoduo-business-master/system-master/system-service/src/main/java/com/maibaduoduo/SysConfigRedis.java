@@ -8,8 +8,8 @@
 
 package com.maibaduoduo;
 
-import com.maibaduoduo.common.utils.RedisKeys;
-import com.maibaduoduo.common.utils.RedisUtils;
+import com.maibaduoduo.configuration.utils.RedisKeys;
+import com.maibaduoduo.configuration.utils.RedisUtils;
 import com.maibaduoduo.sys.entity.SysConfigEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

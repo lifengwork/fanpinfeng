@@ -1,6 +1,10 @@
 package com.maibaduoduo.database.datasource.dynamic.properties;
 
 import com.google.common.collect.Lists;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -9,6 +13,8 @@ import java.util.List;
  * @date: 2023/4/17 17:30
  * @Author: pm2022
  */
+@NoArgsConstructor
+@ConfigurationProperties(prefix = "maibaduoduo.login")
 public class LoginProperties {
     private String pcTokenName="token";
     private String pcUrI="/sys/login";
@@ -16,7 +22,6 @@ public class LoginProperties {
     private String appUri="/app/login";
     private List<String> filterInvalidToken= Lists.newArrayList();
     private String dbCachePrefix="TENANT_DB_URL_*";
-
     public String getDbCachePrefix() {
         return dbCachePrefix;
     }

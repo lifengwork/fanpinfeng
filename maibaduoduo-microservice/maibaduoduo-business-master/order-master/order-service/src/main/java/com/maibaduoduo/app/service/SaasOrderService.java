@@ -8,7 +8,7 @@
 package com.maibaduoduo.app.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.maibaduoduo.common.utils.PageUtils;
+import com.maibaduoduo.configuration.utils.PageUtils;
 import com.maibaduoduo.order.entity.SaasOrderEntity;
 
 import java.util.Map;

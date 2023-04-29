@@ -7,7 +7,7 @@
  */
 package com.maibaduoduo.aspect;
 
-import com.maibaduoduo.common.exception.RRException;
+import com.maibaduoduo.configuration.exception.SaasException;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -29,7 +29,7 @@ public class RedisAspect {
     @Value("${spring.redis.open: false}")
     private boolean open;
 
-    @Around("execution(* com.maibaduoduo.common.utils.RedisUtils.*(..))")
+    @Around("execution(* com.maibaduoduo.configuration.utils.RedisUtils.*(..))")
     public Object around(ProceedingJoinPoint point) throws Throwable {
         Object result = null;
         if(open){
@@ -37,7 +37,7 @@ public class RedisAspect {
                 result = point.proceed();
             }catch (Exception e){
                 logger.error("redis error", e);
-                throw new RRException("Redis服务异常");
+                throw new SaasException("Redis服务异常");
             }
         }
         return result;
