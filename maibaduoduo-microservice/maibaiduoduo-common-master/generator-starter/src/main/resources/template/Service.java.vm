@@ -1,7 +1,14 @@
+/**
+ * Copyright (c) 2019-2023 SAAS开源 All rights reserved.
+ *
+ * SAAS系统设计研发交流
+ *
+ * https://www.maibaduoduo.com
+ */
 package ${package}.${moduleName}.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import ${mainPath}.common.utils.PageUtils;
+import ${mainPath}.configuration.utils.PageUtils;
 import ${package}.${moduleName}.entity.${className}Entity;
 
 import java.util.Map;

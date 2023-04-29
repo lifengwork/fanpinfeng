@@ -1,11 +1,10 @@
 /**
- * Copyright (c) 2018 人人开源 All rights reserved.
+ * Copyright (c) 2019-2023 SAAS开源 All rights reserved.
  *
- * https://www.renren.io
+ * SAAS系统设计研发交流
  *
- * 版权所有，侵权必究！
+ * https://www.maibaduoduo.com
  */
-
 package com.maibaduoduo.generate.controller;
 
 import com.maibaduoduo.generate.utils.PageUtils;
@@ -53,7 +52,7 @@ public class SysGeneratorController {
 		byte[] data = sysGeneratorService.generatorCode(tables.split(","));
 		
 		response.reset();  
-        response.setHeader("Content-Disposition", "attachment; filename=\"renren.zip\"");  
+        response.setHeader("Content-Disposition", "attachment; filename=\"saas.zip\"");
         response.addHeader("Content-Length", "" + data.length);  
         response.setContentType("application/octet-stream; charset=UTF-8");  
   

@@ -1,3 +1,10 @@
+/**
+ * Copyright (c) 2019-2023 SAAS开源 All rights reserved.
+ *
+ * SAAS系统设计研发交流
+ *
+ * https://www.maibaduoduo.com
+ */
 package ${package}.${moduleName}.controller;
 
 import java.util.Arrays;
@@ -13,8 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ${package}.${moduleName}.entity.${className}Entity;
 import ${package}.${moduleName}.service.${className}Service;
-import ${mainPath}.common.utils.PageUtils;
-import ${mainPath}.common.utils.R;
+import ${mainPath}.configuration.utils.PageUtils;
+import ${mainPath}.configuration.utils.R;
 
 
 
