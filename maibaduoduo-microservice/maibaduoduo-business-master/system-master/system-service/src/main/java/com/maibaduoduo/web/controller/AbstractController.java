@@ -11,6 +11,7 @@ import com.maibaduoduo.configuration.utils.RedisUtils;
 import com.maibaduoduo.configuration.utils.SystemSpringContextUtils;
 import com.maibaduoduo.sys.entity.SysCaptchaEntity;
 import com.maibaduoduo.sys.entity.SysUserEntity;
+import io.swagger.annotations.Api;
 import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +25,7 @@ import javax.servlet.http.HttpServletRequest;
  *
  * @author Mark sunlightcs@gmail.com
  */
+@Api("业务接口文档")
 public abstract class AbstractController {
     protected Logger logger = LoggerFactory.getLogger(getClass());
 

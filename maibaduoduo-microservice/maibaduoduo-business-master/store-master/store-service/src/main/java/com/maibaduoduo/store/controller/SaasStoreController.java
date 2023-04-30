@@ -11,6 +11,7 @@ import com.maibaduoduo.store.service.SaasStoreService;
 import com.maibaduoduo.configuration.utils.PageUtils;
 import com.maibaduoduo.configuration.utils.R;
 import com.maibaduoduo.store.entity.SaasStoreEntity;
+import io.swagger.annotations.Api;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +28,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/saas/store")
+@Api("仓库接口文档")
 public class SaasStoreController {
     @Autowired
     private SaasStoreService saasStoreService;

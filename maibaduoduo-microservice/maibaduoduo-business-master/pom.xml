@@ -74,5 +74,6 @@
         <module>system-master</module>
 		<module>order-master</module>
 		<module>store-master</module>
+		<module>common-master</module>
     </modules>
 </project>

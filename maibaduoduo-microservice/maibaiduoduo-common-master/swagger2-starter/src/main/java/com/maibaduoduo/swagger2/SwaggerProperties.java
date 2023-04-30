@@ -25,6 +25,10 @@ public class SwaggerProperties {
      * 是否开启swagger
      **/
     private Boolean enabled = true;
+    /**
+     * 接口文档服务名称
+     */
+    private String service;
 
     /**
      * 是否生产环境

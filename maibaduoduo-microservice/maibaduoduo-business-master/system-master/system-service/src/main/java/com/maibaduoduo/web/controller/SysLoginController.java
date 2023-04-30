@@ -17,6 +17,7 @@ import com.maibaduoduo.service.SysUserService;
 import com.maibaduoduo.service.SysUserTokenService;
 import com.maibaduoduo.sys.entity.SysCaptchaEntity;
 import com.maibaduoduo.sys.entity.SysUserEntity;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.io.IOUtils;
 import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,7 @@ public class SysLoginController extends AbstractController {
 	 * 验证码
 	 */
 	@GetMapping("captcha.jpg")
+	@ApiOperation("验证码")
 	public void captcha(HttpServletResponse response, String uuid)throws IOException {
 		response.setHeader("Cache-Control", "no-store, no-cache");
 		response.setContentType("image/jpeg");
@@ -69,6 +71,7 @@ public class SysLoginController extends AbstractController {
 	 * 登录
 	 */
 	@PostMapping("/sys/login")
+	@ApiOperation("用户登录")
 	public Map<String, Object> login(@RequestBody SysLoginForm form) throws Exception {
 		SysCaptchaEntity sysCaptchaEntity = new SysCaptchaEntity();
 		JSONObject jsonObject = JSON.parseObject(redisUtils.get(form.getUuid()));
@@ -103,6 +106,7 @@ public class SysLoginController extends AbstractController {
 	 * 退出
 	 */
 	@PostMapping("/sys/logout")
+	@ApiOperation("用户推出")
 	public R logout() {
 		sysUserTokenService.logout(getUserId());
 		return R.ok();

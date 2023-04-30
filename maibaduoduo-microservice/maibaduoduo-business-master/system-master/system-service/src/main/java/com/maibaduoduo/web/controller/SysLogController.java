@@ -10,6 +10,7 @@ package com.maibaduoduo.web.controller;
 import com.maibaduoduo.configuration.utils.PageUtils;
 import com.maibaduoduo.configuration.utils.R;
 import com.maibaduoduo.service.SysLogService;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,6 +39,7 @@ public class SysLogController {
 	@ResponseBody
 	@GetMapping("/list")
 	@RequiresPermissions("sys:log:list")
+	@ApiOperation("日志列表")
 	public R list(@RequestParam Map<String, Object> params){
 		PageUtils page = sysLogService.queryPage(params);
 

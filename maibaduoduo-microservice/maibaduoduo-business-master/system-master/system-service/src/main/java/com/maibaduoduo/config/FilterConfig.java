@@ -45,14 +45,4 @@ public class FilterConfig {
         registration.setOrder(Integer.MAX_VALUE);
         return registration;
     }
-/*   @Bean
-    public FilterRegistrationBean tenantFilterRegistration() {
-        FilterRegistrationBean registration = new FilterRegistrationBean();
-        registration.setDispatcherTypes(DispatcherType.REQUEST);
-        registration.setFilter(new TenantFilter());
-        registration.addUrlPatterns("/sys/login");
-        registration.setName("tenantFilter");
-        registration.setOrder(Integer.MAX_VALUE-1);
-        return registration;
-    }*/
 }
