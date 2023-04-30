@@ -4,6 +4,7 @@ import com.github.xiaoymin.knife4j.spring.filter.ProductionSecurityFilter;
 import com.github.xiaoymin.knife4j.spring.filter.SecurityBasicAuthFilter;
 import com.github.xiaoymin.knife4j.spring.model.MarkdownFiles;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
@@ -46,8 +47,8 @@ public class Swagger2Configuration implements WebMvcConfigurer {
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
-        registry.addResourceHandler("doc.html").addResourceLocations("classpath:/META-INF/resources/");
+        registry.addResourceHandler("/swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
+        registry.addResourceHandler("/doc.html").addResourceLocations("classpath:/META-INF/resources/");
         registry.addResourceHandler("/webjars*")
                 .addResourceLocations("classpath:/META-INF/resources/webjars/");
     }

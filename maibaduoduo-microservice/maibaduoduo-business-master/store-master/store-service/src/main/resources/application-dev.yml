@@ -48,3 +48,5 @@ maibaduoduo:
         ignoreTenantTables:
             - "sys_tenant"
             - "oauth_resource"
+    interceptor:
+        path: "/saas/**"

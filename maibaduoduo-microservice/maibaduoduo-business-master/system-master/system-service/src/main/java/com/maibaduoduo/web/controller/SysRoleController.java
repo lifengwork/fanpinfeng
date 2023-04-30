@@ -16,6 +16,7 @@ import com.maibaduoduo.configuration.utils.ValidatorUtils;
 import com.maibaduoduo.service.SysRoleMenuService;
 import com.maibaduoduo.service.SysRoleService;
 import com.maibaduoduo.sys.entity.SysRoleEntity;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -42,6 +43,7 @@ public class SysRoleController extends AbstractController {
 	 */
 	@GetMapping("/list")
 	@RequiresPermissions("sys:role:list")
+	@ApiOperation("角色列表")
 	public R list(@RequestParam Map<String, Object> params){
 		//如果不是超级管理员，则只查询自己创建的角色列表
 		if(getUserId() != Constant.SUPER_ADMIN){
@@ -58,6 +60,7 @@ public class SysRoleController extends AbstractController {
 	 */
 	@GetMapping("/select")
 	@RequiresPermissions("sys:role:select")
+	@ApiOperation("角色选择")
 	public R select(){
 		Map<String, Object> map = new HashMap<>();
 		
@@ -75,6 +78,7 @@ public class SysRoleController extends AbstractController {
 	 */
 	@GetMapping("/info/{roleId}")
 	@RequiresPermissions("sys:role:info")
+	@ApiOperation("角色信息")
 	public R info(@PathVariable("roleId") Long roleId){
 		SysRoleEntity role = sysRoleService.getById(roleId);
 		
@@ -91,6 +95,7 @@ public class SysRoleController extends AbstractController {
 	@SysLog("保存角色")
 	@PostMapping("/save")
 	@RequiresPermissions("sys:role:save")
+	@ApiOperation("保存角色")
 	public R save(@RequestBody SysRoleEntity role){
 		ValidatorUtils.validateEntity(role);
 		
@@ -106,6 +111,7 @@ public class SysRoleController extends AbstractController {
 	@SysLog("修改角色")
 	@PostMapping("/update")
 	@RequiresPermissions("sys:role:update")
+	@ApiOperation("修改角色")
 	public R update(@RequestBody SysRoleEntity role){
 		ValidatorUtils.validateEntity(role);
 		
@@ -121,6 +127,7 @@ public class SysRoleController extends AbstractController {
 	@SysLog("删除角色")
 	@PostMapping("/delete")
 	@RequiresPermissions("sys:role:delete")
+	@ApiOperation("删除角色")
 	public R delete(@RequestBody Long[] roleIds){
 		sysRoleService.deleteBatch(roleIds);
 		

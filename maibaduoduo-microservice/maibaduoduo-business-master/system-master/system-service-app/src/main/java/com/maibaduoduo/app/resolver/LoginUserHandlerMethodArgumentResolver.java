@@ -8,8 +8,8 @@
 package com.maibaduoduo.app.resolver;
 
 import com.maibaduoduo.app.annotation.LoginUser;
-import com.maibaduoduo.app.interceptor.AuthorizationInterceptor;
 import com.maibaduoduo.app.service.AppUserService;
+import com.maibaduoduo.interceptor.AuthorizationInterceptor;
 import com.maibaduoduo.sys.entity.SysUserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;

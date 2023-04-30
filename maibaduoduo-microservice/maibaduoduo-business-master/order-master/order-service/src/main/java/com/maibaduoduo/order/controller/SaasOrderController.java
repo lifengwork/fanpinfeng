@@ -11,6 +11,7 @@ import com.maibaduoduo.order.service.SaasOrderService;
 import com.maibaduoduo.configuration.utils.PageUtils;
 import com.maibaduoduo.configuration.utils.R;
 import com.maibaduoduo.order.entity.SaasOrderEntity;
+import io.swagger.annotations.Api;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +29,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/saas/order")
+@Api("订单接口文档")
 public class SaasOrderController {
     @Autowired
     private SaasOrderService saasOrderService;

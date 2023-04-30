@@ -20,6 +20,7 @@ import com.maibaduoduo.utils.ShiroUtils;
 import com.maibaduoduo.validator.Assert;
 import com.maibaduoduo.validator.group.AddGroup;
 import com.maibaduoduo.validator.group.UpdateGroup;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.crypto.hash.Sha256Hash;
@@ -48,6 +49,7 @@ public class SysUserController extends AbstractController {
 	 */
 	@GetMapping("/list")
 	@RequiresPermissions("sys:user:list")
+	@ApiOperation("用户列表")
 	public R list(@RequestParam Map<String, Object> params){
 		//只有超级管理员，才能查看所有管理员列表
 		if(getUserId() != Constant.SUPER_ADMIN){
@@ -62,6 +64,7 @@ public class SysUserController extends AbstractController {
 	 * 获取登录的用户信息
 	 */
 	@GetMapping("/info")
+	@ApiOperation("获取登录的用户信息")
 	public R info(){
 		return R.ok().put("user", getUser());
 	}
@@ -70,6 +73,7 @@ public class SysUserController extends AbstractController {
 	 * 获取登录的用户信息 /sys/user/info/un
 	 */
 	@GetMapping("/info/un")
+	@ApiOperation("获取登录的用户信息UN")
 	public R infoByUserName(String username){
 		return R.ok().put("user",sysUserService.queryByUserName(username));
 	}
@@ -78,6 +82,7 @@ public class SysUserController extends AbstractController {
 	 * 获取登录的用户手机号 /sys/user/info/un
 	 */
 	@GetMapping("/info/m/{mobile}")
+	@ApiOperation("获取登录的用户手机号")
 	public R infoByMobile(@PathVariable("mobile") String mobile){
 		return R.ok().put("user",sysUserService.queryByMobile(mobile));
 	}
@@ -87,6 +92,7 @@ public class SysUserController extends AbstractController {
 	 */
 	@SysLog("修改密码")
 	@PostMapping("/password")
+	@ApiOperation("修改登录用户密码")
 	public R password(@RequestBody PasswordForm form){
 		Assert.isBlank(form.getNewPassword(), "新密码不为能空");
 		
@@ -110,6 +116,7 @@ public class SysUserController extends AbstractController {
 	 */
 	@GetMapping("/info/{userId}")
 	//@RequiresPermissions("sys:user:info")
+	@ApiOperation("获取用户信息")
 	public R info(@PathVariable("userId") Long userId){
 		SysUserEntity user = sysUserService.getById(userId);
 		
@@ -126,6 +133,7 @@ public class SysUserController extends AbstractController {
 	@SysLog("保存用户")
 	@PostMapping("/save")
 	@RequiresPermissions("sys:user:save")
+	@ApiOperation("保存用户")
 	public R save(@RequestBody SysUserEntity user){
 		ValidatorUtils.validateEntity(user, AddGroup.class);
 		user.setTenantId(ShiroUtils.getUserEntity().getUsername());
@@ -141,6 +149,7 @@ public class SysUserController extends AbstractController {
 	@SysLog("修改用户")
 	@PostMapping("/update")
 	@RequiresPermissions("sys:user:update")
+	@ApiOperation("修改用户")
 	public R update(@RequestBody SysUserEntity user){
 		ValidatorUtils.validateEntity(user, UpdateGroup.class);
 
@@ -156,6 +165,7 @@ public class SysUserController extends AbstractController {
 	@SysLog("删除用户")
 	@PostMapping("/delete")
 	@RequiresPermissions("sys:user:delete")
+	@ApiOperation("删除用户")
 	public R delete(@RequestBody Long[] userIds){
 		if(ArrayUtils.contains(userIds, 1L)){
 			return R.error("系统管理员不能删除");

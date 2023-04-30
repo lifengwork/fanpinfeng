@@ -41,6 +41,7 @@ public class SysMenuController extends AbstractController {
 	 * 导航菜单
 	 */
 	@GetMapping("/nav")
+	@ApiOperation("导航菜单")
 	public R nav(){
 		List<SysMenuEntity> menuList = sysMenuService.getUserMenuList(getUserId());
 		Set<String> permissions = shiroService.getUserPermissions(getUserId());
@@ -69,6 +70,7 @@ public class SysMenuController extends AbstractController {
 	 */
 	@GetMapping("/select")
 	@RequiresPermissions("sys:menu:select")
+	@ApiOperation("选择菜单")
 	public R select(){
 		//查询列表数据
 		List<SysMenuEntity> menuList = sysMenuService.queryNotButtonList();
@@ -89,6 +91,7 @@ public class SysMenuController extends AbstractController {
 	 */
 	@GetMapping("/info/{menuId}")
 	@RequiresPermissions("sys:menu:info")
+	@ApiOperation("菜单信息")
 	public R info(@PathVariable("menuId") Long menuId){
 		SysMenuEntity menu = sysMenuService.getById(menuId);
 		return R.ok().put("menu", menu);
@@ -100,6 +103,7 @@ public class SysMenuController extends AbstractController {
 	@SysLog("保存菜单")
 	@PostMapping("/save")
 	@RequiresPermissions("sys:menu:save")
+	@ApiOperation("保存菜单")
 	public R save(@RequestBody SysMenuEntity menu){
 		//数据校验
 		verifyForm(menu);
@@ -115,6 +119,7 @@ public class SysMenuController extends AbstractController {
 	@SysLog("修改菜单")
 	@PostMapping("/update")
 	@RequiresPermissions("sys:menu:update")
+	@ApiOperation("修改菜单")
 	public R update(@RequestBody SysMenuEntity menu){
 		//数据校验
 		verifyForm(menu);
@@ -130,6 +135,7 @@ public class SysMenuController extends AbstractController {
 	@SysLog("删除菜单")
 	@PostMapping("/delete/{menuId}")
 	@RequiresPermissions("sys:menu:delete")
+	@ApiOperation("删除菜单")
 	public R delete(@PathVariable("menuId") long menuId){
 		if(menuId <= 31){
 			return R.error("系统菜单，不能删除");

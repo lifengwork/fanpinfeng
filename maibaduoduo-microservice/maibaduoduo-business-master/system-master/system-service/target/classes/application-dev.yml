@@ -44,7 +44,13 @@ info:
 
 #排除数据表
 maibaduoduo:
+    swagger:
+        service: "sys"
     database:
         ignoreTenantTables:
             - "sys_tenant"
             - "oauth_resource"
+    interceptor:
+        isRegis: false    #是否注册到Bean工厂
+        path: "/sys/**"
+        open: false       #是否拦截此PATH
