@@ -12,8 +12,8 @@ import com.maibaduoduo.app.service.AppUserService;
 import com.maibaduoduo.common.form.LoginForm;
 import com.maibaduoduo.configuration.exception.SaasException;
 import com.maibaduoduo.configuration.utils.RedisUtils;
-import com.maibaduoduo.database.datasource.utils.JwtUtils;
 import com.maibaduoduo.jwt.TokenUtil;
+import com.maibaduoduo.jwt.model.AuthorizationInfo;
 import com.maibaduoduo.jwt.model.JwtUserInfo;
 import com.maibaduoduo.sys.entity.SysUserEntity;
 import com.maibaduoduo.validator.Assert;
@@ -62,16 +62,14 @@ public class AppUserServiceImpl extends AppUserService {
      * @return
      */
     @Override
-    public String doLogin(LoginForm form) {
+    public AuthorizationInfo doLogin(LoginForm form) {
         SysUserEntity userEntity = this.queryByMobile(form.getMobile());
         Assert.isNull(userEntity, "手机号或密码错误");
         if(!userEntity.getPassword().equals(new Sha256Hash(form.getPassword(), userEntity.getSalt()).toHex())){
             throw new SaasException("用户密码错误");
         }
-        //return jwtUtils.generateToken(userEntity.getUsername(),userEntity.getTenantId());
         return tokenUtil.createAuthInfo(new JwtUserInfo().setValue(userEntity.getUserId(),userEntity.getMobile(),
-                userEntity.getUsername(), StringUtils.isEmpty(userEntity.getTenantId())?"0":userEntity.getTenantId()),null)
-                .getToken();
+                userEntity.getUsername(), StringUtils.isEmpty(userEntity.getTenantId())?"0":userEntity.getTenantId()),null);
     }
 }
 @Data

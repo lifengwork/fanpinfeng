@@ -18,7 +18,6 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import redis.clients.jedis.JedisPool;
 
 import java.util.Objects;
 import java.util.Set;
@@ -30,15 +29,15 @@ import java.util.Set;
 public class OAuth2Realm extends AuthorizingRealm {
     @Autowired
     private ShiroService shiroService;
-
     @Override
     public boolean supports(AuthenticationToken token) {
         return token instanceof OAuth2Token;
     }
-    @Autowired
-    private JedisPool jedisPool;
+
     /**
-     * 授权(验证权限时调用)
+     * 用户资源授权
+     * @param principals
+     * @return
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
@@ -51,7 +50,10 @@ public class OAuth2Realm extends AuthorizingRealm {
     }
 
     /**
-     * 认证(登录时调用)
+     * 用户认证
+     * @param token
+     * @return
+     * @throws AuthenticationException
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
@@ -61,9 +63,6 @@ public class OAuth2Realm extends AuthorizingRealm {
             tokenEntity =shiroService.queryByToken(StrUtil.subAfter(accessToken, BaseContextConstants.BEARER_HEADER_PREFIX, false));
         }catch (Exception e){
             throw new IncorrectCredentialsException(e.getMessage());
-        }
-        if(Objects.isNull(tokenEntity) || tokenEntity.getExpireTime().getTime() < System.currentTimeMillis()){
-            throw new IncorrectCredentialsException("token失效，请重新登录");
         }
         SysUserEntity user = shiroService.queryUser(tokenEntity.getUserId());
         if(Objects.isNull(user)||user.getStatus() == 0){

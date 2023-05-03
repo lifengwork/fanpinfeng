@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.context.request.RequestContextHolder;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
@@ -36,9 +35,7 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * 登录相关
- *
- * @author Mark sunlightcs@gmail.com
+ * 用户登录
  */
 @RestController
 public class SysLoginController extends AbstractController {
@@ -50,25 +47,29 @@ public class SysLoginController extends AbstractController {
 	private SysCaptchaService sysCaptchaService;
 	@Autowired
 	private RedisUtils redisUtils;
+
 	/**
 	 * 验证码
+	 * @param response
+	 * @param uuid
+	 * @throws IOException
 	 */
 	@GetMapping("captcha.jpg")
 	@ApiOperation("验证码")
 	public void captcha(HttpServletResponse response, String uuid)throws IOException {
 		response.setHeader("Cache-Control", "no-store, no-cache");
 		response.setContentType("image/jpeg");
-
-		//获取图片验证码
 		BufferedImage image = sysCaptchaService.getCaptcha(uuid);
-
 		ServletOutputStream out = response.getOutputStream();
 		ImageIO.write(image, "jpg", out);
 		IOUtils.closeQuietly(out);
 	}
 
 	/**
-	 * 登录
+	 * 用户登录
+	 * @param form
+	 * @return
+	 * @throws Exception
 	 */
 	@PostMapping("/sys/login")
 	@ApiOperation("用户登录")
@@ -83,20 +84,13 @@ public class SysLoginController extends AbstractController {
 				return R.error("验证码不正确");
 			}
 		}
-		//用户信息
 		SysUserEntity user = sysUserService.queryByUserName(form.getUsername());
-
-		//账号不存在、密码错误
 		if (user == null || !user.getPassword().equals(new Sha256Hash(form.getPassword(), user.getSalt()).toHex())) {
 			return R.error("账号或密码不正确");
 		}
-
-		//账号锁定
 		if (user.getStatus() == 0) {
 			return R.error("账号已被锁定,请联系管理员");
 		}
-
-		//生成token，并保存到数据库
 		R r = sysUserTokenService.createToken(user.getTenantId(), user.getUsername(), user.getUserId());
 		return r;
 	}

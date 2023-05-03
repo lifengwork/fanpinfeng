@@ -54,30 +54,15 @@
             <version>${lombok.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>${gson.version}</version>
-        </dependency>
-        <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
             <version>${assertj.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>${fastjosn.version}</version>
         </dependency>
         <!--工具包-->
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
             <version>${hutool.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jsoup</groupId>
-            <artifactId>jsoup</artifactId>
-            <version>${jsoup.version}</version>
         </dependency>
         <!--nacos-->
 
@@ -91,6 +76,13 @@
             <artifactId>spring-boot-admin-starter-client</artifactId>
             <version>${admin-starter.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.maibaduoduo</groupId>
+            <artifactId>jwt-starter</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
     </dependencies>
 
     <build>

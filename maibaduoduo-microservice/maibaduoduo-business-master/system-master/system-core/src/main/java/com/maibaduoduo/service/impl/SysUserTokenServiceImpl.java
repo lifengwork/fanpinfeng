@@ -10,7 +10,6 @@ package com.maibaduoduo.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.maibaduoduo.configuration.utils.R;
 import com.maibaduoduo.configuration.utils.TokenGenerator;
-import com.maibaduoduo.database.datasource.utils.JwtUtils;
 import com.maibaduoduo.jwt.TokenUtil;
 import com.maibaduoduo.jwt.model.AuthorizationInfo;
 import com.maibaduoduo.jwt.model.JwtUserInfo;
@@ -30,8 +29,6 @@ public class SysUserTokenServiceImpl extends ServiceImpl<SysUserTokenDao, SysUse
 	private final static int EXPIRE = 3600 * 12;
 	@Autowired
 	private JedisPool jedisPool;
-	@Autowired
-	private JwtUtils jwtUtils;
 
 	@Autowired
 	private TokenUtil tokenUtil;
@@ -39,9 +36,6 @@ public class SysUserTokenServiceImpl extends ServiceImpl<SysUserTokenDao, SysUse
 	@Override
 	public R createToken(String tenantId, String userName, Long userId) {
 
-		//生成一个token
-		//String token = TokenGenerator.generateValue();
-		//String token = jwtUtils.generateToken(tenantId,userName);
 		AuthorizationInfo authorizationInfo = tokenUtil.createAuthInfo(new JwtUserInfo().setValue(userId,null,userName,tenantId),null);
 		String token = authorizationInfo.getToken();
 //		//当前时间

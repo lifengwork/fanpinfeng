@@ -8,6 +8,7 @@
 package com.maibaduoduo.app.service;
 
 import com.maibaduoduo.common.form.LoginForm;
+import com.maibaduoduo.jwt.model.AuthorizationInfo;
 import com.maibaduoduo.service.impl.SysUserServiceImpl;
 import com.maibaduoduo.sys.entity.SysUserEntity;
 
@@ -19,5 +20,5 @@ import com.maibaduoduo.sys.entity.SysUserEntity;
 public abstract class AppUserService extends SysUserServiceImpl {
     public abstract SysUserEntity queryByMobile(String mobile);
     public abstract long login(LoginForm form);
-    public abstract String doLogin(LoginForm form);
+    public abstract AuthorizationInfo doLogin(LoginForm form);
 }

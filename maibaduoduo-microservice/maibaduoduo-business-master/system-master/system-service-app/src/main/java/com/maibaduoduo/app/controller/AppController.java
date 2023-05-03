@@ -7,16 +7,19 @@
  */
 package com.maibaduoduo.app.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.maibaduoduo.app.annotation.Login;
 import com.maibaduoduo.app.annotation.LoginUser;
 import com.maibaduoduo.app.service.AppUserService;
 import com.maibaduoduo.common.form.LoginForm;
 import com.maibaduoduo.configuration.utils.R;
 import com.maibaduoduo.configuration.utils.ValidatorUtils;
-import com.maibaduoduo.database.datasource.utils.JwtUtils;
+import com.maibaduoduo.jwt.model.AuthorizationInfo;
 import com.maibaduoduo.sys.entity.SysUserEntity;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.collections.MapUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import redis.clients.jedis.JedisPool;
@@ -34,8 +37,6 @@ public class AppController{
     @Autowired
     private AppUserService appUserService;
     @Autowired
-    private JwtUtils jwtUtils;
-    @Autowired
     private JedisPool jedisPool;
     /**
      * 登录
@@ -44,11 +45,13 @@ public class AppController{
     @ApiOperation("登录")
     public R login(@RequestBody LoginForm form){
         ValidatorUtils.validateEntity(form);
-        String token = appUserService.doLogin(form);
-        Map<String, Object> map = new HashMap<>();
-        map.put("token-app", token);
-        map.put("expire", jwtUtils.getExpire());
-        return R.ok(map);
+        AuthorizationInfo authorizationInfo =null;
+        try{
+            authorizationInfo = appUserService.doLogin(form);
+        }catch (Exception e){
+            return R.error(e.getMessage());
+        }
+        return R.ok(JSON.toJSONString(authorizationInfo));
     }
 
     @Login

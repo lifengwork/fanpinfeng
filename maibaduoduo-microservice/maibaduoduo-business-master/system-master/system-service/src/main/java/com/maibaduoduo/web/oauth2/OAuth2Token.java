@@ -7,7 +7,6 @@
  */
 package com.maibaduoduo.web.oauth2;
 
-
 import org.apache.shiro.authc.AuthenticationToken;
 
 /**

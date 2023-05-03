@@ -40,14 +40,12 @@ public class ShiroConfig {
     public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
         ShiroFilterFactoryBean shiroFilter = new ShiroFilterFactoryBean();
         shiroFilter.setSecurityManager(securityManager);
-
         //oauth过滤
         Map<String, Filter> filters = new HashMap<>();
         filters.put("oauth2Pc", new OAuth2Filter());
         shiroFilter.setFilters(filters);
-
         Map<String, String> filterMap = new LinkedHashMap<>();
-        filterMap.put("/webjars/**", "anon");
+       filterMap.put("/webjars/**", "anon");
         filterMap.put("/druid/**", "anon");
         filterMap.put("/druid/sql.html", "anon");
         filterMap.put("/mqtt/**", "anon");
@@ -58,11 +56,8 @@ public class ShiroConfig {
         filterMap.put("/swagger-ui.html", "anon");
         filterMap.put("/swagger-resources/**", "anon");
         filterMap.put("/captcha.jpg", "anon");
-        //filterMap.put("/sys/user/info/**", "anon");
         filterMap.put("/**", "oauth2Pc");
         shiroFilter.setFilterChainDefinitionMap(filterMap);
-
-        shiroFilter.getFilters();
         return shiroFilter;
     }
 
