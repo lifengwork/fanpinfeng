@@ -2,6 +2,7 @@ package com.maibaduoduo.gateway.config;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.assertj.core.util.Lists;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -17,5 +18,6 @@ import java.util.List;
 @Component
 @ConfigurationProperties(prefix="secure.ignore")
 public class IgnoreUrlsConfig {
-    private List<String> urls;
+    private static final String URI_PRE="/api/u/";
+    public static List<String> urls= Lists.newArrayList(URI_PRE+"app/login",URI_PRE+"sys/login",URI_PRE+"captcha.jpg");
 }

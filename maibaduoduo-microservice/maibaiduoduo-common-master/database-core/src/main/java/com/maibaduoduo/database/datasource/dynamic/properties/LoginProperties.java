@@ -18,7 +18,7 @@ import java.util.List;
 public class LoginProperties {
     private String pcTokenName="token";
     private String pcUrI="/sys/login";
-    private String appTokenName="token-app";
+    private String appTokenName="token";
     private String appUri="/app/login";
     private List<String> filterInvalidToken= Lists.newArrayList();
     private String dbCachePrefix="TENANT_DB_URL_*";

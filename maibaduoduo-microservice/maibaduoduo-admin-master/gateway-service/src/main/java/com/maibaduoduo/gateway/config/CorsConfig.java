@@ -29,17 +29,17 @@ public class CorsConfig {
     public CorsWebFilter corsWebFilter(AllowedOriginsConfig allowedOriginsConfig, AllowedHeadsConfig allowedHeadsConfig, AllowedMethodsConfig allowedMethodsConfig) {
         CorsConfigurationSource corsConfigurationSource = serverWebExchange -> {
             CorsConfiguration cors = new CorsConfiguration();
-            if (Objects.nonNull(allowedHeadsConfig) && !allowedHeadsConfig.getHeads().isEmpty()) {
+            if (Objects.nonNull(allowedHeadsConfig.getHeads()) && !allowedHeadsConfig.getHeads().isEmpty()) {
                 allowedHeadsConfig.getHeads().stream().forEach(head -> cors.addAllowedHeader(head));
             } else {
                 cors.addAllowedHeader(CorsConfiguration.ALL);
             }
-            if (Objects.nonNull(allowedMethodsConfig) && !allowedMethodsConfig.getMethods().isEmpty()) {
+            if (Objects.nonNull(allowedMethodsConfig.getMethods()) && !allowedMethodsConfig.getMethods().isEmpty()) {
                 allowedMethodsConfig.getMethods().stream().forEach(method -> cors.addAllowedMethod(method));
             } else {
                 cors.addAllowedMethod(CorsConfiguration.ALL);
             }
-            cors.setAllowedOrigins(ObjectUtil.isNotNull(allowedOriginsConfig) ?
+            cors.setAllowedOrigins(ObjectUtil.isNotNull(allowedOriginsConfig.getOrigins()) ?
                     allowedOriginsConfig.getOrigins() : Collections.singletonList("*"));
             cors.setAllowCredentials(true);
             return cors;

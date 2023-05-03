@@ -20,27 +20,32 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
+import java.util.Objects;
+
 @Component
 public class LoginUserHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
     @Autowired
     private AppUserService appUserService;
-
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
         return parameter.getParameterType().isAssignableFrom(SysUserEntity.class) && parameter.hasParameterAnnotation(LoginUser.class);
     }
-
+    /**
+     * 动态解析绑定用户信息
+     * @param parameter
+     * @param container
+     * @param request
+     * @param factory
+     * @return
+     * @throws Exception
+     */
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer container,
                                   NativeWebRequest request, WebDataBinderFactory factory) throws Exception {
-        //获取用户ID
-        Object object = request.getAttribute(AuthorizationInterceptor.USER_KEY, RequestAttributes.SCOPE_REQUEST);
-        if(object == null){
+        Object user = request.getAttribute(AuthorizationInterceptor.USERINFO, RequestAttributes.SCOPE_REQUEST);
+        if(Objects.isNull(user)){
             return null;
         }
-        //获取用户信息
-        SysUserEntity user = appUserService.getById((Long)object);
-
-        return user;
+        return appUserService.getById((Long)user);
     }
 }

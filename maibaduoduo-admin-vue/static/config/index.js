@@ -5,7 +5,7 @@
   window.SITE_CONFIG = {};
 
   // api接口请求地址
-  window.SITE_CONFIG['baseUrl'] = 'http://127.0.0.1:8090';
+  window.SITE_CONFIG['baseUrl'] = 'http://127.0.0.1:9000/api/u';
 
   // cdn地址 = 域名 + 版本号
   window.SITE_CONFIG['domain']  = './'; // 域名

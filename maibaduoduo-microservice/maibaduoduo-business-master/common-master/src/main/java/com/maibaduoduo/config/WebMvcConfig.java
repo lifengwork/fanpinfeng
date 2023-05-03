@@ -9,18 +9,14 @@ package com.maibaduoduo.config;
 
 import com.maibaduoduo.interceptor.AuthorizationInterceptor;
 import com.maibaduoduo.properties.InterceptorProperties;
-import com.sun.org.apache.xpath.internal.operations.Bool;
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
- * @Description Web配置类
+ * @Description Web配置类对单个服务做进一步拦截处理如果需要。
  * @Param
  * @Author ${USER}
  * @return ${RETURN}
