@@ -34,7 +34,7 @@ turbine:
     combine-host-port: true
     instanceUrlSuffix:
          default: actuator/hystrix.stream
-    app-config: gateway-service,order-service,store-service
+    app-config: gateway-service,order-service,store-service,system-service
 
 #允许所有
 hystrix:

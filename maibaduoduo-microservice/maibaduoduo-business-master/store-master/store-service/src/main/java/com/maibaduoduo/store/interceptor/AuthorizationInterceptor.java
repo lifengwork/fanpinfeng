@@ -11,10 +11,8 @@ import com.maibaduoduo.common.config.BaseContextHandler;
 import com.maibaduoduo.configuration.exception.SaasException;
 import com.maibaduoduo.configuration.props.UserAgentUtils;
 import com.maibaduoduo.configuration.utils.RedisUtils;
-import com.maibaduoduo.database.datasource.utils.JwtUtils;
 import com.maibaduoduo.jwt.TokenUtil;
 import com.maibaduoduo.jwt.model.AuthorizationInfo;
-import io.jsonwebtoken.Claims;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,8 +30,6 @@ import java.util.Objects;
 public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
     @Autowired
     private RedisUtils redisUtils;
-    @Autowired
-    private JwtUtils jwtUtils;
     @Autowired
     private TokenUtil tokenUtil;
 

@@ -28,7 +28,7 @@ import java.util.Map;
  * @date 2023-04-16 13:00:03
  */
 @RestController
-@RequestMapping("/saas/order")
+@RequestMapping("/order")
 @Api("订单接口文档")
 public class SaasOrderController {
     @Autowired
@@ -43,7 +43,7 @@ public class SaasOrderController {
      * 列表
      */
     @RequestMapping("/list")
-    @RequiresPermissions("generator:saasorder:list")
+    @RequiresPermissions("order:list")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = saasOrderService.queryPage(params);
 
@@ -55,7 +55,7 @@ public class SaasOrderController {
      * 信息
      */
     @RequestMapping("/info/{id}")
-    @RequiresPermissions("generator:saasorder:info")
+    @RequiresPermissions("order:info")
     public R info(@PathVariable("id") Long id){
 		SaasOrderEntity saasOrder = saasOrderService.getById(id);
 
@@ -66,7 +66,7 @@ public class SaasOrderController {
      * 保存
      */
     @RequestMapping("/save")
-    @RequiresPermissions("generator:saasorder:save")
+    @RequiresPermissions("order:save")
     public R save(@RequestBody SaasOrderEntity saasOrder){
 		saasOrderService.save(saasOrder);
 
@@ -77,7 +77,7 @@ public class SaasOrderController {
      * 修改
      */
     @RequestMapping("/update")
-    @RequiresPermissions("generator:saasorder:update")
+    @RequiresPermissions("order:update")
     public R update(@RequestBody SaasOrderEntity saasOrder){
 		saasOrderService.updateById(saasOrder);
 
@@ -88,7 +88,7 @@ public class SaasOrderController {
      * 删除
      */
     @RequestMapping("/delete")
-    @RequiresPermissions("generator:saasorder:delete")
+    @RequiresPermissions("order:delete")
     public R delete(@RequestBody Long[] ids){
 		saasOrderService.removeByIds(Arrays.asList(ids));
 
