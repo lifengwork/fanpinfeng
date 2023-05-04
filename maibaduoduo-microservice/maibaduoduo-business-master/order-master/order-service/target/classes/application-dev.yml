@@ -56,4 +56,4 @@ maibaduoduo:
             - "oauth_resource"
 
     interceptor:
-        path: "/saas/**"
+        path: "/order/**"

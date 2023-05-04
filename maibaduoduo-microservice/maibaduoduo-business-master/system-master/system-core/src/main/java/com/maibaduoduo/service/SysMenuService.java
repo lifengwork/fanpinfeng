@@ -8,9 +8,11 @@
 package com.maibaduoduo.service;
 
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.maibaduoduo.sys.entity.SysMenuEntity;
 
+import java.io.Serializable;
 import java.util.List;
 
 
@@ -48,4 +50,11 @@ public interface SysMenuService extends IService<SysMenuEntity> {
 	 * 删除
 	 */
 	void delete(Long menuId);
+
+	/**
+	 * 获取所有菜单
+	 * @param queryWrapper
+	 * @return
+	 */
+	List<SysMenuEntity> getList(Wrapper<SysMenuEntity> queryWrapper);
 }

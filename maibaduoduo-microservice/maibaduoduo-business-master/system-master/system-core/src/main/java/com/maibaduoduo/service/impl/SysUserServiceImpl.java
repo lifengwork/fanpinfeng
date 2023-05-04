@@ -7,6 +7,7 @@
  */
 package com.maibaduoduo.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -20,6 +21,7 @@ import com.maibaduoduo.service.SysRoleService;
 import com.maibaduoduo.service.SysUserRoleService;
 import com.maibaduoduo.service.SysUserService;
 import com.maibaduoduo.sys.dao.SysUserDao;
+import com.maibaduoduo.sys.entity.SysMenuEntity;
 import com.maibaduoduo.sys.entity.SysUserEntity;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
@@ -166,7 +168,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUserEntity> i
 		return this.update(userEntity,
 				new QueryWrapper<SysUserEntity>().eq("user_id", userId).eq("password", password));
 	}
-	
+
 	/**
 	 * 检查角色是否越权
 	 */

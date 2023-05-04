@@ -8,6 +8,10 @@ server:
     context-path: /
 
 spring:
+  boot:
+    admin:
+      client:
+        url: http://localhost:10002
   application:
     name: system-service
   # 环境 dev|test|prod

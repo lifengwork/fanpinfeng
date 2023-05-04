@@ -4,10 +4,9 @@ package com.maibaduoduo.gateway.filter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
-import org.springframework.cloud.gateway.filter.GatewayFilterChain;
+import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 import java.time.Instant;
@@ -19,14 +18,15 @@ import java.time.Instant;
  */
 @Component
 @Order(0)
-public class AutoGatewayFilter implements GatewayFilter {
+public class TimeGatewayFilter extends AbstractGatewayFilterFactory {
 
-    private static final Logger log = LoggerFactory.getLogger( AutoGatewayFilter.class );
+    private static final Logger log = LoggerFactory.getLogger( TimeGatewayFilter.class );
     private static final String START_TIME = "STARTTIME";
 
     @Override
-    public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        exchange.getAttributes().put(START_TIME, Instant.now().toEpochMilli() );
+    public GatewayFilter apply(Object config) {
+        return ((exchange, chain) -> {
+            exchange.getAttributes().put(START_TIME, Instant.now().toEpochMilli() );
         return chain.filter(exchange).then(
                 Mono.fromRunnable(() -> {
                     long startTime = exchange.getAttribute(START_TIME);
@@ -34,6 +34,7 @@ public class AutoGatewayFilter implements GatewayFilter {
                     log.info(exchange.getRequest().getURI().getRawPath() + ": " + endTime + "ms");
                 })
         );
+        });
     }
 }
 

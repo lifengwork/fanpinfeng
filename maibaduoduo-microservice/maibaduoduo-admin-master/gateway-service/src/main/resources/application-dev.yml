@@ -9,9 +9,10 @@ spring:
         - id: system-service
           uri: lb://system-service
           predicates:
-            - Path=/api/u/**
+            - Path=/api/sys/**
           filters:
-            - StripPrefix=2
+            - StripPrefix=1
+            - TimeGatewayFilter
             - name: Hystrix
               args:
                 name: systemservice
@@ -49,13 +50,13 @@ spring:
         - id: order-service
           uri: lb://order-service
           predicates:
-            - Path=/api/saas/**
+              - Path=/api/order/**
           filters:
-            - StripPrefix=1
-            - name: Hystrix
-              args:
-                name: orderservice
-                fallbackUri: forward:/error/fallback
+              - StripPrefix=1
+              - name: Hystrix
+                args:
+                  name: orderservice
+                  fallbackUri: forward:/error/fallback
       default-filters:
         - AddResponseHeader=i-helloworld,java
         - name: Retry

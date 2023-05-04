@@ -18,6 +18,6 @@ import java.util.List;
 @Component
 @ConfigurationProperties(prefix="secure.ignore")
 public class IgnoreUrlsConfig {
-    private static final String URI_PRE="/api/u/";
-    public static List<String> urls= Lists.newArrayList(URI_PRE+"app/login",URI_PRE+"sys/login",URI_PRE+"captcha.jpg");
+    private static final String URI_PRE="/api/";
+    public static List<String> urls= Lists.newArrayList(URI_PRE+"app/login",URI_PRE+"sys/login",URI_PRE+"sys/captcha.jpg");
 }

@@ -11,6 +11,7 @@ package com.maibaduoduo.service.impl;
 import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.google.common.collect.Lists;
 import com.maibaduoduo.configuration.utils.CacheUtils;
 import com.maibaduoduo.configuration.utils.Constant;
 import com.maibaduoduo.configuration.utils.MapUtils;
@@ -95,6 +96,19 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuDao, SysMenuEntity> i
 		this.removeById(menuId);
 		//删除菜单与角色关联
 		sysRoleMenuService.removeByMap(new MapUtils().put("menu_id", menuId));
+	}
+
+	@Override
+	public List<SysMenuEntity> getList(Wrapper<SysMenuEntity> queryWrapper) {
+		List<SysMenuEntity> sysMenuEntityList = Lists.newArrayList();
+		Object cacheValue = cacheUtils.get("ALLMenuList");
+		if(Objects.isNull(cacheValue)){
+			sysMenuEntityList = this.list();
+			cacheUtils.put("ALLMenuList",sysMenuEntityList);
+		}else{
+			sysMenuEntityList = (List<SysMenuEntity>)cacheValue;
+		}
+		return this.list();
 	}
 
 	/**
