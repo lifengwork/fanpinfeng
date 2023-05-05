@@ -1,7 +1,12 @@
 #Feign
+spring:
+  cloud:
+    circuitbreaker:
+      hystrix:
+        enabled: true
 feign:
   hystrix:
-    enabled: true
+    enabled: false
   compression:
     request:
       enable: true  # 配置请求GZIP压缩

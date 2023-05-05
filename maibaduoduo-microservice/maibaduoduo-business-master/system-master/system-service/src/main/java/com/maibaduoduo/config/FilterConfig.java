@@ -8,7 +8,9 @@
 package com.maibaduoduo.config;
 
 import com.maibaduoduo.configuration.utils.xss.XssFilter;
+import com.netflix.hystrix.contrib.metrics.eventstream.HystrixMetricsStreamServlet;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.DelegatingFilterProxy;
@@ -22,7 +24,6 @@ import javax.servlet.DispatcherType;
  */
 @Configuration
 public class FilterConfig {
-
     @Bean
     public FilterRegistrationBean shiroFilterRegistration() {
         FilterRegistrationBean registration = new FilterRegistrationBean();

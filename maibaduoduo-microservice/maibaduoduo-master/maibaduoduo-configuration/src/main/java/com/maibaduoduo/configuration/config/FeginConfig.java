@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * Created by Administrator on 2019/11/17 0017.
  */
-@Configuration
+//@Configuration
 public class FeginConfig {
     public static int connectTimeOutMillis = 12000;//超时时间
     public static int readTimeOutMillis = 12000;

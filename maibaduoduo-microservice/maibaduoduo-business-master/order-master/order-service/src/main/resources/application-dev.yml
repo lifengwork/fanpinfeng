@@ -56,4 +56,5 @@ maibaduoduo:
             - "oauth_resource"
 
     interceptor:
+        isRegis: false
         path: "/order/**"

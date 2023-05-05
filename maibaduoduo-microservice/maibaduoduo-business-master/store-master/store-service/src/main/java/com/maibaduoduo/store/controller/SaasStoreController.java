@@ -11,6 +11,7 @@ import com.maibaduoduo.store.service.SaasStoreService;
 import com.maibaduoduo.configuration.utils.PageUtils;
 import com.maibaduoduo.configuration.utils.R;
 import com.maibaduoduo.store.entity.SaasStoreEntity;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import io.swagger.annotations.Api;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 
@@ -50,9 +52,8 @@ public class SaasStoreController {
      */
     @RequestMapping("/info/{id}")
     @RequiresPermissions("generator:saasstore:info")
-    public R info(@PathVariable("id") Long id){
+    public R info(@PathVariable("id") Long id) throws Exception {
 		SaasStoreEntity saasStore = saasStoreService.getById(id);
-
         return R.ok().put("saasStore", saasStore);
     }
 

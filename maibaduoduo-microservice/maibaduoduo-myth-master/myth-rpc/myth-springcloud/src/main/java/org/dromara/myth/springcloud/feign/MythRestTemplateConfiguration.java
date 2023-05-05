@@ -16,13 +16,13 @@
  */
 
 package org.dromara.myth.springcloud.feign;
-
 import feign.Feign;
 import feign.InvocationHandlerFactory;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
+import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
-
 /**
  * MythRestTemplateConfiguration.
  *
@@ -30,7 +30,6 @@ import org.springframework.context.annotation.Scope;
  */
 @Configuration
 public class MythRestTemplateConfiguration {
-
     /**
      * Feign builder feign . builder.
      *
@@ -38,9 +37,9 @@ public class MythRestTemplateConfiguration {
      */
     @Bean
     @Scope("prototype")
-    public Feign.Builder feignBuilder() {
+    public Feign.Builder feignBuilder(CircuitBreakerFactory factory, FallbackFactory<?> nullableFallbackFactory) {
         return Feign.builder().requestInterceptor(new MythRestTemplateInterceptor())
-                .invocationHandlerFactory(invocationHandlerFactory());
+                .invocationHandlerFactory(mythFeignCircuitBreakerInvocationHandler(factory,nullableFallbackFactory));
     }
 
     /**
@@ -58,4 +57,17 @@ public class MythRestTemplateConfiguration {
         };
     }
 
+    /**
+     * mythFeignCircuitBreakerInvocationHandler
+     * @param factory
+     * @param nullableFallbackFactory
+     * @return
+     */
+    @Bean
+    public InvocationHandlerFactory mythFeignCircuitBreakerInvocationHandler(CircuitBreakerFactory factory, FallbackFactory<?> nullableFallbackFactory) {
+        return (target, dispatch) -> {
+            MythFeignCircuitBreakerInvocationHandler handler = new MythFeignCircuitBreakerInvocationHandler(factory,target,dispatch,nullableFallbackFactory);
+            return handler;
+        };
+    }
 }

@@ -1,10 +1,25 @@
 hystrix:
+  threadpool:
+    userGroup:
+      coreSize: 20
+      maxQueueSize: 20
+      queueSizeRejectionThreshold: 3
+    userThreadPool:
+      coreSize: 20
+      maxQueueSize: 20
+      queueSizeRejectionThreshold: 3
+    default:
+      coreSize: 10   # 线程池大小
+      maxQueueSize: 200    # 缓冲区大小， 如果为-1，则不缓冲，直接进行降级 fallback
+      queueSizeRejectionThreshold: 2   # 缓冲区大小超限的阈值，超限就直接降级
+  dashboard:
+    proxy-stream-allow-list: "localhost"
   command:
     systemservice:
       circuitBreakerEnabled: true
       metrics:
         rollingStats:
-          timeInMilliseconds: 10000
+          timeInMilliseconds: 5000
         circuitBreaker:
           forceClosed: true #
           requestVolumeThreshold: 2  #窗口采样大小 20
@@ -21,24 +36,26 @@ hystrix:
       circuitBreakerEnabled: true
       metrics:
         rollingStats:
-          timeInMilliseconds: 10000
+          timeInMilliseconds: 5000
       circuitBreaker:
-        forceClosed: true #
+        forceClosed: false #
         requestVolumeThreshold: 2  #窗口采样大小 20
         sleepWindowInMilliseconds: 120000  #短路后休眠时间毫秒
         errorThresholdPercentage: 50 #判断错误百分比
       execution:
         isolation:
-          strategy: SEMAPHORE  #也可以设置线程池
+          strategy: THREAD  #也可以设置线程池
           thread:
-            timeoutInMilliseconds: 2000
+            timeoutInMilliseconds: 15000   # 超时时间，默认1000毫秒
+            interruptOnTimeout: true       # 超时时中断线程
+            interruptOnFutureCancel: false # 取消时候中断线程
         timeout:
           enabled: true  #使用timeInMilliseconds作为超时，否则使用ribbon超时
     storeservice:
       circuitBreakerEnabled: true
       metrics:
         rollingStats:
-          timeInMilliseconds: 10000
+          timeInMilliseconds: 5000
       circuitBreaker:
         forceClosed: true #
         requestVolumeThreshold: 2  #窗口采样大小 20
@@ -72,7 +89,7 @@ hystrix:
       circuitBreakerEnabled: true
       metrics:
         rollingStats:
-          timeInMilliseconds: 10000
+          timeInMilliseconds: 5000
       circuitBreaker:
         forceClosed: true #
         requestVolumeThreshold: 2  #窗口采样大小 20
@@ -86,3 +103,4 @@ hystrix:
         timeout:
           enabled: true  #使用timeInMilliseconds作为超时，否则使用ribbon超时
   shareSecurityContext: true
+

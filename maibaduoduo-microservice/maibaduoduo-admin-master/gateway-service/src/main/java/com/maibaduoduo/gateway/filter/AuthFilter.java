@@ -19,8 +19,6 @@ import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
-
-import javax.servlet.http.HttpServletRequest;
 import java.util.Objects;
 
 /**
@@ -38,7 +36,7 @@ public class AuthFilter implements GlobalFilter, Ordered {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request =exchange.getRequest();
-        if(IgnoreUrlsConfig.urls.contains(request.getURI().getPath())){
+        if(true/*IgnoreUrlsConfig.urls.contains(request.getURI().getPath())*/){
             return chain.filter(exchange);
         }
         //获取用户Token

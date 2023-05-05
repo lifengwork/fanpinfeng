@@ -88,26 +88,6 @@
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
             <version>${spring-cloud-alibaba.version}</version>
         </dependency>
-        <!--<dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-core</artifactId>
-            <version>${shiro.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-spring</artifactId>
-            <version>${shiro.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt</artifactId>
-            <version>${jwt.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.axet</groupId>
-            <artifactId>kaptcha</artifactId>
-            <version>${kaptcha.version}</version>
-        </dependency>-->
         <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
@@ -167,7 +147,7 @@
             <artifactId>spring-cloud-starter-netflix-hystrix-dashboard</artifactId>
         </dependency>
         <!--加入事务补偿采用开源myth二次开发-->
-        <dependency>
+      <dependency>
             <groupId>org.dromara</groupId>
             <artifactId>myth-spring-boot-starter-springcloud</artifactId>
             <version>2.1.0-RELEASE</version>
@@ -185,6 +165,11 @@
             <groupId>net.sf.ehcache</groupId>
             <artifactId>ehcache-web</artifactId>
             <version>2.0.4</version>
+        </dependency>
+        <dependency>
+            <groupId>com.maibaduoduo</groupId>
+            <artifactId>common-master</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <!--引入核心包 end-->
     </dependencies>

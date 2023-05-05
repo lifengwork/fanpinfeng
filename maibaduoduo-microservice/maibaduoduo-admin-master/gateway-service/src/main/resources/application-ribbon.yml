@@ -1,7 +1,23 @@
+ribbon:
+  nacos:
+    enabled: true
+  # 开启熔断机制
+  hystrix:
+    enabled: true
+  # 配置ribbon默认的超时时间
+  ConnectTimeout: 20000
+  ReadTimeout: 20000
+  # 是否开启重试
+  OkToRetryOnAllOperations: true
+  # 重试的时候实例切换次数
+  MaxAutoRetriesNextServer: 3
+  # 每个实例重试次数
+  MaxAutoRetries: 2
+
 #配置负载均衡和容错
 order-service:
   ribbon:
-    #listOfServers: order-service:8094, order-service:8095, order-service:8096,order-service:8097                                     #自定义服务器
+    #listOfServers: 127.0.0.1:8094, 127.0.0.1:8095, 127.0.0.1:8096,127.0.0.1:8097                                     #自定义服务器
     #NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule                         #负载均衡策略
     #NFLoadBalancerRuleClassName: com.netflix.loadbalancer.BestAvailableRule
     NFLoadBalancerRuleClassName: com.netflix.loadbalancer.AvailabilityFilteringRule

@@ -22,12 +22,11 @@ import org.springframework.web.client.RestTemplate;
  * @date: 2023/4/19 18:48
  * @Author: pm2022
  */
-@EnableHystrix
-@EnableHystrixDashboard
+
 @Configuration
 public class CommonConfig {
-    @Bean
-    @LoadBalanced
+   /* @Bean
+    @LoadBalanced*/
     public RestTemplate restTemplate() {
         RestTemplate template = new RestTemplate();
         SimpleClientHttpRequestFactory factory =(SimpleClientHttpRequestFactory)template.getRequestFactory();
@@ -40,7 +39,7 @@ public class CommonConfig {
         HystrixMetricsStreamServlet streamServlet = new HystrixMetricsStreamServlet();
         ServletRegistrationBean registrationBean = new ServletRegistrationBean(streamServlet);
         registrationBean.setLoadOnStartup(1);
-        registrationBean.addUrlMappings("/hystrix.stream");
+        registrationBean.addUrlMappings("/actuator/hystrix.stream");
         registrationBean.setName("HystrixMetricsStreamServlet");
         return registrationBean;
     }

@@ -11,6 +11,9 @@ import com.maibaduoduo.order.service.SaasOrderService;
 import com.maibaduoduo.configuration.utils.PageUtils;
 import com.maibaduoduo.configuration.utils.R;
 import com.maibaduoduo.order.entity.SaasOrderEntity;
+import com.maibaduoduo.order.service.SaasOrderStoreService;
+import com.maibaduoduo.store.entity.SaasStoreEntity;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import io.swagger.annotations.Api;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,10 +36,11 @@ import java.util.Map;
 public class SaasOrderController {
     @Autowired
     private SaasOrderService saasOrderService;
-
+    @Autowired
+    private SaasOrderStoreService saasOrderStoreService;
     @RequestMapping("/ribbon")
     public R testRibbon(){
-        return R.ok("ribbon");
+        return R.ok(saasOrderStoreService.querySassStoreEntity(1L).getStoreDescription());
     }
 
     /**
