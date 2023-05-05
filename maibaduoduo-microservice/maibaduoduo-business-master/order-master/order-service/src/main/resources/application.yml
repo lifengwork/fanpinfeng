@@ -82,10 +82,3 @@ logging:
   config: classpath:logback-dev.xml
   file:
     path: ../logs
-
-saas:
-  jwt:
-    rsa:
-      key:
-        pubKeyFile: D:\fanpinfeng\gitpro\rsa\public_rsa.txt
-        priKeyFile: D:\fanpinfeng\gitpro\rsa\private_rsa.txt
