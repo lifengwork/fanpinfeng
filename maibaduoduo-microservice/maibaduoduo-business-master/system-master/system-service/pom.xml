@@ -163,6 +163,7 @@
             <artifactId>jwt-starter</artifactId>
             <version>${project.version}</version>
         </dependency>
+
         <!--引入核心包 end-->
     </dependencies>
     <build>

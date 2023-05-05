@@ -59,4 +59,4 @@ hystrix:
         healthSnapshot:
           intervalInMilliseconds: 500  # 数据取样时间间隔
   dashboard:
-    proxy-stream-allow-list: "*"
+    proxy-stream-allow-list: "localhost"

@@ -21,7 +21,7 @@ import org.springframework.web.servlet.NoHandlerFoundException;
  *
  * @author Mark lifengwork@yeah.net
  */
-@RestControllerAdvice
+//@RestControllerAdvice
 public class SaasExceptionHandler {
 	private Logger logger = LoggerFactory.getLogger(getClass());
 

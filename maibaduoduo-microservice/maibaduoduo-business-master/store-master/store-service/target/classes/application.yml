@@ -8,6 +8,10 @@ server:
     context-path: /
 
 spring:
+  boot:
+    admin:
+      client:
+        url: http://localhost:10002
   main:
     allow-bean-definition-overriding: true
   application:

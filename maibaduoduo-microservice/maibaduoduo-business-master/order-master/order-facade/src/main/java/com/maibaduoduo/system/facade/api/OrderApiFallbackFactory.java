@@ -9,9 +9,9 @@ package com.maibaduoduo.system.facade.api;
 
 import cn.hutool.core.exceptions.ExceptionUtil;
 import com.maibaduoduo.configuration.utils.R;
-import feign.hystrix.FallbackFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.stereotype.Component;
 
 /**

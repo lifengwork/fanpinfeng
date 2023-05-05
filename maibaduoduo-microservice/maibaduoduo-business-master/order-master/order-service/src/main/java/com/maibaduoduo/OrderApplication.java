@@ -14,6 +14,8 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.cloud.netflix.hystrix.EnableHystrix;
+import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @EnableDiscoveryClient
@@ -22,7 +24,9 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 		basePackages = {"com.maibaduoduo.*.dao"}, annotationClass = Mapper.class)
 @ServletComponentScan
 @RefreshScope
-@EnableFeignClients
+@EnableFeignClients(basePackages = {"com.maibaduoduo"})
+@EnableHystrix
+@EnableHystrixDashboard
 public class OrderApplication {
 
 	public static void main(String[] args) {

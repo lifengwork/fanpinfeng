@@ -9,7 +9,6 @@ package com.maibaduoduo.store.facade.api;
 
 import com.maibaduoduo.configuration.utils.R;
 import io.swagger.annotations.ApiOperation;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;

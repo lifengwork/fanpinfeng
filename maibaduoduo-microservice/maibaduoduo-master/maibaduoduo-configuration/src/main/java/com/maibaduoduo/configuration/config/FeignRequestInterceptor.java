@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 /**
  * Created by Administrator on 2019/11/17 0017.
  */
-@Component
+//@Component
 public class FeignRequestInterceptor  implements RequestInterceptor {
     /**
      * 设置请求相关信息

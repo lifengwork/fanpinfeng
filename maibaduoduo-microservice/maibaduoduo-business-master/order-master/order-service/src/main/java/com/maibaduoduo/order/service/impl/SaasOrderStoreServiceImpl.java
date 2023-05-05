@@ -20,7 +20,7 @@ import com.maibaduoduo.order.dao.SaasOrderStoreDao;
 import com.maibaduoduo.order.entity.SaasOrderStoreEntity;
 import com.maibaduoduo.store.entity.SaasStoreEntity;
 import com.maibaduoduo.store.facade.api.StoreFacade;
-import org.dromara.myth.annotation.Myth;
+/*import org.dromara.myth.annotation.Myth;*/
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,12 +44,17 @@ public class SaasOrderStoreServiceImpl extends ServiceImpl<SaasOrderStoreDao, Sa
         return new PageUtils(page);
     }
 
-    @Myth
+    //@Myth
     @Override
     public SaasStoreEntity querySassStoreEntity(Long orderId) {
         //this.list();
         //TEST STORE Lock 获取锁超时时间5000
-        redisDistributedLockTemplate.execute("测试库存分布式锁", 5000, new Callback() {
+        SaasStoreEntity saasStoreEntity = new SaasStoreEntity();
+        saasStoreEntity.setId(orderId);
+        R r = storeFacade.info(orderId);
+        saasStoreEntity.setStoreDescription(r.toString());
+        return saasStoreEntity;
+       /* redisDistributedLockTemplate.execute("测试库存分布式锁", 5000, new Callback() {
             @Override
             public Object onGetLock() throws InterruptedException {
                 SaasStoreEntity saasStoreEntity = new SaasStoreEntity();
@@ -62,8 +67,8 @@ public class SaasOrderStoreServiceImpl extends ServiceImpl<SaasOrderStoreDao, Sa
             public Object onTimeout() throws InterruptedException {
                 return "获取锁超时请检查";
             }
-        });
-        return null;
+        });*/
+        //return null;
     }
 
 }
