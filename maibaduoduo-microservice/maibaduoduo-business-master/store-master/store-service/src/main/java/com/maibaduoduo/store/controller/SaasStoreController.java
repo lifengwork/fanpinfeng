@@ -11,15 +11,13 @@ import com.maibaduoduo.store.service.SaasStoreService;
 import com.maibaduoduo.configuration.utils.PageUtils;
 import com.maibaduoduo.configuration.utils.R;
 import com.maibaduoduo.store.entity.SaasStoreEntity;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Arrays;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 /**
  * 
@@ -38,8 +36,9 @@ public class SaasStoreController {
     /**
      * 列表
      */
-    @RequestMapping("/list")
+    @GetMapping("/list")
     @RequiresPermissions("generator:saasstore:list")
+    @ApiOperation("仓库列表")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = saasStoreService.queryPage(params);
 
@@ -50,8 +49,9 @@ public class SaasStoreController {
     /**
      * 信息
      */
-    @RequestMapping("/info/{id}")
+    @GetMapping("/info/{id}")
     @RequiresPermissions("generator:saasstore:info")
+    @ApiOperation("仓库信息")
     public R info(@PathVariable("id") Long id) throws Exception {
 		SaasStoreEntity saasStore = saasStoreService.getById(id);
         return R.ok().put("saasStore", saasStore);
@@ -60,8 +60,9 @@ public class SaasStoreController {
     /**
      * 保存
      */
-    @RequestMapping("/save")
+    @PostMapping("/save")
     @RequiresPermissions("generator:saasstore:save")
+    @ApiOperation("仓库保存")
     public R save(@RequestBody SaasStoreEntity saasStore){
 		saasStoreService.save(saasStore);
 
@@ -71,8 +72,9 @@ public class SaasStoreController {
     /**
      * 修改
      */
-    @RequestMapping("/update")
+    @PostMapping("/update")
     @RequiresPermissions("generator:saasstore:update")
+    @ApiOperation("仓库修改")
     public R update(@RequestBody SaasStoreEntity saasStore){
 		saasStoreService.updateById(saasStore);
 
@@ -82,8 +84,9 @@ public class SaasStoreController {
     /**
      * 删除
      */
-    @RequestMapping("/delete")
+    @PostMapping("/delete")
     @RequiresPermissions("generator:saasstore:delete")
+    @ApiOperation("仓库删除")
     public R delete(@RequestBody Long[] ids){
 		saasStoreService.removeByIds(Arrays.asList(ids));
 

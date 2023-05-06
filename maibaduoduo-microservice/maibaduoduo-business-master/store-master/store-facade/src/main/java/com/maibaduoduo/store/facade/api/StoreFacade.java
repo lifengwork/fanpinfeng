@@ -7,6 +7,7 @@
  */
 package com.maibaduoduo.store.facade.api;
 
+import com.maibaduoduo.api.ApiFacade;
 import com.maibaduoduo.configuration.utils.R;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Component
 @FeignClient(name = "store-service", fallbackFactory = StoreApiFallbackFactory.class)
-public interface StoreFacade {
+public interface StoreFacade extends ApiFacade {
 
     @GetMapping("/saas/store/info/{id}")
     @ApiOperation("测试获取仓库信息")
