@@ -19,7 +19,7 @@ spring:
   # 环境 dev|test|prod
   profiles:
     active: dev
-    include: feign,hystrix,ribbon,redis,tx,datasource,cache
+    include: feign,hystrix,ribbon,redis,tx,datasource,cache,config
   # jackson时间格式化
   jackson:
     time-zone: GMT+8

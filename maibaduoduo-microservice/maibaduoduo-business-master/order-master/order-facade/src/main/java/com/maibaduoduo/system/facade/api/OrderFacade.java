@@ -7,6 +7,7 @@
  */
 package com.maibaduoduo.system.facade.api;
 
+import com.maibaduoduo.api.ApiFacade;
 import com.maibaduoduo.configuration.utils.R;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Component
 @FeignClient(name = "order-service", fallbackFactory = OrderApiFallbackFactory.class)
-public interface OrderFacade {
+public interface OrderFacade extends ApiFacade {
 
     @GetMapping("/info/{id}")
     @ApiOperation("根据订单编码获取订单信息")

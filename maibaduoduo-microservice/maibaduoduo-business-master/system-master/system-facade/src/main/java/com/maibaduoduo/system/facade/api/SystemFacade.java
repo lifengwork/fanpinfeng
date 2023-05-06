@@ -7,6 +7,7 @@
  */
 package com.maibaduoduo.system.facade.api;
 
+import com.maibaduoduo.api.ApiFacade;
 import com.maibaduoduo.common.form.LoginForm;
 
 import com.maibaduoduo.configuration.utils.R;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Component
 @FeignClient(name = "system-service", fallbackFactory = SystemApiFallbackFactory.class)
-public interface SystemFacade {
+public interface SystemFacade extends ApiFacade {
     /**
      * 登录
      */

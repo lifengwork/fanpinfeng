@@ -18,11 +18,16 @@
 package org.dromara.myth.springcloud.feign;
 import feign.Feign;
 import feign.InvocationHandlerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
 import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
+
+import java.lang.reflect.InvocationHandler;
+import java.util.Objects;
+
 /**
  * MythRestTemplateConfiguration.
  *
@@ -32,19 +37,22 @@ import org.springframework.context.annotation.Scope;
 public class MythRestTemplateConfiguration {
     /**
      * Feign builder feign . builder.
-     *
      * @return the feign . builder
      */
+    @Autowired(required = false)
+    private CircuitBreakerFactory factory;
+    @Autowired(required = false)
+    private FallbackFactory<?> nullableFallbackFactory;
+
     @Bean
     @Scope("prototype")
-    public Feign.Builder feignBuilder(CircuitBreakerFactory factory, FallbackFactory<?> nullableFallbackFactory) {
+    public Feign.Builder feignBuilder() {
         return Feign.builder().requestInterceptor(new MythRestTemplateInterceptor())
-                .invocationHandlerFactory(mythFeignCircuitBreakerInvocationHandler(factory,nullableFallbackFactory));
+                .invocationHandlerFactory(mythFeignCircuitBreakerInvocationHandler());
     }
 
     /**
      * Invocation handler factory invocation handler factory.
-     *
      * @return the invocation handler factory
      */
     @Bean
@@ -59,15 +67,16 @@ public class MythRestTemplateConfiguration {
 
     /**
      * mythFeignCircuitBreakerInvocationHandler
-     * @param factory
-     * @param nullableFallbackFactory
+     * @param
      * @return
      */
     @Bean
-    public InvocationHandlerFactory mythFeignCircuitBreakerInvocationHandler(CircuitBreakerFactory factory, FallbackFactory<?> nullableFallbackFactory) {
+    public InvocationHandlerFactory mythFeignCircuitBreakerInvocationHandler() {
         return (target, dispatch) -> {
-            MythFeignCircuitBreakerInvocationHandler handler = new MythFeignCircuitBreakerInvocationHandler(factory,target,dispatch,nullableFallbackFactory);
-            return handler;
+            if(Objects.isNull(factory)){
+                return (InvocationHandler) this.invocationHandlerFactory();
+            }
+            return new MythFeignCircuitBreakerInvocationHandler(factory, target, dispatch, nullableFallbackFactory);
         };
     }
 }
