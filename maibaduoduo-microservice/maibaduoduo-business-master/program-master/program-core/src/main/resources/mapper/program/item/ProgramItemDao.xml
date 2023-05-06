@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  * Copyright (c) 2019-2023 SAAS开源 All rights reserved.
+  * SAAS系统设计研发交流
+  * https://www.maibaduoduo.com
+-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.maibaduoduo.program.item.dao.ProgramItemDao">
+
+    <!-- 映射 -->
+    <resultMap type="com.maibaduoduo.program.item.entity.ProgramItemEntity" id="programItemMap">
+                    <result property="id" column="id"/>
+                    <result property="programId" column="program_id"/>
+                    <result property="programItemOperator" column="program_item_operator"/>
+                    <result property="programItemStatus" column="program_item_status"/>
+                    <result property="programItemDate" column="program_item_date"/>
+                    <result property="tenantId" column="tenant_id"/>
+                    <result property="createUserId" column="create_user_id"/>
+                    <result property="createTime" column="create_time"/>
+            </resultMap>
+
+</mapper>
