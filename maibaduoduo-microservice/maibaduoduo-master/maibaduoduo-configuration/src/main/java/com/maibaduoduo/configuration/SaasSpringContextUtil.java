@@ -15,11 +15,13 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.core.env.Environment;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
 
 import javax.servlet.ServletContext;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -144,6 +146,15 @@ public class SaasSpringContextUtil implements BeanFactoryPostProcessor, Applicat
 	public static void setServletContext(ServletContext sc) {
 
 		servletContext = sc;
+	}
+
+	/**
+	 * 根据名称和类型获得spring context中的bean<br>
+	 * @param interfaceType
+	 * @return
+	 */
+	public static <T> Map<String, T> getBeansOfType(@Nullable Class<T> interfaceType){
+		return context.getBeansOfType(interfaceType);
 	}
 
 	/**

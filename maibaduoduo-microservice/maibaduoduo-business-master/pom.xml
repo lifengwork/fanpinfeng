@@ -75,5 +75,6 @@
 		<module>order-master</module>
 		<module>store-master</module>
 		<module>common-master</module>
+		<module>program-master</module>
     </modules>
 </project>
