@@ -7,6 +7,9 @@
  */
 package com.maibaduoduo;
 
+import com.maibaduoduo.configuration.SaasSpringContextUtil;
+import com.maibaduoduo.task.event.ProgramTask;
+import com.maibaduoduo.task.publisher.ProgramEventPublisher;
 import org.apache.ibatis.annotations.Mapper;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -18,6 +21,9 @@ import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
+
 @EnableDiscoveryClient
 @SpringBootApplication(scanBasePackages = {"com.maibaduoduo"})
 @MapperScan(
@@ -28,7 +34,6 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableHystrix
 @EnableHystrixDashboard
 public class ProgramApplication {
-
 	public static void main(String[] args) {
 		new SpringApplicationBuilder(ProgramApplication.class).banner(new SystemServerBanner()).run(args);
 	}

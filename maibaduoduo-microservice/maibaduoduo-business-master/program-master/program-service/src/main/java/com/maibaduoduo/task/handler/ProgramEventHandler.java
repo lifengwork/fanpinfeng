@@ -7,10 +7,12 @@
  */
 package com.maibaduoduo.task.handler;
 
-import com.lmax.disruptor.WorkHandler;
-import com.maibaduoduo.program.service.ProgramService;
 import com.maibaduoduo.task.event.ProgramEvent;
 import com.maibaduoduo.task.event.ProgramEventType;
+import com.maibaduoduo.task.event.ProgramTask;
+import com.maibaduoduo.task.program.ExecuteObject;
+import com.maibaduoduo.task.program.Program;
+import org.springframework.stereotype.Component;
 
 import java.util.concurrent.Executor;
 
@@ -18,35 +20,44 @@ import java.util.concurrent.Executor;
  * ProgramEventHandler.
  * @author saas
  */
-public class ProgramEventHandler implements WorkHandler<ProgramEvent> {
-
-    private final ProgramService programService;
-
+@Component
+public class ProgramEventHandler extends EventHandler {
+    private Program program;
     private Executor executor;
-
-    public ProgramEventHandler(final ProgramService programService,
-                               final Executor executor) {
-        this.programService = programService;
-        this.executor = executor;
-    }
-
     /**
-     *
+     * 处理具体任务
      * @param programEvent
      */
     @Override
-    public void onEvent(final ProgramEvent programEvent) {
+    public void doHandle(final ProgramEvent programEvent) {
         executor.execute(() -> {
-            if (programEvent.getType() == ProgramEventType.SAVE.getCode()) {
-                //TODO
-            } else if (programEvent.getType() == ProgramEventType.EXECUTE.getCode()) {
-                //TODO
+            if (programEvent.getType() == ProgramEventType.EXECUTE.getCode()) {
+                logger.info("Event Type is EXECUTE");
+                program.execute(new ExecuteObject());
             } else if (programEvent.getType() == ProgramEventType.EXECUTE_STATUS.getCode()) {
-                //TODO
-            } else if (programEvent.getType() == ProgramEventType.EXECUTE_FAIR.getCode()) {
-                //TODO
+                logger.info("Event Type is EXECUTE_STATUS");
+                program.execute(new ExecuteObject());
+            } else{
+                logger.info("Event Type is null");
             }
             programEvent.clear();
         });
+    }
+
+    @Override
+    public EventHandler programEventHandlerInit(Program program, Executor executor) {
+        this.program = program;
+        this.executor = executor;
+        return this;
+    }
+
+    @Override
+    void beforeExecute() {
+
+    }
+
+    @Override
+    void afterExecute() {
+
     }
 }

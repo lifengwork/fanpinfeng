@@ -10,6 +10,8 @@ package com.maibaduoduo.program.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import com.maibaduoduo.task.event.ProgramTask;
+import com.maibaduoduo.task.publisher.ProgramEventPublisher;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -21,8 +23,6 @@ import com.maibaduoduo.program.service.ProgramService;
 import com.maibaduoduo.configuration.utils.PageUtils;
 import com.maibaduoduo.configuration.utils.R;
 
-
-
 /**
  * 
  *
@@ -32,10 +32,13 @@ import com.maibaduoduo.configuration.utils.R;
  */
 @RestController
 @RequestMapping("program/program")
-@Api("执行计划")
+@Api("制造执行计划")
 public class ProgramController {
     @Autowired
     private ProgramService programService;
+
+    @Autowired
+    private ProgramEventPublisher programEventPublisher;
 
     /**
      * 列表
@@ -69,8 +72,8 @@ public class ProgramController {
     @RequiresPermissions("program:program:save")
     @ApiOperation("保存")
     public R save(@RequestBody ProgramEntity program){
-		programService.save(program);
-
+        //programService.save(program);
+        programEventPublisher.publishEvent(new ProgramTask(),0);
         return R.ok();
     }
 

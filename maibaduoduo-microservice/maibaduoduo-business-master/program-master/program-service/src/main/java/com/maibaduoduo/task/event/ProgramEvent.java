@@ -19,7 +19,6 @@ import java.io.Serializable;
 public class ProgramEvent implements Serializable {
 
     private ProgramTask programTask;
-
     private int type;
 
     /**
