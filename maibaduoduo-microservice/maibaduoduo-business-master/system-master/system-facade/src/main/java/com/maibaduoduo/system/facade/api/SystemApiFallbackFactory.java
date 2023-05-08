@@ -13,23 +13,21 @@ import com.maibaduoduo.common.form.LoginForm;
 import com.maibaduoduo.configuration.utils.R;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.stereotype.Component;
 
-/**
- * 用户API熔断器
- */
 @Component
 public class SystemApiFallbackFactory extends ApiFallbackFactory {
-
     Logger logger = LoggerFactory.getLogger(this.getClass());
-
     @Override
     public SystemFacade fallbackFactory(Throwable throwable) {
-        throwable.fillInStackTrace().printStackTrace();
-        return form -> {
-            logger.error(ExceptionUtil.stacktraceToString(throwable));
-            return R.error();
+        return new SystemFacade() {
+            @Override
+            public R infoByMobile(String form) {
+                logger.error(ExceptionUtil.stacktraceToString(throwable));
+                return R.error();
+            }
         };
     }
 }

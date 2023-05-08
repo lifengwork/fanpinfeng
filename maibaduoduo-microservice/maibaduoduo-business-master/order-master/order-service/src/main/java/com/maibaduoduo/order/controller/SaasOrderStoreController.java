@@ -14,6 +14,7 @@ import com.maibaduoduo.configuration.utils.ValidatorUtils;
 import com.maibaduoduo.order.entity.PassWordEntity;
 import com.maibaduoduo.order.entity.SaasOrderStoreEntity;
 import com.maibaduoduo.store.entity.SaasStoreEntity;
+import com.maibaduoduo.system.facade.api.SystemFacade;
 import io.swagger.annotations.Api;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,9 +34,13 @@ import java.util.Map;
 @RestController
 @RequestMapping("/saas/orderstore")
 @Api("订单仓库接口文档")
-public class SaasOrderStoreController {
+public class SaasOrderStoreController extends BaseController {
     @Autowired
     private SaasOrderStoreService saasOrderStoreService;
+
+    protected SaasOrderStoreController(SystemFacade systemFacade) {
+        super(systemFacade);
+    }
 
     /**
      * 列表

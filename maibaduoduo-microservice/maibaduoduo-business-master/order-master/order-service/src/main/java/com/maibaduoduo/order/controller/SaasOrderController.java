@@ -12,8 +12,7 @@ import com.maibaduoduo.configuration.utils.PageUtils;
 import com.maibaduoduo.configuration.utils.R;
 import com.maibaduoduo.order.entity.SaasOrderEntity;
 import com.maibaduoduo.order.service.SaasOrderStoreService;
-import com.maibaduoduo.store.entity.SaasStoreEntity;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.maibaduoduo.system.facade.api.SystemFacade;
 import io.swagger.annotations.Api;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,11 +32,16 @@ import java.util.Map;
 @RestController
 @RequestMapping("/order")
 @Api("订单接口文档")
-public class SaasOrderController {
+public class SaasOrderController extends BaseController {
     @Autowired
     private SaasOrderService saasOrderService;
     @Autowired
     private SaasOrderStoreService saasOrderStoreService;
+
+    protected SaasOrderController(SystemFacade systemFacade) {
+        super(systemFacade);
+    }
+
     @RequestMapping("/ribbon")
     public R testRibbon(){
         return R.ok(saasOrderStoreService.querySassStoreEntity(1L).getStoreDescription());

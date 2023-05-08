@@ -171,6 +171,11 @@
             <artifactId>common-master</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.maibaduoduo</groupId>
+            <artifactId>system-facade</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <!--引入核心包 end-->
     </dependencies>
     <build>
