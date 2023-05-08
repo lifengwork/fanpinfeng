@@ -9,6 +9,8 @@ package com.maibaduoduo.program.controller;
 
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import com.maibaduoduo.task.event.ProgramTask;
 import com.maibaduoduo.task.publisher.ProgramEventPublisher;
@@ -73,7 +75,13 @@ public class ProgramController {
     @ApiOperation("保存")
     public R save(@RequestBody ProgramEntity program){
         //programService.save(program);
-        programEventPublisher.publishEvent(new ProgramTask(),0);
+        programEventPublisher.publishEvent(new ProgramTask(),2);
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        programEventPublisher.publishEvent(new ProgramTask(),100);
         return R.ok();
     }
 
