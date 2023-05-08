@@ -13,17 +13,12 @@ import com.lmax.disruptor.IgnoreExceptionHandler;
 import com.lmax.disruptor.dsl.Disruptor;
 import com.lmax.disruptor.dsl.ProducerType;
 import com.maibaduoduo.configuration.SaasSpringContextUtil;
-import com.maibaduoduo.program.service.ProgramService;
 import com.maibaduoduo.task.event.ProgramEvent;
 import com.maibaduoduo.task.factory.ProgramEventFactory;
 import com.maibaduoduo.task.factory.ProgramThreadFactory;
 import com.maibaduoduo.task.handler.EventHandler;
-import com.maibaduoduo.task.handler.ProgramEventHandler;
 import com.maibaduoduo.task.program.Program;
-import com.maibaduoduo.utils.BaseContextHandler;
 import org.springframework.beans.factory.DisposableBean;
-
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Executor;
@@ -33,7 +28,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class ProgramConfig implements DisposableBean {
-    private static final int MAX_THREAD = Runtime.getRuntime().availableProcessors() << 1;
+    private static final int MAX_THREAD = Runtime.getRuntime().availableProcessors();// << 1;
 
     private Disruptor<ProgramEvent> disruptor;
 
@@ -58,18 +53,21 @@ public class ProgramConfig implements DisposableBean {
                 new LinkedBlockingQueue<>(),
                 ProgramThreadFactory.create("program-log-disruptor", false),
                 new ThreadPoolExecutor.AbortPolicy());
-        List<EventHandler> eventHandlers = Lists.newArrayList();
+        List<EventHandler> eventHandlers = null;
         Map<String, EventHandler> eventHandlerMap = SaasSpringContextUtil.getBeansOfType(EventHandler.class);
         for (EventHandler eventHandler : eventHandlerMap.values()) {
-            for (int i = 0; i < MAX_THREAD / 2; i++) {
+            eventHandlers = Lists.newArrayList();
+            for (int i = 0; i < MAX_THREAD; i++) {
                 eventHandlers.add(eventHandler.programEventHandlerInit(program, executor));
             }
+            //
+            EventHandler[] consumers = new EventHandler[eventHandlers.size()];
+            for (int i = 0; i < eventHandlers.size(); i++) {
+                consumers[i] = eventHandlers.get(i);
+            }
+            disruptor.handleEventsWithWorkerPool(consumers).asSequenceBarrier();
         }
-        EventHandler[] consumers = new EventHandler[eventHandlers.size()];
-        for (int i = 0; i < eventHandlers.size(); i++) {
-            consumers[i] = eventHandlers.get(i);
-        }
-        disruptor.handleEventsWithWorkerPool(consumers);
+
         disruptor.setDefaultExceptionHandler(new IgnoreExceptionHandler());
         disruptor.start();
     }

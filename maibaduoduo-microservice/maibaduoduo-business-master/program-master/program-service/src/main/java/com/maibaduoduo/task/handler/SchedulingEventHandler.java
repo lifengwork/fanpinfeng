@@ -20,7 +20,7 @@ import java.util.concurrent.Executor;
  * @author saas
  */
 @Component
-public class ProgramEventHandler extends EventHandler {
+public class SchedulingEventHandler extends EventHandler {
     private Program program;
     private Executor executor;
     /**
@@ -30,8 +30,8 @@ public class ProgramEventHandler extends EventHandler {
     @Override
     public void doHandle(final ProgramEvent programEvent) {
         executor.execute(() -> {
-            if (programEvent.getType() == ProgramEventType.EXECUTE.getCode()) {
-                logger.info("Event Type is EXECUTE，{}",programEvent.getType());
+            if (programEvent.getType() == ProgramEventType.EXECUTE_STATUS.getCode()) {
+                logger.info("Event Type is EXECUTE_STATUS，{}",programEvent.getType());
                 program.execute(new ExecuteObject());
             }
             programEvent.clear();

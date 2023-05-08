@@ -5,7 +5,7 @@
  *
  * https://www.maibaduoduo.com
  */
-package com.maibaduoduo;
+package com.maibaduoduo.config;
 
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;

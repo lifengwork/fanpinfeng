@@ -28,7 +28,8 @@ import java.util.Objects;
 public class AuthFilter implements GlobalFilter, Ordered {
     private static Logger LOGGER = LoggerFactory.getLogger(AuthFilter.class);
     private static final String  AUTHORIZATIONINFO = "token";
-    public static final String USERINFO="user_id";//动态解析用户信息会用到
+    public static final String USER="user_id";//动态解析用户信息会用到
+    public static final String MOBILE="mobile";//动态解析用户信息会用到
     @Autowired
     private TokenUtil tokenUtil;
     @Autowired
@@ -57,7 +58,9 @@ public class AuthFilter implements GlobalFilter, Ordered {
             exchange = exchange.mutate().request(exchange.getRequest()
                     .mutate().header(AUTHORIZATIONINFO,token).build()).build();
             exchange = exchange.mutate().request(exchange.getRequest()
-                    .mutate().header(USERINFO,String.valueOf(authorizationInfo.getUserId())).build()).build();
+                    .mutate().header(USER,String.valueOf(authorizationInfo.getUserId())).build()).build();
+            exchange = exchange.mutate().request(exchange.getRequest()
+                    .mutate().header(MOBILE,authorizationInfo.getMobile()).build()).build();
         }catch (Exception e){
             throw new SaasException(e.getMessage(), HttpStatus.UNAUTHORIZED.value());
         }
