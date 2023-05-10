@@ -25,8 +25,8 @@ import org.springframework.web.client.RestTemplate;
 
 @Configuration
 public class CommonConfig {
-   /* @Bean
-    @LoadBalanced*/
+   @Bean
+    @LoadBalanced
     public RestTemplate restTemplate() {
         RestTemplate template = new RestTemplate();
         SimpleClientHttpRequestFactory factory =(SimpleClientHttpRequestFactory)template.getRequestFactory();

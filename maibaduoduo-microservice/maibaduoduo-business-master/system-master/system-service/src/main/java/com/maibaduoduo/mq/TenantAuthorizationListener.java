@@ -91,6 +91,8 @@ public class TenantAuthorizationListener {
             toCacheUser.setTenantId(sysUserEntityByUserId.getTenantId());
             toCacheUser.setUsername(sysUserEntityByUserId.getUsername());//PC端登录
             toCacheUser.setMobile(sysUserEntityByUserId.getMobile());//手机号用来APP端登录
+            toCacheUser.setStatus(sysUserEntityByUserId.getStatus());
+            toCacheUser.setEmail(sysUserEntityByUserId.getEmail());
             //TODO
             if(StringUtils.isNotEmpty(sysUserEntityByUserId.getUsername())){
                 redisUtils.set(sysUserEntityByUserId.getUsername(), toCacheUser);
