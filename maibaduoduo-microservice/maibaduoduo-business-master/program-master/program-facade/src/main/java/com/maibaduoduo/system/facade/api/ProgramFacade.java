@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @Component
-@FeignClient(name = "program-service", fallbackFactory = ProgramApiFallbackFactory.class)
+@FeignClient(name = "program-service",configuration = {ProgramRestTemplateConfiguration.class},fallbackFactory = ProgramApiFallbackFactory.class)
 public interface ProgramFacade extends ApiFacade {
 
 }

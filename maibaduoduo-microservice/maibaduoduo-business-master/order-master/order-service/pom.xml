@@ -121,6 +121,11 @@
         </dependency>
         <dependency>
             <groupId>com.maibaduoduo</groupId>
+            <artifactId>system-facade</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.maibaduoduo</groupId>
             <artifactId>order-core</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -147,11 +152,11 @@
             <artifactId>spring-cloud-starter-netflix-hystrix-dashboard</artifactId>
         </dependency>
         <!--加入事务补偿采用开源myth二次开发-->
-      <dependency>
+      <!--<dependency>
             <groupId>org.dromara</groupId>
             <artifactId>myth-spring-boot-starter-springcloud</artifactId>
             <version>2.1.0-RELEASE</version>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>com.maibaduoduo</groupId>
             <artifactId>jwt-starter</artifactId>
@@ -169,11 +174,6 @@
         <dependency>
             <groupId>com.maibaduoduo</groupId>
             <artifactId>common-master</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.maibaduoduo</groupId>
-            <artifactId>system-facade</artifactId>
             <version>${project.version}</version>
         </dependency>
         <!--引入核心包 end-->

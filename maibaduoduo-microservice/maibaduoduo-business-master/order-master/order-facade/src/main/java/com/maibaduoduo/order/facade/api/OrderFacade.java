@@ -5,7 +5,7 @@
  *
  * https://www.maibaduoduo.com
  */
-package com.maibaduoduo.system.facade.api;
+package com.maibaduoduo.order.facade.api;
 
 import com.maibaduoduo.api.ApiFacade;
 import com.maibaduoduo.configuration.utils.R;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @Component
-@FeignClient(name = "order-service", fallbackFactory = OrderApiFallbackFactory.class)
+@FeignClient(name = "order-service", configuration = {OrderRestTemplateConfiguration.class},  fallbackFactory = OrderApiFallbackFactory.class)
 public interface OrderFacade extends ApiFacade {
 
     @GetMapping("/info/{id}")

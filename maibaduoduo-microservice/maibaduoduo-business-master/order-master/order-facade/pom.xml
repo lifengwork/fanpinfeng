@@ -25,6 +25,11 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-hystrix-dashboard</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.dromara</groupId>
+			<artifactId>myth-spring-boot-starter-springcloud</artifactId>
+			<version>2.1.0-RELEASE</version>
+		</dependency>
 		<!--引入项目依赖-->
 		<dependency>
 			<groupId>com.maibaduoduo</groupId>

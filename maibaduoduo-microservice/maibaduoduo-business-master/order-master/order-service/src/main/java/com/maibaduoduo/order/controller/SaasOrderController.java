@@ -45,6 +45,7 @@ public class SaasOrderController extends BaseController {
 
     @RequestMapping("/ribbon")
     public R testRibbon(){
+        this.getUserInfo();
         return R.ok(saasOrderStoreService.querySassStoreEntity(1L).getStoreDescription());
     }
 

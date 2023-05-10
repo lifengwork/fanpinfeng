@@ -22,7 +22,6 @@ import org.springframework.stereotype.Component;
  * 用户API回调
  */
 @Component
-@Primary
 public class StoreApiFallbackFactory extends ApiFallbackFactory {
     Logger logger = LoggerFactory.getLogger(this.getClass());
     @Override

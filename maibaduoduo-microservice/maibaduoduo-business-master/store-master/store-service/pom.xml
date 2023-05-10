@@ -151,11 +151,11 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
         <!--加入事务补偿采用开源myth二次开发-->
-        <dependency>
+        <!--<dependency>
             <groupId>org.dromara</groupId>
             <artifactId>myth-spring-boot-starter-springcloud</artifactId>
             <version>2.1.0-RELEASE</version>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>com.maibaduoduo</groupId>
             <artifactId>jwt-starter</artifactId>

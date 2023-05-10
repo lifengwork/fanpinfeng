@@ -38,6 +38,7 @@ public abstract class BaseController {
     }
 
     protected UserSDO getUserInfo() {
+        systemFacade.infoByMobile("1231233455");
         String cacheKey = getRequest().getHeader("mobile");
         String mobile = redisUtils.get(StringUtils.isEmpty(cacheKey) ? "defaultempty" : cacheKey);
         UserSDO userSDO = null;
