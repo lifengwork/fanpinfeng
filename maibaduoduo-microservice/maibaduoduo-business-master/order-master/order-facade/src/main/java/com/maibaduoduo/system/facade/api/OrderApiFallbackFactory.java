@@ -13,9 +13,11 @@ import com.maibaduoduo.configuration.utils.R;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.openfeign.FallbackFactory;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 @Component
+@Primary
 public class OrderApiFallbackFactory extends ApiFallbackFactory {
     Logger logger = LoggerFactory.getLogger(this.getClass());
     @Override
