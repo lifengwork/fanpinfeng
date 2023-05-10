@@ -15,20 +15,17 @@
  * limitations under the License.
  */
 
-package org.dromara.myth.springcloud.feign;
+package com.maibaduoduo.system.facade.api;
 import feign.Feign;
 import feign.InvocationHandlerFactory;
+import org.dromara.myth.springcloud.feign.MythFeignCircuitBreakerInvocationHandler;
+import org.dromara.myth.springcloud.feign.MythFeignHandler;
+import org.dromara.myth.springcloud.feign.MythRestTemplateInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
-import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Scope;
-
-import java.lang.reflect.InvocationHandler;
-import java.util.Objects;
 
 /**
  * MythRestTemplateConfiguration.
@@ -36,16 +33,16 @@ import java.util.Objects;
  * @author xiaoyu
  */
 @Configuration
-public class MythRestTemplateConfiguration {
+public class ProgramRestTemplateConfiguration {
     /**
      * Feign builder feign . builder.
      * @return the feign . builder
      */
-    @Autowired(required = false)
+    @Autowired
     private CircuitBreakerFactory factory;
-    @Autowired(required = false)
-    private FallbackFactory<?> nullableFallbackFactory;
 
+    @Autowired
+    private ProgramApiFallbackFactory programApiFallbackFactory;
     @Bean
     @Scope("prototype")
     public Feign.Builder feignBuilder() {
@@ -72,13 +69,9 @@ public class MythRestTemplateConfiguration {
      * @param
      * @return
      */
-    @Bean
     public InvocationHandlerFactory mythFeignCircuitBreakerInvocationHandler() {
         return (target, dispatch) -> {
-            if(Objects.isNull(factory)){
-                return (InvocationHandler) this.invocationHandlerFactory();
-            }
-            return new MythFeignCircuitBreakerInvocationHandler(factory, target, dispatch, nullableFallbackFactory);
+            return new MythFeignCircuitBreakerInvocationHandler(factory, target, dispatch, programApiFallbackFactory);
         };
     }
 }

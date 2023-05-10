@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 @Component
-@FeignClient(name = "system-service", fallbackFactory = SystemApiFallbackFactory.class)
+@FeignClient(name = "system-service", configuration = {SystemRestTemplateConfiguration.class},fallbackFactory = SystemApiFallbackFactory.class)
 public interface SystemFacade extends ApiFacade {
     @GetMapping("/sys/user/info/m/{mobile}")
     R infoByMobile(@PathVariable("mobile") String mobile);

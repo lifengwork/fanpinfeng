@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 @Component
-@FeignClient(name = "store-service", fallbackFactory = StoreApiFallbackFactory.class)
+@FeignClient(name = "store-service", configuration = {StoreRestTemplateConfiguration.class}, fallbackFactory = StoreApiFallbackFactory.class)
 public interface StoreFacade extends ApiFacade {
 
     @GetMapping("/saas/store/info/{id}")

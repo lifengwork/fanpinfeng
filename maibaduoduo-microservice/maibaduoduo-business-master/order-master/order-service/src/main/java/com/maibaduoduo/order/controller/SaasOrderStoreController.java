@@ -7,6 +7,7 @@
  */
 package com.maibaduoduo.order.controller;
 
+import com.maibaduoduo.configuration.utils.RedisUtils;
 import com.maibaduoduo.order.service.SaasOrderStoreService;
 import com.maibaduoduo.configuration.utils.PageUtils;
 import com.maibaduoduo.configuration.utils.R;
@@ -38,8 +39,8 @@ public class SaasOrderStoreController extends BaseController {
     @Autowired
     private SaasOrderStoreService saasOrderStoreService;
 
-    protected SaasOrderStoreController(SystemFacade systemFacade) {
-        super(systemFacade);
+    protected SaasOrderStoreController(SystemFacade systemFacade, RedisUtils redisUtils) {
+        super(systemFacade,redisUtils);
     }
 
     /**
