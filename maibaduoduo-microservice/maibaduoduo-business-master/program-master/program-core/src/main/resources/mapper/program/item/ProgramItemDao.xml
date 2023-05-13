@@ -6,10 +6,10 @@
 -->
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.maibaduoduo.analysis.item.dao.ProgramItemDao">
+<mapper namespace="com.maibaduoduo.program.item.dao.ProgramItemDao">
 
     <!-- 映射 -->
-    <resultMap type="com.maibaduoduo.analysis.item.entity.ProgramItemEntity" id="programItemMap">
+    <resultMap type="com.maibaduoduo.program.item.entity.ProgramItemEntity" id="programItemMap">
                     <result property="id" column="id"/>
                     <result property="programId" column="program_id"/>
                     <result property="programItemOperator" column="program_item_operator"/>
