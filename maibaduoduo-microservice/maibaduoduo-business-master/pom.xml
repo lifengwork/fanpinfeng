@@ -76,5 +76,8 @@
 		<module>store-master</module>
 		<module>common-master</module>
 		<module>program-master</module>
+		<module>analysis-master</module>
+		<module>purchase-master</module>
+		<module>supplier-master</module>
     </modules>
 </project>

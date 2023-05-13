@@ -13,7 +13,7 @@ import com.maibaduoduo.configuration.utils.PageUtils;
 import com.maibaduoduo.configuration.utils.R;
 import com.maibaduoduo.order.entity.SaasOrderEntity;
 import com.maibaduoduo.order.service.SaasOrderStoreService;
-import com.maibaduoduo.system.facade.api.SystemFacade;
+import com.maibaduoduo.supplier.facade.api.SystemFacade;
 import io.swagger.annotations.Api;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
