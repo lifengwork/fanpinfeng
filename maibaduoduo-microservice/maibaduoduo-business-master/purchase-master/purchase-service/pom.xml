@@ -116,11 +116,6 @@
         <!--引入核心包-->
         <dependency>
             <groupId>com.maibaduoduo</groupId>
-            <artifactId>purchase-facade</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.maibaduoduo</groupId>
             <artifactId>purchase-core</artifactId>
             <version>${project.version}</version>
         </dependency>

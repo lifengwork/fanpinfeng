@@ -10,12 +10,12 @@ package com.maibaduoduo.supplier.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import com.maibaduoduo.supplier.service.SupplierService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.maibaduoduo.supplier.entity.SupplierEntity;
-import com.maibaduoduo.supplier.service.SupplierService;
 import com.maibaduoduo.configuration.utils.PageUtils;
 import com.maibaduoduo.configuration.utils.R;
 

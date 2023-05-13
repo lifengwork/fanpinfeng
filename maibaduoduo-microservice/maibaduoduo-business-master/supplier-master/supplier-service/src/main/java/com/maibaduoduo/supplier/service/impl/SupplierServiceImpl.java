@@ -7,6 +7,7 @@
  */
 package com.maibaduoduo.supplier.service.impl;
 
+import com.maibaduoduo.supplier.service.SupplierService;
 import org.springframework.stereotype.Service;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -17,7 +18,6 @@ import com.maibaduoduo.configuration.utils.Query;
 
 import com.maibaduoduo.supplier.dao.SupplierDao;
 import com.maibaduoduo.supplier.entity.SupplierEntity;
-import com.maibaduoduo.supplier.service.SupplierService;
 
 
 @Service("supplierService")

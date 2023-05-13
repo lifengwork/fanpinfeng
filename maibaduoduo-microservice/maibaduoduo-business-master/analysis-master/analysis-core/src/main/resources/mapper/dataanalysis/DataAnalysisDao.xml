@@ -9,10 +9,10 @@
 -->
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.maibaduoduo.dataanalysis.dao.DataAnalysisDao">
+<mapper namespace="com.maibaduoduo.analysis.dao.DataAnalysisDao">
 
     <!-- 映射 -->
-    <resultMap type="com.maibaduoduo.dataanalysis.entity.DataAnalysisEntity" id="dataAnalysisMap">
+    <resultMap type="com.maibaduoduo.analysis.entity.DataAnalysisEntity" id="dataAnalysisMap">
                     <result property="id" column="id"/>
                     <result property="analysisName" column="analysis_name"/>
                     <result property="dataType" column="data_type"/>

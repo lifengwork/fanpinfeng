@@ -15,7 +15,7 @@ import com.maibaduoduo.configuration.utils.ValidatorUtils;
 import com.maibaduoduo.order.entity.PassWordEntity;
 import com.maibaduoduo.order.entity.SaasOrderStoreEntity;
 import com.maibaduoduo.store.entity.SaasStoreEntity;
-import com.maibaduoduo.supplier.facade.api.SystemFacade;
+import com.maibaduoduo.analysis.facade.api.SystemFacade;
 import io.swagger.annotations.Api;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;

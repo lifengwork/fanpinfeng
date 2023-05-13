@@ -9,7 +9,7 @@ package com.maibaduoduo.order.controller;
 
 import com.maibaduoduo.configuration.utils.RedisUtils;
 import com.maibaduoduo.sdo.UserSDO;
-import com.maibaduoduo.supplier.facade.api.SystemFacade;
+import com.maibaduoduo.analysis.facade.api.SystemFacade;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
