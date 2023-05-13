@@ -9,9 +9,9 @@ package com.maibaduoduo.program.controller;
 
 import java.util.Arrays;
 import java.util.Map;
-import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
+import com.maibaduoduo.program.service.ProgramService;
 import com.maibaduoduo.task.event.ProgramTask;
 import com.maibaduoduo.task.publisher.ProgramEventPublisher;
 import io.swagger.annotations.Api;
@@ -21,13 +21,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.maibaduoduo.program.entity.ProgramEntity;
-import com.maibaduoduo.program.service.ProgramService;
 import com.maibaduoduo.configuration.utils.PageUtils;
 import com.maibaduoduo.configuration.utils.R;
 
 /**
- * 
- *
  * @author saas
  * @email lifengwork@yeah.net
  * @date 2023-05-06 20:24:36
@@ -38,10 +35,8 @@ import com.maibaduoduo.configuration.utils.R;
 public class ProgramController {
     @Autowired
     private ProgramService programService;
-
     @Autowired
     private ProgramEventPublisher programEventPublisher;
-
     /**
      * 列表
      */
@@ -53,7 +48,6 @@ public class ProgramController {
 
         return R.ok().put("page", page);
     }
-
 
     /**
      * 信息

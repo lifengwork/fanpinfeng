@@ -9,7 +9,7 @@ package com.maibaduoduo.order.controller;
 
 import com.maibaduoduo.configuration.utils.RedisUtils;
 import com.maibaduoduo.sdo.UserSDO;
-import com.maibaduoduo.system.facade.api.SystemFacade;
+import com.maibaduoduo.analysis.facade.api.SystemFacade;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,7 +38,6 @@ public abstract class BaseController {
     }
 
     protected UserSDO getUserInfo() {
-        systemFacade.infoByMobile("1231233455");
         String cacheKey = getRequest().getHeader("mobile");
         String mobile = redisUtils.get(StringUtils.isEmpty(cacheKey) ? "defaultempty" : cacheKey);
         UserSDO userSDO = null;

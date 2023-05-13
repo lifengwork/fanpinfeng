@@ -9,6 +9,7 @@ package com.maibaduoduo.order.facade.api;
 
 import com.maibaduoduo.api.ApiFacade;
 import com.maibaduoduo.configuration.utils.R;
+import feign.Headers;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 public interface OrderFacade extends ApiFacade {
 
     @GetMapping("/info/{id}")
+    @Headers({"Content-Type:application/json;charset=UTF-8"})
     @ApiOperation("根据订单编码获取订单信息")
     public R info(@PathVariable("id") Long id);
 

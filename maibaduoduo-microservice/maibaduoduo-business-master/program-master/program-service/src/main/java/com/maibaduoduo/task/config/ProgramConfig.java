@@ -12,27 +12,23 @@ import com.lmax.disruptor.BlockingWaitStrategy;
 import com.lmax.disruptor.IgnoreExceptionHandler;
 import com.lmax.disruptor.dsl.Disruptor;
 import com.lmax.disruptor.dsl.ProducerType;
-import com.maibaduoduo.configuration.SaasSpringContextUtil;
 import com.maibaduoduo.task.event.ProgramEvent;
 import com.maibaduoduo.task.factory.ProgramEventFactory;
 import com.maibaduoduo.task.factory.ProgramThreadFactory;
-import com.maibaduoduo.task.handler.EventHandler;
 import com.maibaduoduo.task.program.Program;
 import org.springframework.beans.factory.DisposableBean;
-import java.util.List;
-import java.util.Map;
 import java.util.concurrent.Executor;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class ProgramConfig implements DisposableBean {
-    private static final int MAX_THREAD = Runtime.getRuntime().availableProcessors();// << 1;
+public abstract class ProgramConfig implements DisposableBean {
+    protected static final int MAX_THREAD = Runtime.getRuntime().availableProcessors();// << 1;
 
-    private Disruptor<ProgramEvent> disruptor;
+    protected Disruptor<ProgramEvent> disruptor;
 
-    private final Program program;
+    protected final Program program;
 
     public ProgramConfig(Program program) {
         this.program = program;
@@ -53,20 +49,8 @@ public class ProgramConfig implements DisposableBean {
                 new LinkedBlockingQueue<>(),
                 ProgramThreadFactory.create("program-log-disruptor", false),
                 new ThreadPoolExecutor.AbortPolicy());
-        List<EventHandler> eventHandlers = null;
-        Map<String, EventHandler> eventHandlerMap = SaasSpringContextUtil.getBeansOfType(EventHandler.class);
-        for (EventHandler eventHandler : eventHandlerMap.values()) {
-            eventHandlers = Lists.newArrayList();
-            for (int i = 0; i < MAX_THREAD; i++) {
-                eventHandlers.add(eventHandler.programEventHandlerInit(program, executor));
-            }
-            //
-            EventHandler[] consumers = new EventHandler[eventHandlers.size()];
-            for (int i = 0; i < eventHandlers.size(); i++) {
-                consumers[i] = eventHandlers.get(i);
-            }
-            disruptor.handleEventsWithWorkerPool(consumers).asSequenceBarrier();
-        }
+
+        this.configHandler(executor);
 
         disruptor.setDefaultExceptionHandler(new IgnoreExceptionHandler());
         disruptor.start();
@@ -80,4 +64,5 @@ public class ProgramConfig implements DisposableBean {
     public void destroy() {
         disruptor.shutdown();
     }
+    protected abstract Disruptor<ProgramEvent> configHandler(final Executor executor );
 }
