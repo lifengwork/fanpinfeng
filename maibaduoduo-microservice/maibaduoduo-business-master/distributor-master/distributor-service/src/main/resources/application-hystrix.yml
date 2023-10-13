@@ -1,0 +1,49 @@
+## hystrix相关配置
+hystrix:
+  command:
+    default:
+      #缓存
+      requestCache:
+        enable: true   # 设置是否缓存请求，request-scope内缓存
+      requestLog:
+        enabled: true  # 设置HystrixCommand执行和事件是否打印到HystrixRequestLog中
+      #执行策略
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          strategy: THREAD      # 资源隔离模式，默认thread。 还有一种叫信号量
+          thread:
+            timeoutInMilliseconds: 5000   # 超时时间，默认1000毫秒
+            interruptOnTimeout: true       # 超时时中断线程
+            interruptOnFutureCancel: false # 取消时候中断线程
+          #semaphore:
+            #maxConcurrentRequests: 2   # 信号量模式下，最大并发量
+      # 降级策略
+      fallback:
+        enabled: true  # 是否开启服务降级
+        isolation:
+          semaphore:
+            maxConcurrentRequests: 10  # fallback执行并发量
+      # 熔断策略
+      circuitBreaker:
+        enabled: true  # 启用/禁用熔断机制
+        forceOpen: false  # 强制开启熔断
+        forceClosed: false # 强制关闭熔断
+        requestVolumeThreshold: 4  # 前提条件，一定时间内发起一定数量的请求。  也就是5秒钟内(这个5秒对应下面的滚动窗口长度)至少请求4次，熔断器才发挥起作用。  默认20
+        errorThresholdPercentage: 50 # 错误百分比。达到或超过这个百分比，熔断器打开。  比如：5秒内有4个请求，2个请求超时或者失败，就会自动开启熔断
+        sleepWindowInMilliseconds: 10000 # 10秒后，进入半打开状态（熔断开启，间隔一段时间后，会让一部分的命令去请求服务提供者，如果结果依旧是失败，则又会进入熔断状态，如果成功，就关闭熔断）。 默认5秒
+      ## 度量策略
+      metrics:
+        rollingStats:
+          timeInMilliseconds: 5000   # 5秒为一次统计周期，术语描述：滚动窗口的长度为5秒
+          numBuckets: 10    # 统计周期内 度量桶的数量，必须被timeInMilliseconds整除。作用：
+        rollingPercentile:
+          enabled: true   # 是否收集执行时间，并计算各个时间段的百分比
+          timeInMilliseconds: 5000  # 设置执行时间统计周期为多久，用来计算百分比
+          numBuckets: 6  # 执行时间统计周期内，度量桶的数量
+          bucketSize: 100  # 执行时间统计周期内，每个度量桶最多统计多少条记录。设置为50，有100次请求，则只会统计最近的10次
+        healthSnapshot:
+          intervalInMilliseconds: 500  # 数据取样时间间隔
+  dashboard:
+    proxy-stream-allow-list: "localhost"

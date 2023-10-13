@@ -20,7 +20,7 @@ public class EmployeeListener implements ApplicationListener<EmployeeEvent> {
     @Autowired
     private RabbitSender rabbitSender;
 
-    /**
+    /**SchedulingConfigurer
      * TENANT_USER_EXCHANGE
      * @param employeeEvent
      */

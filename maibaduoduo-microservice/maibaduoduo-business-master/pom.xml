@@ -79,5 +79,9 @@
 		<module>analysis-master</module>
 		<module>purchase-master</module>
 		<module>supplier-master</module>
+		<module>retailer-master</module>
+		<module>logistics-master</module>
+		<module>distributor-master</module>
+		
     </modules>
 </project>
