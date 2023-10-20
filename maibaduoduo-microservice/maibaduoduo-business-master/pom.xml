@@ -82,6 +82,8 @@
 		<module>retailer-master</module>
 		<module>logistics-master</module>
 		<module>distributor-master</module>
-		
+		<module>design-master</module>
+		<module>bom-master</module>
+		<module>inventory-master</module>
     </modules>
 </project>
