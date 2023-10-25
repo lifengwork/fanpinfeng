@@ -10,7 +10,7 @@ package com.maibaduoduo;
 
 import com.maibaduoduo.banner.SaasBanner;
 
-public class SystemServerBanner extends SaasBanner {
+public class BomServerBanner extends SaasBanner {
 
     @Override
     protected String getTitle() {

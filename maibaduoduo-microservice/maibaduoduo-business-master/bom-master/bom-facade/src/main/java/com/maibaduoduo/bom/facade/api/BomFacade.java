@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 
 @Component
-@FeignClient(name = "program-service",configuration = {SupplierRestTemplateConfiguration.class},fallbackFactory = SupplierApiFallbackFactory.class)
-public interface SupplierFacade extends ApiFacade {
+@FeignClient(name = "program-service",configuration = {BomRestTemplateConfiguration.class},fallbackFactory = BomApiFallbackFactory.class)
+public interface BomFacade extends ApiFacade {
 
 }

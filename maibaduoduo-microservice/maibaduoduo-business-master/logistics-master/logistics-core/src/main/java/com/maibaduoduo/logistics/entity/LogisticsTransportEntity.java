@@ -1,8 +1,6 @@
-/**
- * Copyright (c) 2019-2023 SAAS开源 All rights reserved.
- *
+/*
+ * Copyright (c) 2019-2023 SAAS开源 All rights reserved. lifengwork@yeah.net
  * SAAS系统设计研发交流
- *
  * https://www.maibaduoduo.com
  */
 package com.maibaduoduo.logistics.entity;
@@ -19,7 +17,7 @@ import lombok.Data;
  * 
  * @author saas
  * @email lifengwork@yeah.net
- * @date 2023-06-25 09:24:11
+ * @date 2023-10-25 18:03:06
  */
 @Data
 @TableName("saas_logistics_transport")
@@ -27,10 +25,26 @@ public class LogisticsTransportEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 
+	 * 运输ID
 	 */
 	@TableId
 	private Long id;
+	/**
+	 * 运输代码
+	 */
+	private String transportCode;
+	/**
+	 * 配送ID
+	 */
+	private Long deliveryId;
+	/**
+	 * 配送员
+	 */
+	private Long deliverymanId;
+	/**
+	 * 运输方式
+	 */
+	private Long vehicleId;
 	/**
 	 * 名称
 	 */
@@ -40,21 +54,21 @@ public class LogisticsTransportEntity implements Serializable {
 	 */
 	private String transportDesc;
 	/**
-	 * 运输、转运
-	 */
-	private String transportType;
-	/**
 	 * 地址
 	 */
 	private String transportAddress;
 	/**
 	 * 手机
 	 */
-	private String transportMobile;
+	private Integer transportMobile;
 	/**
 	 * 邮箱
 	 */
 	private String transportEmail;
+	/**
+	 * 当前运输状态（待配送、配送中、已完成、已停运）
+	 */
+	private Integer transportStatus;
 	/**
 	 * 状态
 	 */
@@ -67,5 +81,9 @@ public class LogisticsTransportEntity implements Serializable {
 	 * 创建时间
 	 */
 	private Date createTime;
+	/**
+	 * 租户编码
+	 */
+	private String tenantId;
 
 }

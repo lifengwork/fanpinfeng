@@ -5,9 +5,6 @@
  */
 package com.maibaduoduo.logistics.service.impl;
 
-import com.maibaduoduo.logistics.dao.LogisticsTransportDao;
-import com.maibaduoduo.logistics.entity.LogisticsTransportEntity;
-import com.maibaduoduo.logistics.service.LogisticsTransportService;
 import org.springframework.stereotype.Service;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -16,14 +13,19 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.maibaduoduo.configuration.utils.PageUtils;
 import com.maibaduoduo.configuration.utils.Query;
 
-@Service("logisticsTransportService")
-public class LogisticsTransportServiceImpl extends ServiceImpl<LogisticsTransportDao, LogisticsTransportEntity> implements LogisticsTransportService {
+import com.maibaduoduo.logistics.dao.LogisticsDeliverymanDao;
+import com.maibaduoduo.logistics.entity.LogisticsDeliverymanEntity;
+import com.maibaduoduo.logistics.service.LogisticsDeliverymanService;
+
+
+@Service("logisticsDeliverymanService")
+public class LogisticsDeliverymanServiceImpl extends ServiceImpl<LogisticsDeliverymanDao, LogisticsDeliverymanEntity> implements LogisticsDeliverymanService {
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
-        IPage<LogisticsTransportEntity> page = this.page(
-                new Query<LogisticsTransportEntity>().getPage(params),
-                new QueryWrapper<LogisticsTransportEntity>()
+        IPage<LogisticsDeliverymanEntity> page = this.page(
+                new Query<LogisticsDeliverymanEntity>().getPage(params),
+                new QueryWrapper<LogisticsDeliverymanEntity>()
         );
 
         return new PageUtils(page);

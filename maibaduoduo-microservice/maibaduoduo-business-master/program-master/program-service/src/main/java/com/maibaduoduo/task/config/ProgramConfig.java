@@ -7,7 +7,6 @@
  */
 package com.maibaduoduo.task.config;
 
-import com.google.common.collect.Lists;
 import com.lmax.disruptor.BlockingWaitStrategy;
 import com.lmax.disruptor.IgnoreExceptionHandler;
 import com.lmax.disruptor.dsl.Disruptor;

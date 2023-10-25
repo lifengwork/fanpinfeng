@@ -13,62 +13,46 @@ import java.util.Date;
 import lombok.Data;
 
 /**
- * 配送
+ * 配送员
  * 
  * @author saas
  * @email lifengwork@yeah.net
  * @date 2023-10-25 18:03:06
  */
 @Data
-@TableName("saas_logistics_delivery")
-public class LogisticsDeliveryEntity implements Serializable {
+@TableName("saas_logistics_deliveryman")
+public class LogisticsDeliverymanEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 配送ID
+	 * 配送员ID
 	 */
 	@TableId
 	private Long id;
 	/**
-	 * 配送代码
+	 * 配送人员代码
 	 */
-	private String delliveryCode;
+	private String deliverymanCode;
 	/**
-	 * 订单编码
+	 * 配送人员名称
 	 */
-	private String orderId;
+	private String deliverymanName;
 	/**
-	 * 仓库编码
+	 * 性别
 	 */
-	private String storeId;
-	/**
-	 * 配送名称
-	 */
-	private String deliveryName;
-	/**
-	 * 简述
-	 */
-	private String deliveryDesc;
-	/**
-	 * 地址
-	 */
-	private String deliveryAddress;
-	/**
-	 * 手机
-	 */
-	private Integer deliveryMobile;
+	private String deliverymanSex;
 	/**
 	 * 邮箱
 	 */
-	private String deliveryEmail;
+	private String deliverymanEmail;
 	/**
-	 * 2部分在途、1全部配送完成、0失效停配
+	 * 手机号
 	 */
-	private Integer deliveryStatus;
+	private String deliverymanPhone;
 	/**
 	 * 状态
 	 */
-	private Integer status;
+	private String status;
 	/**
 	 * 创建者ID
 	 */

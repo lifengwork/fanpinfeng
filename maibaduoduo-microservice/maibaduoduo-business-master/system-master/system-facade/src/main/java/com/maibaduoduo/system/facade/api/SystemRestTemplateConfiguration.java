@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.maibaduoduo.bom.facade.api;
+package com.maibaduoduo.system.facade.api;
 import feign.Feign;
 import feign.InvocationHandlerFactory;
 import org.dromara.myth.springcloud.feign.MythFeignCircuitBreakerInvocationHandler;
@@ -27,13 +27,16 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 
+import java.lang.reflect.InvocationHandler;
+import java.util.Objects;
+
 /**
  * MythRestTemplateConfiguration.
  *
  * @author xiaoyu
  */
 @Configuration
-public class SupplierRestTemplateConfiguration {
+public class SystemRestTemplateConfiguration {
     /**
      * Feign builder feign . builder.
      * @return the feign . builder
@@ -42,7 +45,7 @@ public class SupplierRestTemplateConfiguration {
     private CircuitBreakerFactory factory;
 
     @Autowired
-    private SupplierApiFallbackFactory programApiFallbackFactory;
+    private SystemApiFallbackFactory systemApiFallbackFactory;
     @Bean
     @Scope("prototype")
     public Feign.Builder feignBuilder() {
@@ -71,7 +74,10 @@ public class SupplierRestTemplateConfiguration {
      */
     public InvocationHandlerFactory mythFeignCircuitBreakerInvocationHandler() {
         return (target, dispatch) -> {
-            return new MythFeignCircuitBreakerInvocationHandler(factory, target, dispatch, programApiFallbackFactory);
+            if(Objects.isNull(factory)){
+                return (InvocationHandler) this.invocationHandlerFactory();
+            }
+            return new MythFeignCircuitBreakerInvocationHandler(factory, target, dispatch, systemApiFallbackFactory);
         };
     }
 }

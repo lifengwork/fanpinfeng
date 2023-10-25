@@ -15,10 +15,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Primary
-public class SupplierApiFallbackFactory extends ApiFallbackFactory {
+public class BomApiFallbackFactory extends ApiFallbackFactory {
     Logger logger = LoggerFactory.getLogger(this.getClass());
     @Override
-    public SupplierFacade fallbackFactory(Throwable throwable) {
+    public BomFacade fallbackFactory(Throwable throwable) {
         return null;
     }
 }

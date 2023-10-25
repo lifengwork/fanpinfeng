@@ -5,7 +5,7 @@
  *
  * https://www.maibaduoduo.com
  */
-package com.maibaduoduo.analysis.facade.api;
+package com.maibaduoduo.system.facade.api;
 
 import java.io.Serializable;
 

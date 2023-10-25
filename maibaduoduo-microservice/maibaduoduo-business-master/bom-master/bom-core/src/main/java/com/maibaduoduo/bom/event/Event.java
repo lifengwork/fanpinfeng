@@ -5,7 +5,7 @@
  *
  * https://www.maibaduoduo.com
  */
-package com.maibaduoduo.supplier.event;
+package com.maibaduoduo.bom.event;
 
 import com.maibaduoduo.configuration.utils.IdGen;
 import org.springframework.context.ApplicationEvent;

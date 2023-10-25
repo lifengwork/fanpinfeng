@@ -5,7 +5,7 @@
  *
  * https://www.maibaduoduo.com
  */
-package com.maibaduoduo.analysis.facade.api;
+package com.maibaduoduo.system.facade.api;
 
 import cn.hutool.core.exceptions.ExceptionUtil;
 import com.maibaduoduo.api.ApiFallbackFactory;

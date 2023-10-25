@@ -27,9 +27,9 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableFeignClients(basePackages = {"com.maibaduoduo"})
 @EnableHystrix
 @EnableHystrixDashboard
-public class SupplierApplication {
+public class DesignApplication {
 	public static void main(String[] args) {
-		new SpringApplicationBuilder(SupplierApplication.class).banner(new SystemServerBanner()).run(args);
+		new SpringApplicationBuilder(DesignApplication.class).banner(new SystemServerBanner()).run(args);
 	}
 
 }
