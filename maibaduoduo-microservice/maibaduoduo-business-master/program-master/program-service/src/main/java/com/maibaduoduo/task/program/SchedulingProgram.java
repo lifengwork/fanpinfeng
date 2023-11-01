@@ -7,6 +7,7 @@
  */
 package com.maibaduoduo.task.program;
 
+import com.maibaduoduo.task.program.strategy.Strategy;
 import org.springframework.stereotype.Component;
 
 /**
@@ -18,6 +19,8 @@ import org.springframework.stereotype.Component;
 public class SchedulingProgram implements Program{
     @Override
     public boolean execute(ExecuteObject executeObject) {
+        executeObject.getExecuteId();
+        executeObject.getPlanStrategy().strategy(new Strategy());
         return false;
     }
 }

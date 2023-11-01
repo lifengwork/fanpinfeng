@@ -7,7 +7,18 @@
  */
 package com.maibaduoduo.task.event;
 
+import com.maibaduoduo.task.program.ExecuteObject;
+
 import java.io.Serializable;
 
 public class ProgramTask implements Serializable {
+    private ExecuteObject executeObject;
+
+    public ExecuteObject getExecuteObject() {
+        return executeObject;
+    }
+
+    public void setExecuteObject(ExecuteObject executeObject) {
+        this.executeObject = executeObject;
+    }
 }

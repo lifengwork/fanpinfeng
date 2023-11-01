@@ -9,7 +9,7 @@ package com.maibaduoduo.task.handler;
 
 import com.maibaduoduo.task.event.ProgramEvent;
 import com.maibaduoduo.task.event.ProgramEventType;
-import com.maibaduoduo.task.program.ExecuteObject;
+import com.maibaduoduo.task.event.ProgramTask;
 import com.maibaduoduo.task.program.Program;
 import org.springframework.stereotype.Component;
 
@@ -32,7 +32,8 @@ public class ProgramEventHandler extends EventHandler {
         executor.execute(() -> {
             if (programEvent.getType() == ProgramEventType.EXECUTE.getCode()) {
                 logger.info("Event Type is EXECUTE，{}",programEvent.getType());
-                program.execute(new ExecuteObject());
+                ProgramTask programTask = programEvent.getProgramTask();
+                program.execute(programTask.getExecuteObject());
             }
             programEvent.clear();
         });

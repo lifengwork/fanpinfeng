@@ -7,6 +7,7 @@
  */
 package com.maibaduoduo.task.program;
 
+import com.maibaduoduo.task.program.strategy.PlanStrategy;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -14,4 +15,8 @@ import java.io.Serializable;
 @Data
 public class ExecuteObject implements Serializable {
     private Long executeId;
+    private PlanStrategy planStrategy;
+    public ExecuteObject(PlanStrategy planStrategy){
+        this.planStrategy = planStrategy;
+    }
 }
