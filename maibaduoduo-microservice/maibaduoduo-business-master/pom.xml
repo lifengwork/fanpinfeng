@@ -85,5 +85,8 @@
 		<module>design-master</module>
 		<module>bom-master</module>
 		<module>inventory-master</module>
+		<module>productionscheduling-master</module>
+		<module>manufacturingcraft-master</module>
+		<module>injectionmolding-master</module>
     </modules>
 </project>
