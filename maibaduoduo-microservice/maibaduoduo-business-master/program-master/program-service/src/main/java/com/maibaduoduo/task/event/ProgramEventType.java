@@ -10,7 +10,10 @@ public enum ProgramEventType {
     DELETE(1, "删除"),
     EXECUTE(100,"执行"),
     EXECUTE_STATUS(2, "执行状态"),
-    EXECUTE_FAIR(3, "执行错误信息");
+    EXECUTE_FAIR(3, "执行错误信息"),
+    EXECUTE_SET(1000, "工序参数设置"),
+    EXECUTE_START(1001, "开始生产"),
+    EXECUTE_END(1002, "结束生产");
 
     private int code;
     private String desc;

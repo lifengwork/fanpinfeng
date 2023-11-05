@@ -14,14 +14,14 @@ import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.Executor;
 
-public abstract class EventHandler implements WorkHandler<ProgramEvent> {
+public abstract class MainEventHandler implements WorkHandler<ProgramEvent> {
     protected Logger logger = LoggerFactory.getLogger(getClass());
-
+    private Long HANDLERCODE = null;
     public void doHandle(ProgramEvent programEvent){
         throw new SaasException("任务处理器为空，请实现。");
     }
 
-    public abstract EventHandler programEventHandlerInit(Program program,Executor executor);
+    public abstract MainEventHandler programEventHandlerInit(Program program, Executor executor);
 
     @Override
     public void onEvent(ProgramEvent programEvent){

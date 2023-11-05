@@ -7,6 +7,9 @@ package com.maibaduoduo.task.program.strategy;
 
 import com.maibaduoduo.task.program.ExecuteObject;
 
+/**
+ * 加工计划
+ */
 public class ProcessingPlan extends ExecuteObject {
     public ProcessingPlan(PlanStrategy planStrategy) {
         super(planStrategy);

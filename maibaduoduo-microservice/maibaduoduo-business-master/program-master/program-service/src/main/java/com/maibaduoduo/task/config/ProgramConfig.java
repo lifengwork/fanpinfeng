@@ -40,7 +40,7 @@ public abstract class ProgramConfig implements DisposableBean {
         disruptor = new Disruptor<>(new ProgramEventFactory(), bufferSize, r -> {
             AtomicInteger index = new AtomicInteger(1);
             return new Thread(null, r, "disruptor-thread-" + index.getAndIncrement());
-        }, ProducerType.MULTI, new BlockingWaitStrategy());
+        }, ProducerType.SINGLE, new BlockingWaitStrategy());
 
         final Executor executor = new ThreadPoolExecutor(MAX_THREAD, MAX_THREAD, 0, TimeUnit.MILLISECONDS,
                 new LinkedBlockingQueue<>(),

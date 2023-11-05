@@ -10,6 +10,8 @@ import com.maibaduoduo.task.program.ExecuteObject;
 import java.io.Serializable;
 
 public class ProgramTask implements Serializable {
+    private String taskCode;
+    private String taskName;
     private ExecuteObject executeObject;
 
     public ExecuteObject getExecuteObject() {
@@ -18,5 +20,21 @@ public class ProgramTask implements Serializable {
 
     public void setExecuteObject(ExecuteObject executeObject) {
         this.executeObject = executeObject;
+    }
+
+    public String getTaskCode() {
+        return taskCode;
+    }
+
+    public void setTaskCode(String taskCode) {
+        this.taskCode = taskCode;
+    }
+
+    public String getTaskName() {
+        return taskName;
+    }
+
+    public void setTaskName(String taskName) {
+        this.taskName = taskName;
     }
 }

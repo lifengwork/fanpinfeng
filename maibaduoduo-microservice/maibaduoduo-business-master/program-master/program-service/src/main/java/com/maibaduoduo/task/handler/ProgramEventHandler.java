@@ -15,11 +15,11 @@ import java.util.concurrent.Executor;
 
 
 /**
- * ProgramEventHandler.
+ * 工艺排程
  * @author saas
  */
 @Component
-public class ProgramEventHandler extends EventHandler {
+public class ProgramEventHandler extends MainEventHandler {
     private Program program;
     private Executor executor;
     /**
@@ -39,7 +39,7 @@ public class ProgramEventHandler extends EventHandler {
     }
 
     @Override
-    public EventHandler programEventHandlerInit(Program program, Executor executor) {
+    public MainEventHandler programEventHandlerInit(Program program, Executor executor) {
         this.program = program;
         this.executor = executor;
         return this;

@@ -5,7 +5,8 @@
  */
 package com.maibaduoduo.task.config;
 
-import com.maibaduoduo.task.handler.ConfigHandler;
+import com.maibaduoduo.task.handler.BaseConfigHandler;
+import com.maibaduoduo.task.handler.ProgramConfigHandler;
 import com.maibaduoduo.task.program.Program;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -17,7 +18,7 @@ public class EnableProgram {
     @Bean
     @Scope("singleton")
     public ProgramConfig programConfig(Program program, ProgramProperties programProperties){
-        ProgramConfig programConfig = new ConfigHandler(program);
+        ProgramConfig programConfig = new ProgramConfigHandler(program);
         programConfig.start(programProperties.getBufferSize());
         return programConfig;
     }

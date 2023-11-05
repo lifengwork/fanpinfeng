@@ -9,7 +9,7 @@ import com.maibaduoduo.task.program.strategy.Strategy;
 import org.springframework.stereotype.Component;
 
 /**
- * 计划排程
+ * 执行
  * @Auth saas
  * @Date 2021-5-7
  */
@@ -18,7 +18,7 @@ public class SchedulingProgram implements Program{
     @Override
     public boolean execute(ExecuteObject executeObject) {
         executeObject.getExecuteId();
-        executeObject.getPlanStrategy().strategy(new Strategy());
+        executeObject.getPlanStrategy().strategy(new Strategy(){});
         return false;
     }
 }
