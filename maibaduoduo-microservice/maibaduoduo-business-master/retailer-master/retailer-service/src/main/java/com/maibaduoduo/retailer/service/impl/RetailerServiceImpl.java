@@ -10,7 +10,7 @@ package com.maibaduoduo.retailer.service.impl;
 import com.maibaduoduo.order.entity.SaasOrderEntity;
 import com.maibaduoduo.task.event.ProgramTask;
 import com.maibaduoduo.task.program.ExecuteObject;
-import com.maibaduoduo.task.publisher.RushOrderEventPublisher;
+import com.maibaduoduo.task.publisher.OrderEventPublisher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Map;
@@ -29,7 +29,7 @@ import com.maibaduoduo.retailer.service.RetailerService;
 public class RetailerServiceImpl extends ServiceImpl<RetailerDao, RetailerEntity> implements RetailerService {
 
     @Autowired
-    private RushOrderEventPublisher rushOrderEventPublisher;
+    private OrderEventPublisher orderEventPublisher;
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
@@ -44,11 +44,12 @@ public class RetailerServiceImpl extends ServiceImpl<RetailerDao, RetailerEntity
     /**
      * 设置为加急订单
      */
-    public void rushOrder(SaasOrderEntity orderEntity){
+    public boolean rushOrder(SaasOrderEntity orderEntity){
         ProgramTask programTask = new ProgramTask();
         ExecuteObject executeObject = new ExecuteObject();
         executeObject.setSaasOrderEntity(orderEntity);
         programTask.setExecuteObject(executeObject);
-        rushOrderEventPublisher.publishEvent(programTask,0);
+        orderEventPublisher.publishEvent(programTask,0);
+        return true;
     }
 }

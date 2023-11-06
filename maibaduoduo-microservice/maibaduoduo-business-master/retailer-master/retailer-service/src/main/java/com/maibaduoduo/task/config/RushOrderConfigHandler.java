@@ -5,14 +5,9 @@
  */
 package com.maibaduoduo.task.config;
 
-import com.lmax.disruptor.EventHandler;
 import com.lmax.disruptor.dsl.Disruptor;
-import com.maibaduoduo.configuration.SaasSpringContextUtil;
 import com.maibaduoduo.task.event.ProgramEvent;
-import com.maibaduoduo.task.handler.MainEventHandler;
-import com.maibaduoduo.task.handler.OrderEventHandler;
-import com.maibaduoduo.task.handler.SetCacheEventHandler;
-import com.maibaduoduo.task.handler.SettlementEventHandler;
+import com.maibaduoduo.task.handler.*;
 import com.maibaduoduo.task.program.Program;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -33,6 +28,8 @@ public class RushOrderConfigHandler extends ProgramConfig {
     private SettlementEventHandler settlementEventHandler;
     @Autowired
     private SetCacheEventHandler setCacheEventHandler;
+    @Autowired
+    private SendInfoEventHandler sendInfoEventHandler;
 
     public RushOrderConfigHandler(Program program) {
         super(program);
@@ -47,7 +44,7 @@ public class RushOrderConfigHandler extends ProgramConfig {
     @Override
     protected Disruptor<ProgramEvent> configHandler(Executor executor) {
         disruptor.handleEventsWithWorkerPool(orderEventHandler.programEventHandlerInit(program, executor))
-                .then(settlementEventHandler).then(setCacheEventHandler);
+                .then(settlementEventHandler).then(setCacheEventHandler).then(sendInfoEventHandler);
         return disruptor;
     }
 }

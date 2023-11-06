@@ -9,6 +9,7 @@ package com.maibaduoduo.retailer.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.maibaduoduo.configuration.utils.PageUtils;
+import com.maibaduoduo.order.entity.SaasOrderEntity;
 import com.maibaduoduo.retailer.entity.RetailerEntity;
 
 import java.util.Map;
@@ -23,5 +24,6 @@ import java.util.Map;
 public interface RetailerService extends IService<RetailerEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+    boolean rushOrder(SaasOrderEntity orderEntity);
 }
 
