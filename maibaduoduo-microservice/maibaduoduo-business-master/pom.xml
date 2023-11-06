@@ -79,5 +79,17 @@
 		<module>analysis-master</module>
 		<module>purchase-master</module>
 		<module>supplier-master</module>
+		<module>retailer-master</module>
+		<module>logistics-deliveryman-master</module>
+		<module>logistics-delivery-master</module>
+		<module>logistics-transport-master</module>
+		<module>logistics-vehicle-master</module>
+		<module>distributor-master</module>
+		<module>design-master</module>
+		<module>bom-master</module>
+		<module>inventory-master</module>
+		<module>productionscheduling-master</module>
+		<module>manufacturingcraft-master</module>
+		<module>injectionmolding-master</module>
     </modules>
 </project>

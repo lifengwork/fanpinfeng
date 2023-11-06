@@ -1,13 +1,10 @@
-/**
- * Copyright (c) 2019-2023 SAAS开源 All rights reserved.
- * <p>
+/*
+ * Copyright (c) 2019-2023 SAAS开源 All rights reserved. lifengwork@yeah.net
  * SAAS系统设计研发交流
- * <p>
  * https://www.maibaduoduo.com
  */
 package com.maibaduoduo.task.config;
 
-import com.google.common.collect.Lists;
 import com.lmax.disruptor.BlockingWaitStrategy;
 import com.lmax.disruptor.IgnoreExceptionHandler;
 import com.lmax.disruptor.dsl.Disruptor;
@@ -43,7 +40,7 @@ public abstract class ProgramConfig implements DisposableBean {
         disruptor = new Disruptor<>(new ProgramEventFactory(), bufferSize, r -> {
             AtomicInteger index = new AtomicInteger(1);
             return new Thread(null, r, "disruptor-thread-" + index.getAndIncrement());
-        }, ProducerType.MULTI, new BlockingWaitStrategy());
+        }, ProducerType.SINGLE, new BlockingWaitStrategy());
 
         final Executor executor = new ThreadPoolExecutor(MAX_THREAD, MAX_THREAD, 0, TimeUnit.MILLISECONDS,
                 new LinkedBlockingQueue<>(),

@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 import com.maibaduoduo.program.service.ProgramService;
 import com.maibaduoduo.task.event.ProgramTask;
-import com.maibaduoduo.task.publisher.ProgramEventPublisher;
+import com.maibaduoduo.task.publisher.StartProgramEventPublisher;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -36,7 +36,7 @@ public class ProgramController {
     @Autowired
     private ProgramService programService;
     @Autowired
-    private ProgramEventPublisher programEventPublisher;
+    private StartProgramEventPublisher programEventPublisher;
     /**
      * 列表
      */

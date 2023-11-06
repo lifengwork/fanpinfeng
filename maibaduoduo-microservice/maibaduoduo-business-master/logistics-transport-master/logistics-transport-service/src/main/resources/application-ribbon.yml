@@ -1,0 +1,32 @@
+ribbon:
+  nacos:
+    enabled: true
+  # 开启熔断机制
+  hystrix:
+    enabled: false
+  # 配置ribbon默认的超时时间
+  ConnectTimeout: 20000
+  ReadTimeout: 20000
+  # 是否开启重试
+  OkToRetryOnAllOperations: true
+  # 重试的时候实例切换次数
+  MaxAutoRetriesNextServer: 3
+  # 每个实例重试次数
+  MaxAutoRetries: 2
+
+###全集配置就是是对所有的请求生效的，这里配置当前服务
+store-service:
+  ribbon:
+    #listOfServers: order-service:8094, order-service:8095, order-service:8096,order-service:8097                                     #自定义服务器
+    #NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule                         #负载均衡策略
+    #NFLoadBalancerRuleClassName: com.netflix.loadbalancer.BestAvailableRule
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.AvailabilityFilteringRule
+    #NFLoadBalancerRuleClassName: com.netflix.loadbalancer.weightedResponseTimeRule
+    #NFLoadBalancerRuleClassName: com.netflix.loadbalancer.ZoneAvoidanceRule
+    #NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RetryRule
+    #NFLoadBalancerPingClassName: com.sansuolou.gateway.HealthExamination                     #判断服务是否可用
+    #ConnectTimeout: 1000 #请求连接超时时间
+    #ReadTimeout: 1000 #请求处理的超时时间
+    kToRetryOnAllOperations: true #对所有请求都进行重试
+    #MaxAutoRetriesNextServer: 2 #切换实例的重试次数
+    #MaxAutoRetries: 1 #对当前实例的重试次数
