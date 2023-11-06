@@ -7,6 +7,11 @@
  */
 package com.maibaduoduo.retailer.service.impl;
 
+import com.maibaduoduo.order.entity.SaasOrderEntity;
+import com.maibaduoduo.task.event.ProgramTask;
+import com.maibaduoduo.task.program.ExecuteObject;
+import com.maibaduoduo.task.publisher.RushOrderEventPublisher;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -23,6 +28,9 @@ import com.maibaduoduo.retailer.service.RetailerService;
 @Service("retailerService")
 public class RetailerServiceImpl extends ServiceImpl<RetailerDao, RetailerEntity> implements RetailerService {
 
+    @Autowired
+    private RushOrderEventPublisher rushOrderEventPublisher;
+
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
         IPage<RetailerEntity> page = this.page(
@@ -33,4 +41,14 @@ public class RetailerServiceImpl extends ServiceImpl<RetailerDao, RetailerEntity
         return new PageUtils(page);
     }
 
+    /**
+     * 设置为加急订单
+     */
+    public void rushOrder(SaasOrderEntity orderEntity){
+        ProgramTask programTask = new ProgramTask();
+        ExecuteObject executeObject = new ExecuteObject();
+        executeObject.setSaasOrderEntity(orderEntity);
+        programTask.setExecuteObject(executeObject);
+        rushOrderEventPublisher.publishEvent(programTask,0);
+    }
 }
