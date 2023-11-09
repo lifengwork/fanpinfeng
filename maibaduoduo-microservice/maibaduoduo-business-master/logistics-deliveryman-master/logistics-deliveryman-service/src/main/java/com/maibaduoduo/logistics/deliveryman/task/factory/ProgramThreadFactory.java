@@ -5,10 +5,14 @@
  */
 package com.maibaduoduo.logistics.deliveryman.task.factory;
 
+import org.apache.ibatis.logging.Log;
+import org.apache.ibatis.logging.LogFactory;
+
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class ProgramThreadFactory  implements ThreadFactory {
+public class ProgramThreadFactory implements ThreadFactory {
+    private Log log = LogFactory.getLog(this.getClass());
     private boolean daemon;
     private final ThreadGroup THREAD_GROUP = new ThreadGroup("Program");
     private final AtomicLong threadNumber = new AtomicLong(1L);
@@ -24,12 +28,17 @@ public class ProgramThreadFactory  implements ThreadFactory {
     }
 
     public Thread newThread(Runnable runnable) {
-        Thread thread = new Thread(this.THREAD_GROUP, runnable, this.THREAD_GROUP.getName() + "-" + this.namePrefix + "-" + this.threadNumber.getAndIncrement());
+        Thread thread = new Thread(
+                this.THREAD_GROUP,
+                runnable,
+                this.THREAD_GROUP.getName() + "-" + this.namePrefix + "-" + this.threadNumber.getAndIncrement());
         thread.setDaemon(this.daemon);
-        if (thread.getPriority() != 5) {
-            thread.setPriority(5);
-        }
-
+        thread.setUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+            @Override
+            public void uncaughtException(Thread t, Throwable e) {
+                log.error(t + "ERROR:" + e);
+            }
+        });
         return thread;
     }
 }
