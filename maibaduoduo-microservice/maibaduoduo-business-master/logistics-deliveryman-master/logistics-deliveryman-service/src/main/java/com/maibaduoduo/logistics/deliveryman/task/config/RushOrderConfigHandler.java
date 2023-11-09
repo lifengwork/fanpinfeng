@@ -5,13 +5,23 @@
  */
 package com.maibaduoduo.logistics.deliveryman.task.config;
 
+import com.alibaba.fastjson.JSON;
 import com.lmax.disruptor.dsl.Disruptor;
 import com.maibaduoduo.logistics.deliveryman.task.event.ProgramEvent;
+import com.maibaduoduo.logistics.deliveryman.task.event.ProgramTask;
 import com.maibaduoduo.logistics.deliveryman.task.handler.*;
+import com.maibaduoduo.logistics.deliveryman.task.handler.base.NoPersistenceEventHandler;
+import com.maibaduoduo.logistics.deliveryman.task.program.EventData;
+import com.maibaduoduo.logistics.deliveryman.task.program.ExecuteObject;
 import com.maibaduoduo.logistics.deliveryman.task.program.Program;
+import com.maibaduoduo.logistics.deliveryman.task.publisher.RushOrderEventPublisher;
+import org.apache.ibatis.logging.Log;
+import org.apache.ibatis.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
+import java.util.Map;
 import java.util.concurrent.Executor;
 
 /**
@@ -22,6 +32,7 @@ import java.util.concurrent.Executor;
  */
 @Component
 public class RushOrderConfigHandler extends ProgramConfig {
+    protected Log log = LogFactory.getLog(this.getClass());
     @Autowired
     private CreateDeliverEventHandler createDeliverEventHandler;
     @Autowired
@@ -32,6 +43,12 @@ public class RushOrderConfigHandler extends ProgramConfig {
     private StoreEventHandler storeEventHandler;
     @Autowired
     private VehicleEventHandler vehicleEventHandler;
+    @Autowired
+    private NoPersistenceEventHandler noPersistenceEventHandler;
+    @Autowired
+    private RedisTemplate<String, Object> redisTemplate;
+    @Autowired
+    private RushOrderEventPublisher rushOrderEventPublisher;
 
     public RushOrderConfigHandler(Program program) {
         super(program);
@@ -48,7 +65,22 @@ public class RushOrderConfigHandler extends ProgramConfig {
         disruptor.handleEventsWithWorkerPool(rushOrderEventHandler.programEventHandlerInit(program, executor)).
                 then(vehicleEventHandler).
                 then(createDeliverEventHandler).
-                then(sendInfoEventHandler,storeEventHandler);
+                then(sendInfoEventHandler,storeEventHandler).then(noPersistenceEventHandler);
         return disruptor;
+    }
+
+    @Override
+    protected void afterProcessor() {
+        Map<Object,Object> map = redisTemplate.boundHashOps(EventContants.E_RAWKEY).entries();
+        log.warn("--事件恢复--" + EventContants.E_RAWKEY + "," + map.size());
+        if(!map.isEmpty()){
+            map.forEach((key,value)->{
+                rushOrderEventPublisher.publishEvent(new ProgramTask()
+                        .setExecuteObject(new ExecuteObject().
+                                setEventData(new EventData().
+                                        setContent(JSON.toJSONString(value)))
+                                .setExecuteId((Long)key)), 0);
+            });
+        }
     }
 }

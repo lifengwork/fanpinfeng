@@ -18,8 +18,9 @@ public class ProgramTask implements Serializable {
         return executeObject;
     }
 
-    public void setExecuteObject(ExecuteObject executeObject) {
+    public ProgramTask setExecuteObject(ExecuteObject executeObject) {
         this.executeObject = executeObject;
+        return this;
     }
 
     public String getTaskCode() {

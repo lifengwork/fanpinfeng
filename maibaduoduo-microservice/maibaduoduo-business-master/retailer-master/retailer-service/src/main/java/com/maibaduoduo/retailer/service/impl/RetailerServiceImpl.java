@@ -7,8 +7,11 @@
  */
 package com.maibaduoduo.retailer.service.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.maibaduoduo.configuration.utils.IdGen;
 import com.maibaduoduo.order.entity.SaasOrderEntity;
 import com.maibaduoduo.task.event.ProgramTask;
+import com.maibaduoduo.task.program.EventData;
 import com.maibaduoduo.task.program.ExecuteObject;
 import com.maibaduoduo.task.publisher.OrderEventPublisher;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,11 +48,11 @@ public class RetailerServiceImpl extends ServiceImpl<RetailerDao, RetailerEntity
      * 设置为加急订单
      */
     public boolean rushOrder(SaasOrderEntity orderEntity){
-        ProgramTask programTask = new ProgramTask();
-        ExecuteObject executeObject = new ExecuteObject();
-        executeObject.setSaasOrderEntity(orderEntity);
-        programTask.setExecuteObject(executeObject);
-        orderEventPublisher.publishEvent(programTask,0);
+        orderEventPublisher.publishEvent(new ProgramTask()
+                .setExecuteObject(new ExecuteObject()
+                        .setEventData(new EventData()
+                                .setContent(JSON.toJSONString(orderEntity),orderEntity.getShopAddrCode()))
+                        .setExecuteId(IdGen.SnowFlakeLong())), 0);
         return true;
     }
 }

@@ -12,8 +12,8 @@ import org.springframework.stereotype.Component;
 @Data
 @Component
 @ConfigurationProperties(
-        prefix = "maibaduoduo.retalier"
+        prefix = "maibaduoduo.deliveryman"
 )
 public class ProgramProperties {
-    private int bufferSize=16;
+    private int bufferSize=1024;
 }

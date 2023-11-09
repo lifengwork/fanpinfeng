@@ -52,6 +52,8 @@ public abstract class ProgramConfig implements DisposableBean {
 
         disruptor.setDefaultExceptionHandler(new IgnoreExceptionHandler());
         disruptor.start();
+
+        this.afterProcessor();
     }
 
     public Disruptor<ProgramEvent> programConfig() {
@@ -63,4 +65,5 @@ public abstract class ProgramConfig implements DisposableBean {
         disruptor.shutdown();
     }
     protected abstract Disruptor<ProgramEvent> configHandler(final Executor executor );
+    protected abstract void afterProcessor();
 }

@@ -10,6 +10,7 @@ import com.maibaduoduo.configuration.utils.PageUtils;
 import com.maibaduoduo.logistics.deliveryman.entity.LogisticsDeliverymanEntity;
 import com.maibaduoduo.order.entity.SaasOrderEntity;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,8 +21,9 @@ import java.util.Map;
  * @date 2023-10-25 18:03:06
  */
 public interface LogisticsDeliverymanService extends IService<LogisticsDeliverymanEntity> {
-
     PageUtils queryPage(Map<String, Object> params);
-    boolean rushOrder(SaasOrderEntity orderEntity);
+    boolean rushOrderSuccess(SaasOrderEntity orderEntity);
+    List<SaasOrderEntity> viewAreaRushOrder(SaasOrderEntity orderEntity);
+    int rushOrder(SaasOrderEntity orderEntity);
 }
 

@@ -3,12 +3,12 @@
  * SAAS系统设计研发交流
  * https://www.maibaduoduo.com
  */
-package com.maibaduoduo.logistics.deliveryman.task.handler;
+package com.maibaduoduo.task.handler.base;
 
 import com.lmax.disruptor.WorkHandler;
 import com.maibaduoduo.configuration.exception.SaasException;
-import com.maibaduoduo.logistics.deliveryman.task.event.ProgramEvent;
-import com.maibaduoduo.logistics.deliveryman.task.program.Program;
+import com.maibaduoduo.task.event.ProgramEvent;
+import com.maibaduoduo.task.program.Program;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,6 +29,6 @@ public abstract class MainEventHandler implements WorkHandler<ProgramEvent> {
         this.doHandle(programEvent);
         this.afterExecute();
     }
-    abstract void beforeExecute();
-    abstract void afterExecute();
+    public abstract void beforeExecute();
+    public abstract void afterExecute();
 }
