@@ -11,7 +11,7 @@ public class SendInfoEventHandler implements EventHandler<ProgramEvent> {
         /**
          * TODO
          * 发消息通知 下单用户所在区域配送员
-         *
+         * 这里通过发送站内信和短信的方式提醒配送员抢单
          */
     }
 }

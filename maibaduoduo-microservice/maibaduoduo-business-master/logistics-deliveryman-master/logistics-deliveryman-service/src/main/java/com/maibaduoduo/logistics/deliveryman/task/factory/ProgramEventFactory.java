@@ -8,6 +8,8 @@ package com.maibaduoduo.logistics.deliveryman.task.factory;
 import com.lmax.disruptor.EventFactory;
 import com.maibaduoduo.logistics.deliveryman.task.event.ProgramEvent;
 
+import java.util.ArrayList;
+
 /**
  * ProgramEventFactory.
  *
@@ -17,6 +19,7 @@ public class ProgramEventFactory implements EventFactory<ProgramEvent> {
 
     @Override
     public ProgramEvent newInstance() {
+        ArrayList a;
         return new ProgramEvent();
     }
 }

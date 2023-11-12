@@ -27,7 +27,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 public class StoreApplication {
 
 	public static void main(String[] args) {
-		new SpringApplicationBuilder(StoreApplication.class).banner(new SystemServerBanner()).run(args);
+		new SpringApplicationBuilder(StoreApplication.class).banner(new StoreServerBanner()).run(args);
 	}
 
 }

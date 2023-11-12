@@ -1,7 +1,5 @@
 package com.maibaduoduo.logistics.deliveryman.task.factory;
 
-import org.apache.ibatis.logging.Log;
-import org.apache.ibatis.logging.LogFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,8 +29,8 @@ public class AutoExecutor extends ThreadPoolExecutor {
     @Override
     protected void beforeExecute(Thread t, Runnable r) {
         Runtime runtime = Runtime.getRuntime();
-        log.info("current name:{0}," +
-                        "可以的CPU数量:{1}," +
+        log.info("当前线程:{0}," +
+                        "CPU数量:{1}," +
                         "空闲内存:{2}, " +
                         "最大内存:{}," +
                         "总内存:{3}",
@@ -46,9 +44,9 @@ public class AutoExecutor extends ThreadPoolExecutor {
 
     @Override
     protected void afterExecute(Runnable r, Throwable t) {
-        log.info("afterExecuteThreadname : {0}," +
+        log.info("Threadname : {0}," +
                         "| currentthreadstatus :{1}," +
-                "| Currentthreadid : {2},|afterExecutepoolSize :{3},| threadPooltasknum:{4},| threadPoolfinishedtasknum：{5},no inishedtasknum：{6}",
+                "| Currentthreadid : {2},|poolSize :{3},| taskCount:{4},| completedTaskCount：{5},nocompletedTaskCount：{6}",
                 r.getClass().getSimpleName(),Thread.currentThread().getState(),
                 Thread.currentThread().getId(),this.getPoolSize(),this.getTaskCount(),this.getCompletedTaskCount(),(this.getTaskCount()-this.getCompletedTaskCount()));
     }

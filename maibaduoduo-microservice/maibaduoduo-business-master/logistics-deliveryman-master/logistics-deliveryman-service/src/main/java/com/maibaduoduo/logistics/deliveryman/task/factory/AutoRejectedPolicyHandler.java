@@ -1,7 +1,5 @@
 package com.maibaduoduo.logistics.deliveryman.task.factory;
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.RejectedExecutionHandler;
 import java.util.concurrent.ThreadPoolExecutor;
 

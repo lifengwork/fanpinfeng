@@ -33,7 +33,7 @@ import org.springframework.context.annotation.Scope;
  * @author xiaoyu
  */
 @Configuration
-public class SupplierRestTemplateConfiguration {
+public class InventoryRestTemplateConfiguration {
     /**
      * Feign builder feign . builder.
      * @return the feign . builder
@@ -42,7 +42,7 @@ public class SupplierRestTemplateConfiguration {
     private CircuitBreakerFactory factory;
 
     @Autowired
-    private SupplierApiFallbackFactory programApiFallbackFactory;
+    private InventoryApiFallbackFactory programApiFallbackFactory;
     @Bean
     @Scope("prototype")
     public Feign.Builder feignBuilder() {

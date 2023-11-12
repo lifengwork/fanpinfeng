@@ -10,10 +10,10 @@ package com.maibaduoduo;
 
 import com.maibaduoduo.banner.SaasBanner;
 
-public class SystemServerBanner extends SaasBanner {
+public class StoreServerBanner extends SaasBanner {
 
     @Override
     protected String getTitle() {
-        return "System Server";
+        return "Store Server";
     }
 }

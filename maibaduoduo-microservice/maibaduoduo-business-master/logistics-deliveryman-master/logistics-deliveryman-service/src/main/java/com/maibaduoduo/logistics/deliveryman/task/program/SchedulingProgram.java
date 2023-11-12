@@ -19,6 +19,7 @@ public class SchedulingProgram implements Program{
         executeObject.getExecuteId();
         /**
          * TODO 更新订单状态
+         * 首先判断此加急配送订单是否已经被处理
          */
         return false;
     }

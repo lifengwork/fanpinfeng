@@ -19,6 +19,7 @@ public class SetCacheEventHandler implements EventHandler<ProgramEvent> {
          * TODO
          * 放入缓存推送到区域展示，根据下单用户区域代码放入缓存，
          * 缓存key通过区域代码区分
+         * 每个分区对应一个rawKey
          */
         String eventContent = programEvent.getProgramTask().getExecuteObject().getEventData().getContent();
         SaasOrderEntity saasOrderEntity  = JSON.parseObject(eventContent,SaasOrderEntity.class);
