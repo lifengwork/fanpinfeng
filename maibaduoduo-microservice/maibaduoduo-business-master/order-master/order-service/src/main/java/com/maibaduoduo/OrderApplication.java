@@ -30,7 +30,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 public class OrderApplication {
 
 	public static void main(String[] args) {
-		new SpringApplicationBuilder(OrderApplication.class).banner(new SystemServerBanner()).run(args);
+		new SpringApplicationBuilder(OrderApplication.class).banner(new OrderServerBanner()).run(args);
 	}
 
 }

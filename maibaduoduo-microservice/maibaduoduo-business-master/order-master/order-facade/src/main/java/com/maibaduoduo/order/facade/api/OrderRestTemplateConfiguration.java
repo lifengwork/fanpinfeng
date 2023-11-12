@@ -23,13 +23,9 @@ import org.dromara.myth.springcloud.feign.MythFeignHandler;
 import org.dromara.myth.springcloud.feign.MythRestTemplateInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
-import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
-
-import java.lang.reflect.InvocationHandler;
-import java.util.Objects;
 
 /**
  * MythRestTemplateConfiguration.

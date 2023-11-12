@@ -18,11 +18,11 @@ import lombok.Data;
  * 
  * @author saas
  * @email lifengwork@yeah.net
- * @date 2023-11-06 23:16:53
+ * @date 2023-11-12 16:43:29
  */
 @Data
 @TableName("saas_order")
-public class SaasOrderEntity implements Serializable {
+public class OrderEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -38,11 +38,6 @@ public class SaasOrderEntity implements Serializable {
 	 * 下单门店
 	 */
 	private Long shopId;
-
-	/**
-	 * 门店所在区域代码
-	 */
-	private String shopAddrCode;
 	/**
 	 * 产品名称,多个产品将会以逗号隔开
 	 */
