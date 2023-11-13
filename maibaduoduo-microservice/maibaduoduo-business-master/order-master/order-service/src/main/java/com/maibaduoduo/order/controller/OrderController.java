@@ -8,13 +8,11 @@ package com.maibaduoduo.order.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import com.alibaba.fastjson.JSON;
+import com.maibaduoduo.purchase.entity.PurchaseItemEntity;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.maibaduoduo.order.entity.OrderEntity;
 import com.maibaduoduo.order.service.OrderService;
@@ -67,6 +65,16 @@ public class OrderController {
     public R save(@RequestBody OrderEntity order){
 		orderService.save(order);
 
+        return R.ok();
+    }
+
+    /**
+     * 保存
+     */
+    @PostMapping("/settlement")
+    @RequiresPermissions("order:order:save")
+    public R settlement(@RequestBody String purchaseInfo){
+        orderService.orderSettlement(JSON.parseObject(purchaseInfo,PurchaseItemEntity.class));
         return R.ok();
     }
 

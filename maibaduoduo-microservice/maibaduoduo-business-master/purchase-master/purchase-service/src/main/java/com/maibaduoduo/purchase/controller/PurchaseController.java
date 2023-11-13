@@ -1,8 +1,6 @@
-/**
- * Copyright (c) 2019-2023 SAAS开源 All rights reserved.
- *
+/*
+ * Copyright (c) 2019-2023 SAAS开源 All rights reserved. lifengwork@yeah.net
  * SAAS系统设计研发交流
- *
  * https://www.maibaduoduo.com
  */
 package com.maibaduoduo.purchase.controller;
@@ -10,12 +8,12 @@ package com.maibaduoduo.purchase.controller;
 import java.util.Arrays;
 import java.util.Map;
 
-import com.maibaduoduo.purchase.service.PurchaseService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.maibaduoduo.purchase.entity.PurchaseEntity;
+import com.maibaduoduo.purchase.service.PurchaseService;
 import com.maibaduoduo.configuration.utils.PageUtils;
 import com.maibaduoduo.configuration.utils.R;
 
@@ -26,7 +24,7 @@ import com.maibaduoduo.configuration.utils.R;
  *
  * @author saas
  * @email lifengwork@yeah.net
- * @date 2023-05-13 21:00:36
+ * @date 2023-11-12 21:11:37
  */
 @RestController
 @RequestMapping("purchase/purchase")

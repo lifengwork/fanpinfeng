@@ -7,6 +7,7 @@ package com.maibaduoduo.store.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.maibaduoduo.configuration.utils.PageUtils;
+import com.maibaduoduo.purchase.entity.PurchaseItemEntity;
 import com.maibaduoduo.store.entity.StoreEntity;
 
 import java.util.Map;
@@ -21,5 +22,6 @@ import java.util.Map;
 public interface StoreService extends IService<StoreEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+    void stockUp(PurchaseItemEntity purchaseItemEntity);
 }
 

@@ -17,7 +17,7 @@ import lombok.Data;
  * 
  * @author saas
  * @email lifengwork@yeah.net
- * @date 2023-10-25 18:03:06
+ * @date 2023-11-13 13:29:44
  */
 @Data
 @TableName("saas_logistics_transport")
@@ -46,6 +46,10 @@ public class LogisticsTransportEntity implements Serializable {
 	 */
 	private Long vehicleId;
 	/**
+	 * 运输路线（a->b->c）
+	 */
+	private String transportPath;
+	/**
 	 * 名称
 	 */
 	private String transportName;
@@ -54,15 +58,15 @@ public class LogisticsTransportEntity implements Serializable {
 	 */
 	private String transportDesc;
 	/**
-	 * 地址
+	 * 客户地址
 	 */
 	private String transportAddress;
 	/**
-	 * 手机
+	 * 客户手机
 	 */
 	private Integer transportMobile;
 	/**
-	 * 邮箱
+	 * 客户邮箱
 	 */
 	private String transportEmail;
 	/**

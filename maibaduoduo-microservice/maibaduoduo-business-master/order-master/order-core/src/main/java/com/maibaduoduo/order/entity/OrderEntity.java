@@ -127,6 +127,10 @@ public class OrderEntity implements Serializable {
 	 */
 	private String closeType;
 	/**
+	 * 区域编码
+	 */
+	private String shopAddrCode;
+	/**
 	 * 订单更新时间
 	 */
 	private Date updateTime;

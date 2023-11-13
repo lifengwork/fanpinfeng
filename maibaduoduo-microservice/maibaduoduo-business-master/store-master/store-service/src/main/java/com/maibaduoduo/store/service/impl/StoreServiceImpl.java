@@ -5,6 +5,14 @@
  */
 package com.maibaduoduo.store.service.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.maibaduoduo.configuration.utils.IdGen;
+import com.maibaduoduo.purchase.entity.PurchaseItemEntity;
+import com.maibaduoduo.store.task.event.ProgramTask;
+import com.maibaduoduo.store.task.program.EventData;
+import com.maibaduoduo.store.task.program.ExecuteObject;
+import com.maibaduoduo.store.task.publisher.StockUpEventPublisher;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -20,7 +28,8 @@ import com.maibaduoduo.store.service.StoreService;
 
 @Service("storeService")
 public class StoreServiceImpl extends ServiceImpl<StoreDao, StoreEntity> implements StoreService {
-
+@Autowired
+private StockUpEventPublisher stockUpEventPublisher;
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
         IPage<StoreEntity> page = this.page(
@@ -29,6 +38,22 @@ public class StoreServiceImpl extends ServiceImpl<StoreDao, StoreEntity> impleme
         );
 
         return new PageUtils(page);
+    }
+
+    @Override
+    public void stockUp(PurchaseItemEntity purchaseItemEntity) {
+        /**
+         * TODO
+         * 1选择就近仓库
+         * 2选择运输方式
+         * 3选择最有路线
+         * 4计算运费
+         */
+        stockUpEventPublisher.publishEvent(new ProgramTask()
+                .setExecuteObject(new ExecuteObject()
+                        .setEventData(new EventData()
+                                .setContent(JSON.toJSONString(purchaseItemEntity)))
+                        .setExecuteId(IdGen.SnowFlakeLong())), 0);
     }
 
 }

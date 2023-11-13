@@ -8,16 +8,12 @@ package com.maibaduoduo.order.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import com.maibaduoduo.order.entity.OrderSettlementEntity;
+import com.maibaduoduo.order.service.OrderSettlementService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.maibaduoduo.ordersettlement.entity.OrderSettlementEntity;
-import com.maibaduoduo.ordersettlement.service.OrderSettlementService;
 import com.maibaduoduo.configuration.utils.PageUtils;
 import com.maibaduoduo.configuration.utils.R;
 

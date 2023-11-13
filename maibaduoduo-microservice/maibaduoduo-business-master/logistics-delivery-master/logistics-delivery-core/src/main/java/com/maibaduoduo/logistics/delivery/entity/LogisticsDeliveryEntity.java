@@ -17,7 +17,7 @@ import lombok.Data;
  * 
  * @author saas
  * @email lifengwork@yeah.net
- * @date 2023-10-25 18:03:06
+ * @date 2023-11-13 13:29:44
  */
 @Data
 @TableName("saas_logistics_delivery")
@@ -49,18 +49,6 @@ public class LogisticsDeliveryEntity implements Serializable {
 	 * 简述
 	 */
 	private String deliveryDesc;
-	/**
-	 * 地址
-	 */
-	private String deliveryAddress;
-	/**
-	 * 手机
-	 */
-	private Integer deliveryMobile;
-	/**
-	 * 邮箱
-	 */
-	private String deliveryEmail;
 	/**
 	 * 2部分在途、1全部配送完成、0失效停配
 	 */

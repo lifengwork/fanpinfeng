@@ -8,6 +8,7 @@ package com.maibaduoduo.order.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.maibaduoduo.configuration.utils.PageUtils;
 import com.maibaduoduo.order.entity.OrderEntity;
+import com.maibaduoduo.purchase.entity.PurchaseItemEntity;
 
 import java.util.Map;
 
@@ -21,5 +22,6 @@ import java.util.Map;
 public interface OrderService extends IService<OrderEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+    void orderSettlement(PurchaseItemEntity purchaseItemEntity);
 }
 

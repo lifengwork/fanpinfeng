@@ -91,5 +91,6 @@
 		<module>productionscheduling-master</module>
 		<module>manufacturingcraft-master</module>
 		<module>injectionmolding-master</module>
+		<module>purchase-contract-master</module>
     </modules>
 </project>

@@ -5,8 +5,14 @@
  */
 package com.maibaduoduo.order.service.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.maibaduoduo.purchase.entity.PurchaseItemEntity;
+import com.maibaduoduo.store.facade.api.StoreFacade;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.Map;
+
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -20,6 +26,8 @@ import com.maibaduoduo.order.service.OrderService;
 
 @Service("orderService")
 public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> implements OrderService {
+    @Autowired
+    private StoreFacade storeFacade;
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
@@ -29,6 +37,20 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
         );
 
         return new PageUtils(page);
+    }
+
+    /**
+     * 订单结算
+     *
+     * @param purchaseItemEntity
+     */
+    @Override
+    public void orderSettlement(PurchaseItemEntity purchaseItemEntity) {
+        /**
+         * TODO 订单结算
+         */
+        //备货
+        storeFacade.stockUp(JSON.toJSONString(purchaseItemEntity));
     }
 
 }

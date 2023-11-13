@@ -11,6 +11,7 @@ import cn.hutool.core.exceptions.ExceptionUtil;
 import com.maibaduoduo.api.ApiFacade;
 import com.maibaduoduo.api.ApiFallbackFactory;
 import com.maibaduoduo.configuration.utils.R;
+import com.maibaduoduo.store.entity.StoreEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.openfeign.FallbackFactory;
@@ -31,6 +32,12 @@ public class StoreApiFallbackFactory extends ApiFallbackFactory {
             public R info(Long id) {
                 logger.error(ExceptionUtil.stacktraceToString(throwable));
                 return R.error();
+            }
+
+            @Override
+            public R stockUp(StoreEntity store) {
+                logger.error(ExceptionUtil.stacktraceToString(throwable));
+                return null;
             }
 
         };

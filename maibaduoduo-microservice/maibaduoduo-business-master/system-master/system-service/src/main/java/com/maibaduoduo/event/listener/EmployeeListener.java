@@ -13,9 +13,11 @@ import com.maibaduoduo.event.EmployeeEvent;
 import com.maibaduoduo.mq.sender.RabbitSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 @Component
+@Async
 public class EmployeeListener implements ApplicationListener<EmployeeEvent> {
     @Autowired
     private RabbitSender rabbitSender;

@@ -9,7 +9,10 @@ package com.maibaduoduo.retailer.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.maibaduoduo.configuration.utils.IdGen;
-import com.maibaduoduo.order.entity.SaasOrderEntity;
+import com.maibaduoduo.order.entity.OrderEntity;
+import com.maibaduoduo.purchase.entity.PurchaseEntity;
+import com.maibaduoduo.purchase.facade.api.PurchaseFacade;
+import com.maibaduoduo.store.entity.GoodsEntity;
 import com.maibaduoduo.task.event.ProgramTask;
 import com.maibaduoduo.task.program.EventData;
 import com.maibaduoduo.task.program.ExecuteObject;
@@ -34,6 +37,9 @@ public class RetailerServiceImpl extends ServiceImpl<RetailerDao, RetailerEntity
     @Autowired
     private OrderEventPublisher orderEventPublisher;
 
+    @Autowired
+    private PurchaseFacade purchaseFacade;
+
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
         IPage<RetailerEntity> page = this.page(
@@ -47,7 +53,7 @@ public class RetailerServiceImpl extends ServiceImpl<RetailerDao, RetailerEntity
     /**
      * 设置为加急订单
      */
-    public boolean rushOrder(SaasOrderEntity orderEntity){
+    public boolean rushOrder(OrderEntity orderEntity){
         orderEventPublisher.publishEvent(new ProgramTask()
                 .setExecuteObject(new ExecuteObject()
                         .setEventData(new EventData()
@@ -55,4 +61,12 @@ public class RetailerServiceImpl extends ServiceImpl<RetailerDao, RetailerEntity
                         .setExecuteId(IdGen.SnowFlakeLong())), 0);
         return true;
     }
+
+    @Override
+    public void doPurchase(GoodsEntity goodsEntity) {
+        PurchaseEntity purchaseEntity = new PurchaseEntity();
+        purchaseFacade.doPurchase(purchaseEntity);
+
+    }
+
 }

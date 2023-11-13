@@ -9,8 +9,9 @@ package com.maibaduoduo.retailer.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.maibaduoduo.configuration.utils.PageUtils;
-import com.maibaduoduo.order.entity.SaasOrderEntity;
+import com.maibaduoduo.order.entity.OrderEntity;
 import com.maibaduoduo.retailer.entity.RetailerEntity;
+import com.maibaduoduo.store.entity.GoodsEntity;
 
 import java.util.Map;
 
@@ -24,6 +25,16 @@ import java.util.Map;
 public interface RetailerService extends IService<RetailerEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
-    boolean rushOrder(SaasOrderEntity orderEntity);
+
+    /**
+     * 设置加急订单
+     * @param orderEntity
+     * @return
+     */
+    boolean rushOrder(OrderEntity orderEntity);
+    /**
+     * 采购物品
+     */
+    void doPurchase(GoodsEntity goodsEntity);
 }
 

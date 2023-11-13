@@ -26,6 +26,11 @@ public class OrderApiFallbackFactory extends ApiFallbackFactory {
                 logger.error(ExceptionUtil.stacktraceToString(throwable));
                 return R.error();
             }
+
+            @Override
+            public R settlement(String purchaseInfo) {
+                return null;
+            }
         };
     }
 }

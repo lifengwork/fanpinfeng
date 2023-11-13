@@ -150,6 +150,26 @@
 		</dependency>
 		<dependency>
 			<groupId>com.maibaduoduo</groupId>
+			<artifactId>purchase-facade</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.maibaduoduo</groupId>
+			<artifactId>order-facade</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.maibaduoduo</groupId>
+			<artifactId>logistics-vehicle-facade</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.maibaduoduo</groupId>
+			<artifactId>logistics-transport-facade</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.maibaduoduo</groupId>
 			<artifactId>swagger2-starter</artifactId>
 			<exclusions>
 				<exclusion>

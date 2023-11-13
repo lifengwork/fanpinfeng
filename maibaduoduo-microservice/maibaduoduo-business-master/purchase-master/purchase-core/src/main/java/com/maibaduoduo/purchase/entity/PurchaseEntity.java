@@ -1,8 +1,6 @@
-/**
- * Copyright (c) 2019-2023 SAAS开源 All rights reserved.
- *
+/*
+ * Copyright (c) 2019-2023 SAAS开源 All rights reserved. lifengwork@yeah.net
  * SAAS系统设计研发交流
- *
  * https://www.maibaduoduo.com
  */
 package com.maibaduoduo.purchase.entity;
@@ -10,8 +8,8 @@ package com.maibaduoduo.purchase.entity;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
-import java.math.BigDecimal;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import lombok.Data;
 
@@ -20,7 +18,7 @@ import lombok.Data;
  * 
  * @author saas
  * @email lifengwork@yeah.net
- * @date 2023-05-13 21:00:36
+ * @date 2023-11-12 21:11:37
  */
 @Data
 @TableName("saas_purchase")
@@ -28,10 +26,14 @@ public class PurchaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 
+	 * 采购ID
 	 */
 	@TableId
 	private Long id;
+	/**
+	 * 采购编码
+	 */
+	private String purchaseNo;
 	/**
 	 * 采购项目
 	 */
@@ -41,17 +43,25 @@ public class PurchaseEntity implements Serializable {
 	 */
 	private String purchaseDesc;
 	/**
-	 * 采购价格
+	 * 采购总数量
 	 */
-	private BigDecimal purchasePrice;
+	private Integer purchaseTotalCount;
 	/**
-	 * 采购数量
+	 * 采购总金额
 	 */
-	private String purchaseCount;
+	private BigDecimal purchaseTotalMoney;
 	/**
-	 * 采购类型
+	 * 采购类型(招标、询价、其他)
 	 */
 	private String purchaseType;
+	/**
+	 * 采购人ID
+	 */
+	private String userId;
+	/**
+	 * 合同编码
+	 */
+	private String purchaseContractId;
 	/**
 	 * 创建者ID
 	 */
