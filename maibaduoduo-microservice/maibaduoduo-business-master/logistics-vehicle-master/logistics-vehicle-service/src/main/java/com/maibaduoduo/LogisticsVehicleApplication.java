@@ -27,7 +27,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableHystrixDashboard
 public class LogisticsVehicleApplication {
 	public static void main(String[] args) {
-		new SpringApplicationBuilder(LogisticsVehicleApplication.class).banner(new SystemServerBanner()).run(args);
+		new SpringApplicationBuilder(LogisticsVehicleApplication.class).banner(new VehicleServerBanner()).run(args);
 	}
 
 }

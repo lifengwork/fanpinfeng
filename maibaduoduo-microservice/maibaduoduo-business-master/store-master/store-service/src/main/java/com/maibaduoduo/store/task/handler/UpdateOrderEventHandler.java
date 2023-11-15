@@ -5,12 +5,12 @@
  */
 package com.maibaduoduo.store.task.handler;
 
-import com.maibaduoduo.store.task.aspect.Repetition;
-import com.maibaduoduo.store.task.event.ProgramEventType;
-import com.maibaduoduo.store.task.event.ProgramTask;
-import com.maibaduoduo.store.task.event.PurchaseProgramEvent;
-import com.maibaduoduo.store.task.handler.base.PurchaseMainEventHandler;
-import com.maibaduoduo.store.task.program.Program;
+import com.maibaduoduo.task.aspect.Repetition;
+import com.maibaduoduo.task.event.ProgramEvent;
+import com.maibaduoduo.task.event.ProgramEventType;
+import com.maibaduoduo.task.event.ProgramTask;
+import com.maibaduoduo.task.handler.base.MainEventHandler;
+import com.maibaduoduo.task.program.Program;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
@@ -22,7 +22,7 @@ import java.util.concurrent.Executor;
  * @author saas
  */
 @Component
-public class UpdateOrderEventHandler extends PurchaseMainEventHandler {
+public class UpdateOrderEventHandler extends MainEventHandler {
     private Program program;
     private Executor executor;
     @Autowired
@@ -33,7 +33,7 @@ public class UpdateOrderEventHandler extends PurchaseMainEventHandler {
      */
     @Override
     @Repetition
-    public void doHandle(final PurchaseProgramEvent programEvent) {
+    public void doHandle(final ProgramEvent programEvent) {
         executor.execute(() -> {
             if (programEvent.getType() == ProgramEventType.EXECUTE.getCode()) {
                 logger.info("Event Type is EXECUTE，{}",programEvent.getType());
@@ -45,19 +45,19 @@ public class UpdateOrderEventHandler extends PurchaseMainEventHandler {
     }
 
     @Override
-    public PurchaseMainEventHandler programEventHandlerInit(Program program, Executor executor) {
+    public MainEventHandler programEventHandlerInit(Program program, Executor executor) {
         this.program = program;
         this.executor = executor;
         return this;
     }
 
     @Override
-    public void beforeExecute(PurchaseProgramEvent programEvent) {
+    public void beforeExecute(ProgramEvent programEvent) {
 
     }
 
     @Override
-    public void afterExecute(PurchaseProgramEvent programEvent) {
+    public void afterExecute(ProgramEvent programEvent) {
 
     }
 }

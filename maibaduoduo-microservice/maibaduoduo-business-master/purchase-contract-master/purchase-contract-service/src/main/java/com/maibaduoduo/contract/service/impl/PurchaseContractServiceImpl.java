@@ -45,6 +45,9 @@ public class PurchaseContractServiceImpl extends ServiceImpl<PurchaseContractDao
      */
     @Override
     public void validateContract(PurchaseContractEntity purchaseContractEntity) {
+        /**
+         * TODO
+         */
         String CONTRACT_EXCHANGE = "";
         String CONTRACT_QUEUE = "";
         rabbitSender.sendMessage(CONTRACT_EXCHANGE,CONTRACT_QUEUE, JSON.toJSON(purchaseContractEntity));

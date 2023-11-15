@@ -34,6 +34,10 @@ public class LogisticsVehicleEntity implements Serializable {
 	 */
 	private String vehicleName;
 	/**
+	 * 运输ID
+	 */
+	private String transportId;
+	/**
 	 * 简述
 	 */
 	private String vehicleDesc;

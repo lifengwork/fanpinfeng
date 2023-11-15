@@ -179,6 +179,11 @@
 			</exclusions>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>com.maibaduoduo</groupId>
+			<artifactId>common-master</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>${project.artifactId}</finalName>

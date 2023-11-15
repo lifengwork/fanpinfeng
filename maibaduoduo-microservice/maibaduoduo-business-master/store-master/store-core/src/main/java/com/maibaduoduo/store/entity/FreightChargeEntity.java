@@ -34,10 +34,15 @@ public class FreightChargeEntity implements Serializable {
 	 * 运费编码
 	 */
 	private String freightChargeNo;
+
 	/**
 	 * 订单编码
 	 */
 	private String orderNo;
+	/**
+	 * 采购单编码
+	 */
+	private String purchaseNo;
 	/**
 	 * 仓库编码
 	 */

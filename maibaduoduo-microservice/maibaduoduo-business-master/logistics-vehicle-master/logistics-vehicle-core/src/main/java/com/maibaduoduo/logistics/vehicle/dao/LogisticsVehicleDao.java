@@ -5,8 +5,8 @@
  */
 package com.maibaduoduo.logistics.vehicle.dao;
 
-import com.maibaduoduo.logistics.entity.LogisticsVehicleEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.maibaduoduo.logistics.vehicle.entity.LogisticsVehicleEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

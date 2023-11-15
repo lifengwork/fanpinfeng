@@ -7,14 +7,16 @@ package com.maibaduoduo.store.task.config;
 
 import com.alibaba.fastjson.JSON;
 import com.lmax.disruptor.dsl.Disruptor;
-import com.maibaduoduo.store.task.event.ProgramTask;
-import com.maibaduoduo.store.task.event.PurchaseProgramEvent;
 import com.maibaduoduo.store.task.handler.*;
-import com.maibaduoduo.store.task.handler.base.PurchaseNoPersistenceEventHandler;
-import com.maibaduoduo.store.task.program.EventData;
-import com.maibaduoduo.store.task.program.ExecuteObject;
-import com.maibaduoduo.store.task.program.Program;
 import com.maibaduoduo.store.task.publisher.PurchaseEventPublisher;
+import com.maibaduoduo.task.config.EventContants;
+import com.maibaduoduo.task.config.ProgramConfig;
+import com.maibaduoduo.task.event.ProgramEvent;
+import com.maibaduoduo.task.event.ProgramTask;
+import com.maibaduoduo.task.handler.base.NoPersistenceEventHandler;
+import com.maibaduoduo.task.program.EventData;
+import com.maibaduoduo.task.program.ExecuteObject;
+import com.maibaduoduo.task.program.Program;
 import org.apache.ibatis.logging.Log;
 import org.apache.ibatis.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +33,7 @@ import java.util.concurrent.Executor;
  * @Date 2023-5-13
  */
 @Component
-public class PurchaseConfigHandler extends PurchaseProgramConfig {
+public class PurchaseConfigHandler extends ProgramConfig {
     protected Log log = LogFactory.getLog(this.getClass());
 
     @Autowired
@@ -39,7 +41,7 @@ public class PurchaseConfigHandler extends PurchaseProgramConfig {
     @Autowired
     private PurchaseEventPublisher purchaseEventPublisher;
     @Autowired
-    private PurchaseNoPersistenceEventHandler noPersistenceEventHandler;
+    private NoPersistenceEventHandler noPersistenceEventHandler;
     @Autowired
     private TruckLoadingEventHandler truckLoadingEventHandler;
     @Autowired
@@ -62,11 +64,11 @@ public class PurchaseConfigHandler extends PurchaseProgramConfig {
      * @return
      */
     @Override
-    protected Disruptor<PurchaseProgramEvent> configHandler(Executor executor) {
+    protected Disruptor<ProgramEvent> configHandler(Executor executor) {
         disruptor.handleEventsWithWorkerPool(updateOrderEventHandler.programEventHandlerInit(program, executor)).
                 then(pickingEventHandler).
-                then(inventoryventHandler).
                 then(truckLoadingEventHandler).
+                then(inventoryventHandler).
                 then(noPersistenceEventHandler);
         return disruptor;
     }
@@ -84,5 +86,10 @@ public class PurchaseConfigHandler extends PurchaseProgramConfig {
                                 .setExecuteId((Long) key)), 0);
             });
         }
+    }
+
+    @Override
+    protected void initType(String businesstype) {
+        this.businessType = "purchase";
     }
 }

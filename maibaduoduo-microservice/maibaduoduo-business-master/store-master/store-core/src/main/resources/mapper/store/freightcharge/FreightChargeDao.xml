@@ -12,6 +12,7 @@
     <resultMap type="com.maibaduoduo.store.entity.FreightChargeEntity" id="freightChargeMap">
                     <result property="id" column="id"/>
                     <result property="freightChargeNo" column="freight_charge_no"/>
+                    <result property="purchaseNo" column="purchase_no"/>
                     <result property="orderNo" column="order_no"/>
                     <result property="storeNo" column="store_no"/>
                     <result property="userId" column="user_id"/>

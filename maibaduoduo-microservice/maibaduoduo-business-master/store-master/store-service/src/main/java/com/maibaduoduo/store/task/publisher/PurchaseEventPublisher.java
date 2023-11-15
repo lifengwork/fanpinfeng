@@ -6,15 +6,13 @@
 package com.maibaduoduo.store.task.publisher;
 
 import com.lmax.disruptor.RingBuffer;
-import com.maibaduoduo.store.task.config.EventContants;
-import com.maibaduoduo.store.task.config.ProgramConfig;
-import com.maibaduoduo.store.task.config.PurchaseProgramConfig;
-import com.maibaduoduo.store.task.event.ProgramEvent;
-import com.maibaduoduo.store.task.event.ProgramTask;
-import com.maibaduoduo.store.task.event.PurchaseProgramEvent;
-import com.maibaduoduo.store.task.translator.ProgramEventTranslator;
-import com.maibaduoduo.store.task.translator.PurchaseProgramEventTranslator;
+import com.maibaduoduo.task.config.EventContants;
+import com.maibaduoduo.task.config.ProgramConfig;
+import com.maibaduoduo.task.event.ProgramEvent;
+import com.maibaduoduo.task.event.ProgramTask;
+import com.maibaduoduo.task.translator.ProgramEventTranslator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
@@ -27,7 +25,8 @@ import org.springframework.stereotype.Component;
 public class PurchaseEventPublisher {
 
     @Autowired
-    private PurchaseProgramConfig purchaseProgramConfig;
+    @Qualifier("purchaseConfigHandler")
+    private ProgramConfig purchaseProgramConfig;
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
 
@@ -37,8 +36,8 @@ public class PurchaseEventPublisher {
      * @param type
      */
     public void publishEvent(final ProgramTask programTask, final int type) {
-        final RingBuffer<PurchaseProgramEvent> ringBuffer = purchaseProgramConfig.programConfig().getRingBuffer();
-        ringBuffer.publishEvent(new PurchaseProgramEventTranslator(type), programTask);
+        final RingBuffer<ProgramEvent> ringBuffer = purchaseProgramConfig.programConfig().getRingBuffer();
+        ringBuffer.publishEvent(new ProgramEventTranslator(type), programTask);
         redisTemplate.boundHashOps(EventContants.E_RAWKEY).put(
                 String.valueOf(programTask.getExecuteObject().getExecuteId()),
                 programTask.getExecuteObject().getEventData().getContent());

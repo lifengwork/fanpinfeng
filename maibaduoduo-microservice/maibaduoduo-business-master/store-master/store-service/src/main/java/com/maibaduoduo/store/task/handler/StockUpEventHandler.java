@@ -5,12 +5,12 @@
  */
 package com.maibaduoduo.store.task.handler;
 
-import com.maibaduoduo.store.task.aspect.Repetition;
-import com.maibaduoduo.store.task.event.ProgramEvent;
-import com.maibaduoduo.store.task.event.ProgramEventType;
-import com.maibaduoduo.store.task.event.ProgramTask;
-import com.maibaduoduo.store.task.handler.base.MainEventHandler;
-import com.maibaduoduo.store.task.program.Program;
+import com.maibaduoduo.task.aspect.Repetition;
+import com.maibaduoduo.task.event.ProgramEvent;
+import com.maibaduoduo.task.event.ProgramEventType;
+import com.maibaduoduo.task.event.ProgramTask;
+import com.maibaduoduo.task.handler.base.MainEventHandler;
+import com.maibaduoduo.task.program.Program;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;

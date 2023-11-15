@@ -1,8 +1,8 @@
 package com.maibaduoduo.store.task.handler;
 
 import com.lmax.disruptor.EventHandler;
-import com.maibaduoduo.store.task.aspect.Repetition;
-import com.maibaduoduo.store.task.event.ProgramEvent;
+import com.maibaduoduo.task.aspect.Repetition;
+import com.maibaduoduo.task.event.ProgramEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;

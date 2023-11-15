@@ -6,12 +6,13 @@
 package com.maibaduoduo.store.task.publisher;
 
 import com.lmax.disruptor.RingBuffer;
-import com.maibaduoduo.store.task.config.EventContants;
-import com.maibaduoduo.store.task.config.ProgramConfig;
-import com.maibaduoduo.store.task.event.ProgramEvent;
-import com.maibaduoduo.store.task.event.ProgramTask;
-import com.maibaduoduo.store.task.translator.ProgramEventTranslator;
+import com.maibaduoduo.task.config.EventContants;
+import com.maibaduoduo.task.config.ProgramConfig;
+import com.maibaduoduo.task.event.ProgramEvent;
+import com.maibaduoduo.task.event.ProgramTask;
+import com.maibaduoduo.task.translator.ProgramEventTranslator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
@@ -24,6 +25,7 @@ import org.springframework.stereotype.Component;
 public class StockUpEventPublisher {
 
     @Autowired
+    @Qualifier("stockUpConfigHandler")
     private ProgramConfig programConfig;
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
