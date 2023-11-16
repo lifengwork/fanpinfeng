@@ -17,7 +17,7 @@ import lombok.Data;
  * 
  * @author saas
  * @email lifengwork@yeah.net
- * @date 2023-10-25 18:03:06
+ * @date 2023-11-13 13:29:44
  */
 @Data
 @TableName("saas_logistics_vehicle")
@@ -34,6 +34,10 @@ public class LogisticsVehicleEntity implements Serializable {
 	 */
 	private String vehicleName;
 	/**
+	 * 运输ID
+	 */
+	private String transportId;
+	/**
 	 * 简述
 	 */
 	private String vehicleDesc;
@@ -42,17 +46,17 @@ public class LogisticsVehicleEntity implements Serializable {
 	 */
 	private String vehicleType;
 	/**
-	 * 地址
+	 * 运输工具标识（车牌号、航班号等）
 	 */
-	private String vehicleAddress;
+	private String vehicleIdentification;
 	/**
-	 * 手机
+	 * 当前运输工具状态
 	 */
-	private String vehicleMobile;
+	private Integer vehicleStatus;
 	/**
-	 * 邮箱
+	 * 当前所在位置
 	 */
-	private String vehicleEmail;
+	private String vehicleCurrentPosition;
 	/**
 	 * 状态
 	 */

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  * Copyright (c) 2019-2023 SAAS开源 All rights reserved. lifengwork@yeah.net
+  * SAAS系统设计研发交流
+  * https://www.maibaduoduo.com
+-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.maibaduoduo.store.dao.FreightChargeDao">
+
+    <!-- 映射 -->
+    <resultMap type="com.maibaduoduo.store.entity.FreightChargeEntity" id="freightChargeMap">
+                    <result property="id" column="id"/>
+                    <result property="freightChargeNo" column="freight_charge_no"/>
+                    <result property="purchaseNo" column="purchase_no"/>
+                    <result property="orderNo" column="order_no"/>
+                    <result property="storeNo" column="store_no"/>
+                    <result property="userId" column="user_id"/>
+                    <result property="freightCharge" column="freight_charge"/>
+                    <result property="goodsSkuId" column="goods_sku_id"/>
+                    <result property="status" column="status"/>
+                    <result property="createUserId" column="create_user_id"/>
+                    <result property="createTime" column="create_time"/>
+                    <result property="tenantId" column="tenant_id"/>
+            </resultMap>
+
+</mapper>

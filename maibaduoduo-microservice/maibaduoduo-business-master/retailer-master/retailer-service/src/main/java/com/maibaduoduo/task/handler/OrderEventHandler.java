@@ -8,6 +8,7 @@ package com.maibaduoduo.task.handler;
 import com.maibaduoduo.task.event.ProgramEvent;
 import com.maibaduoduo.task.event.ProgramEventType;
 import com.maibaduoduo.task.event.ProgramTask;
+import com.maibaduoduo.task.handler.base.MainEventHandler;
 import com.maibaduoduo.task.program.Program;
 import org.springframework.stereotype.Component;
 
@@ -45,12 +46,12 @@ public class OrderEventHandler extends MainEventHandler {
     }
 
     @Override
-    void beforeExecute() {
+    public void beforeExecute() {
 
     }
 
     @Override
-    void afterExecute() {
+    public void afterExecute() {
 
     }
 }

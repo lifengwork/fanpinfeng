@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
- Copyright (c) 2019-2023 SAAS开源 All rights reserved. lifengwork@yeah.net
- SAAS系统设计研发交流
- https://www.maibaduoduo.com
+  * Copyright (c) 2019-2023 SAAS开源 All rights reserved. lifengwork@yeah.net
+  * SAAS系统设计研发交流
+  * https://www.maibaduoduo.com
 -->
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.maibaduoduo.logistics.transport.dao.LogisticsTransportDao">
+<mapper namespace="com.maibaduoduo.logisticstransport.dao.LogisticsTransportDao">
 
     <!-- 映射 -->
-    <resultMap type="com.maibaduoduo.logistics.transport.entity.LogisticsTransportEntity" id="logisticsTransportMap">
+    <resultMap type="com.maibaduoduo.logisticstransport.entity.LogisticsTransportEntity" id="logisticsTransportMap">
                     <result property="id" column="id"/>
                     <result property="transportCode" column="transport_code"/>
                     <result property="deliveryId" column="delivery_id"/>
                     <result property="deliverymanId" column="deliveryman_id"/>
                     <result property="vehicleId" column="vehicle_id"/>
+                    <result property="transportPath" column="transport_path"/>
                     <result property="transportName" column="transport_name"/>
                     <result property="transportDesc" column="transport_desc"/>
                     <result property="transportAddress" column="transport_address"/>

@@ -10,9 +10,12 @@ import com.lmax.disruptor.IgnoreExceptionHandler;
 import com.lmax.disruptor.dsl.Disruptor;
 import com.lmax.disruptor.dsl.ProducerType;
 import com.maibaduoduo.logistics.deliveryman.task.event.ProgramEvent;
+import com.maibaduoduo.logistics.deliveryman.task.factory.AutoExecutor;
 import com.maibaduoduo.logistics.deliveryman.task.factory.ProgramEventFactory;
 import com.maibaduoduo.logistics.deliveryman.task.factory.ProgramThreadFactory;
 import com.maibaduoduo.logistics.deliveryman.task.program.Program;
+import org.apache.ibatis.logging.Log;
+import org.apache.ibatis.logging.LogFactory;
 import org.springframework.beans.factory.DisposableBean;
 
 import java.util.concurrent.Executor;
@@ -22,6 +25,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public abstract class ProgramConfig implements DisposableBean {
+    protected Log log = LogFactory.getLog(this.getClass());
     protected static final int MAX_THREAD = Runtime.getRuntime().availableProcessors();// << 1;
 
     protected Disruptor<ProgramEvent> disruptor;
@@ -40,10 +44,16 @@ public abstract class ProgramConfig implements DisposableBean {
     public void start(final int bufferSize) {
         disruptor = new Disruptor<>(new ProgramEventFactory(), bufferSize, r -> {
             AtomicInteger index = new AtomicInteger(1);
-            return new Thread(null, r, "disruptor-thread-" + index.getAndIncrement());
-        }, ProducerType.SINGLE, new BlockingWaitStrategy());
+            Thread thread = new Thread(null, r, "disruptor-thread-" + index.getAndIncrement());
+            thread.setUncaughtExceptionHandler((t, e) -> log.error(t + "ERROR: " + e));
+            return thread;
+    }, ProducerType.MULTI, new BlockingWaitStrategy());
 
-        final Executor executor = new ThreadPoolExecutor(MAX_THREAD, MAX_THREAD, 0, TimeUnit.MILLISECONDS,
+        final Executor executor = new AutoExecutor(
+                MAX_THREAD,
+                MAX_THREAD,
+                0,
+                TimeUnit.MILLISECONDS,
                 new LinkedBlockingQueue<>(),
                 ProgramThreadFactory.create("retalier-log-disruptor", false),
                 new ThreadPoolExecutor.AbortPolicy());
@@ -52,6 +62,8 @@ public abstract class ProgramConfig implements DisposableBean {
 
         disruptor.setDefaultExceptionHandler(new IgnoreExceptionHandler());
         disruptor.start();
+
+        this.afterProcessor();
     }
 
     public Disruptor<ProgramEvent> programConfig() {
@@ -63,4 +75,5 @@ public abstract class ProgramConfig implements DisposableBean {
         disruptor.shutdown();
     }
     protected abstract Disruptor<ProgramEvent> configHandler(final Executor executor );
+    protected abstract void afterProcessor();
 }

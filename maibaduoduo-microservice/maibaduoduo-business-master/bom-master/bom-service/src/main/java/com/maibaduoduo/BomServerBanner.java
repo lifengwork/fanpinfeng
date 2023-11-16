@@ -14,6 +14,6 @@ public class BomServerBanner extends SaasBanner {
 
     @Override
     protected String getTitle() {
-        return "Program Server";
+        return "BOM Server";
     }
 }

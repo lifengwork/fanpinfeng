@@ -4,28 +4,28 @@
  * https://www.maibaduoduo.com
  */
 package com.maibaduoduo.logistics.deliveryman.task.program;
-
-import com.maibaduoduo.order.entity.SaasOrderEntity;
-
 import java.io.Serializable;
 
 public class ExecuteObject implements Serializable {
     private Long executeId;
-    private SaasOrderEntity saasOrderEntity;
+    private EventData eventData;
 
     public Long getExecuteId() {
         return executeId;
     }
 
-    public void setExecuteId(Long executeId) {
+    public ExecuteObject setExecuteId(Long executeId) {
         this.executeId = executeId;
+        return this;
     }
 
-    public SaasOrderEntity getSaasOrderEntity() {
-        return saasOrderEntity;
+    public EventData getEventData() {
+        return eventData;
     }
 
-    public void setSaasOrderEntity(SaasOrderEntity saasOrderEntity) {
-        this.saasOrderEntity = saasOrderEntity;
+    public ExecuteObject setEventData(EventData eventData) {
+        this.eventData = eventData;
+        return this;
     }
+
 }

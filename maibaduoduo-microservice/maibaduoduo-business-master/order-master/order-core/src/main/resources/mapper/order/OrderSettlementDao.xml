@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  * Copyright (c) 2019-2023 SAAS开源 All rights reserved. lifengwork@yeah.net
+  * SAAS系统设计研发交流
+  * https://www.maibaduoduo.com
+-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.maibaduoduo.ordersettlement.dao.OrderSettlementDao">
+
+    <!-- 映射 -->
+    <resultMap type="com.maibaduoduo.ordersettlement.entity.OrderSettlementEntity" id="orderSettlementMap">
+                    <result property="id" column="id"/>
+                    <result property="settlementNo" column="settlement_no"/>
+                    <result property="orderId" column="order_id"/>
+                    <result property="goodsTotalAmount" column="goods_total_amount"/>
+                    <result property="goodsDiscountAmount" column="goods_discount_amount"/>
+                    <result property="freightCharge" column="freight_charge"/>
+                    <result property="payType" column="pay_type"/>
+                    <result property="shopId" column="shop_id"/>
+                    <result property="invoiceCode" column="invoice_code"/>
+                    <result property="invoiceDate" column="invoice_date"/>
+                    <result property="invoiceStatus" column="invoice_status"/>
+                    <result property="invoiceAmount" column="invoice_amount"/>
+                    <result property="invoiceTitle" column="invoice_title"/>
+                    <result property="settlementType" column="settlement_type"/>
+                    <result property="settlementDate" column="settlement_date"/>
+                    <result property="settlementStatus" column="settlement_status"/>
+                    <result property="remarks" column="remarks"/>
+                    <result property="status" column="status"/>
+                    <result property="createUserId" column="create_user_id"/>
+                    <result property="createTime" column="create_time"/>
+                    <result property="tenantId" column="tenant_id"/>
+            </resultMap>
+
+</mapper>

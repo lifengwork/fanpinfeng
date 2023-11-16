@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  * Copyright (c) 2019-2023 SAAS开源 All rights reserved.
-  *
+  * Copyright (c) 2019-2023 SAAS开源 All rights reserved. lifengwork@yeah.net
   * SAAS系统设计研发交流
-  *
   * https://www.maibaduoduo.com
 -->
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
@@ -13,11 +11,14 @@
     <!-- 映射 -->
     <resultMap type="com.maibaduoduo.purchase.entity.PurchaseEntity" id="purchaseMap">
                     <result property="id" column="id"/>
+                    <result property="purchaseNo" column="purchase_no"/>
                     <result property="purchaseName" column="purchase_name"/>
                     <result property="purchaseDesc" column="purchase_desc"/>
-                    <result property="purchasePrice" column="purchase_price"/>
-                    <result property="purchaseCount" column="purchase_count"/>
+                    <result property="purchaseTotalCount" column="purchase_total_count"/>
+                    <result property="purchaseTotalMoney" column="purchase_total_money"/>
                     <result property="purchaseType" column="purchase_type"/>
+                    <result property="userId" column="user_id"/>
+                    <result property="purchaseContractId" column="purchase_contract_id"/>
                     <result property="createUserId" column="create_user_id"/>
                     <result property="createTime" column="create_time"/>
                     <result property="status" column="status"/>

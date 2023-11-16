@@ -195,6 +195,16 @@
 			<artifactId>order-facade</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>com.maibaduoduo</groupId>
+			<artifactId>store-facade</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.maibaduoduo</groupId>
+			<artifactId>purchase-facade</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 	</dependencies>
 
 	<build>

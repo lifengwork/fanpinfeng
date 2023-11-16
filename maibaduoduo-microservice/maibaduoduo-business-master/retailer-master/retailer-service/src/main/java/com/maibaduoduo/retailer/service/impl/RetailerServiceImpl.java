@@ -7,8 +7,14 @@
  */
 package com.maibaduoduo.retailer.service.impl;
 
-import com.maibaduoduo.order.entity.SaasOrderEntity;
+import com.alibaba.fastjson.JSON;
+import com.maibaduoduo.configuration.utils.IdGen;
+import com.maibaduoduo.order.entity.OrderEntity;
+import com.maibaduoduo.purchase.entity.PurchaseEntity;
+import com.maibaduoduo.purchase.facade.api.PurchaseFacade;
+import com.maibaduoduo.store.entity.GoodsEntity;
 import com.maibaduoduo.task.event.ProgramTask;
+import com.maibaduoduo.task.program.EventData;
 import com.maibaduoduo.task.program.ExecuteObject;
 import com.maibaduoduo.task.publisher.OrderEventPublisher;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +37,9 @@ public class RetailerServiceImpl extends ServiceImpl<RetailerDao, RetailerEntity
     @Autowired
     private OrderEventPublisher orderEventPublisher;
 
+    @Autowired
+    private PurchaseFacade purchaseFacade;
+
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
         IPage<RetailerEntity> page = this.page(
@@ -44,12 +53,20 @@ public class RetailerServiceImpl extends ServiceImpl<RetailerDao, RetailerEntity
     /**
      * 设置为加急订单
      */
-    public boolean rushOrder(SaasOrderEntity orderEntity){
-        ProgramTask programTask = new ProgramTask();
-        ExecuteObject executeObject = new ExecuteObject();
-        executeObject.setSaasOrderEntity(orderEntity);
-        programTask.setExecuteObject(executeObject);
-        orderEventPublisher.publishEvent(programTask,0);
+    public boolean rushOrder(OrderEntity orderEntity){
+        orderEventPublisher.publishEvent(new ProgramTask()
+                .setExecuteObject(new ExecuteObject()
+                        .setEventData(new EventData()
+                                .setContent(JSON.toJSONString(orderEntity),orderEntity.getShopAddrCode()))
+                        .setExecuteId(IdGen.SnowFlakeLong())), 0);
         return true;
     }
+
+    @Override
+    public void doPurchase(GoodsEntity goodsEntity) {
+        PurchaseEntity purchaseEntity = new PurchaseEntity();
+        purchaseFacade.doPurchase(purchaseEntity);
+
+    }
+
 }

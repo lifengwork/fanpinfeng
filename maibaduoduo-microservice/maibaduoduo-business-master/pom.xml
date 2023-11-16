@@ -40,6 +40,7 @@
         <fastjson.version>1.2.60</fastjson.version>
         <hutool.version>5.3.5</hutool.version>
         <lombok.version>1.18.4</lombok.version>
+        <disruptor.version>3.4.0</disruptor.version>
         <jaxb-api.version>2.3.1</jaxb-api.version>
         <jaxb-core.version>2.3.0</jaxb-core.version>
         <activation.version>1.1.1</activation.version>
@@ -91,5 +92,6 @@
 		<module>productionscheduling-master</module>
 		<module>manufacturingcraft-master</module>
 		<module>injectionmolding-master</module>
+		<module>purchase-contract-master</module>
     </modules>
 </project>

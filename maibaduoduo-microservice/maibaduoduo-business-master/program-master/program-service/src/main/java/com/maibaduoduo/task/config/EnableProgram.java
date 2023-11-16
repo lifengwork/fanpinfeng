@@ -5,7 +5,6 @@
  */
 package com.maibaduoduo.task.config;
 
-import com.maibaduoduo.task.handler.BaseConfigHandler;
 import com.maibaduoduo.task.handler.ProgramConfigHandler;
 import com.maibaduoduo.task.program.Program;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

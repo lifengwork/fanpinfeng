@@ -5,10 +5,14 @@
  */
 package com.maibaduoduo.logistics.deliveryman.task.handler;
 
+import com.maibaduoduo.logistics.deliveryman.task.aspect.Repetition;
 import com.maibaduoduo.logistics.deliveryman.task.event.ProgramEvent;
 import com.maibaduoduo.logistics.deliveryman.task.event.ProgramEventType;
 import com.maibaduoduo.logistics.deliveryman.task.event.ProgramTask;
+import com.maibaduoduo.logistics.deliveryman.task.handler.base.MainEventHandler;
 import com.maibaduoduo.logistics.deliveryman.task.program.Program;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.concurrent.Executor;
@@ -21,11 +25,14 @@ import java.util.concurrent.Executor;
 public class RushOrderEventHandler extends MainEventHandler {
     private Program program;
     private Executor executor;
+    @Autowired
+    private RedisTemplate<String, Object> redisTemplate;
     /**
      * 更新订单状态（备货中）
      * @param programEvent
      */
     @Override
+    @Repetition
     public void doHandle(final ProgramEvent programEvent) {
         executor.execute(() -> {
             if (programEvent.getType() == ProgramEventType.EXECUTE.getCode()) {
@@ -45,12 +52,12 @@ public class RushOrderEventHandler extends MainEventHandler {
     }
 
     @Override
-    void beforeExecute() {
+    public void beforeExecute(ProgramEvent programEvent) {
 
     }
 
     @Override
-    void afterExecute() {
+    public void afterExecute(ProgramEvent programEvent) {
 
     }
 }

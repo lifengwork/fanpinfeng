@@ -37,11 +37,16 @@ public class RedisUtils {
     public final static long NOT_EXPIRE = -1;
     private final static Gson gson = new Gson();
 
+    //String
     public void set(String key, Object value, long expire){
         valueOperations.set(key, toJson(value));
         if(expire != NOT_EXPIRE){
             redisTemplate.expire(key, expire, TimeUnit.SECONDS);
         }
+    }
+
+    public boolean setIfAbsent(String key, Object value){
+        return valueOperations.setIfAbsent(key, toJson(value));
     }
 
     public void set(String key, Object value){

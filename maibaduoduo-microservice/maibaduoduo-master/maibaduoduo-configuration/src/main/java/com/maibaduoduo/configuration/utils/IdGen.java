@@ -34,6 +34,9 @@ public class IdGen {
 	public static String SnowFlake(){
 		return String.valueOf(new SnowflakeUtil().nextId());
 	}
+	public static Long SnowFlakeLong(){
+		return new SnowflakeUtil().nextId();
+	}
 
 }
 class SnowflakeUtil {
