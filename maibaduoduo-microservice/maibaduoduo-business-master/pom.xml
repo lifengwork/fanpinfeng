@@ -93,5 +93,8 @@
 		<module>manufacturingcraft-master</module>
 		<module>injectionmolding-master</module>
 		<module>purchase-contract-master</module>
+		<module>scp-master</module>
+		<module>supply-chains-finance-master</module>
+		<module>financial-statements-master</module>
     </modules>
 </project>
