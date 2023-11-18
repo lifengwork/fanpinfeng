@@ -31,6 +31,10 @@ public class OwnersEquityEntity implements Serializable {
 	@TableId
 	private Long id;
 	/**
+	 * 供应商编码
+	 */
+	private String supllyId;
+	/**
 	 * 实收资本
 	 */
 	private BigDecimal paidUp;

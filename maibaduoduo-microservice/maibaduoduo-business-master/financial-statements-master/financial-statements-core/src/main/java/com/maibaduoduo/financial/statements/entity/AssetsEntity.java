@@ -31,6 +31,10 @@ public class AssetsEntity implements Serializable {
 	@TableId
 	private Long id;
 	/**
+	 * 供应商编码
+	 */
+	private String supllyId;
+	/**
 	 * 现金
 	 */
 	private BigDecimal cash;

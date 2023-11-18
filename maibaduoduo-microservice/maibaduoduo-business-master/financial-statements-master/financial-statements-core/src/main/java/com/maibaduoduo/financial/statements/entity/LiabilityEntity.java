@@ -31,6 +31,10 @@ public class LiabilityEntity implements Serializable {
 	@TableId
 	private Long id;
 	/**
+	 * 供应商编码
+	 */
+	private String supllyId;
+	/**
 	 * 短期借款
 	 */
 	private BigDecimal shorttermBankLoans;

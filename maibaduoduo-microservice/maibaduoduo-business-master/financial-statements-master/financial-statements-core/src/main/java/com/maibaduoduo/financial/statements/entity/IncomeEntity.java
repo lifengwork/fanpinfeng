@@ -31,6 +31,10 @@ public class IncomeEntity implements Serializable {
 	@TableId
 	private Long id;
 	/**
+	 * 供应商编码
+	 */
+	private String supllyId;
+	/**
 	 * 营业收入
 	 */
 	private BigDecimal operatingRevenue;
