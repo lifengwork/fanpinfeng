@@ -70,9 +70,13 @@ public class LogisticsTransportEntity implements Serializable {
 	 */
 	private String transportEmail;
 	/**
-	 * 当前运输状态（待配送、配送中、已完成、已停运）
+	 * 当前运输状态（待配送、配送中、已签收、已停运）
 	 */
 	private Integer transportStatus;
+	/**
+	 * 是否运输回单
+	 */
+	private Integer transportReceipt;
 	/**
 	 * 状态
 	 */

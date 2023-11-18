@@ -3,20 +3,20 @@
  * SAAS系统设计研发交流
  * https://www.maibaduoduo.com
  */
-package com.maibaduoduo.logistics.vehicle.dao;
+package com.maibaduoduo.scp.dao;
 
-import com.maibaduoduo.logistics.vehicle.entity.VehicleEntity;
+import com.maibaduoduo.scp.entity.ScpFinancialEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
- * 具体交通工具管理表
+ * 
  * 
  * @author saas
  * @email lifengwork@yeah.net
- * @date 2023-11-14 10:20:32
+ * @date 2023-11-18 22:34:39
  */
 @Mapper
-public interface VehicleDao extends BaseMapper<VehicleEntity> {
+public interface ScpFinancialDao extends BaseMapper<ScpFinancialEntity> {
 	
 }

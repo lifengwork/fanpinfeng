@@ -8,7 +8,7 @@ package com.maibaduoduo;
 
 import com.maibaduoduo.banner.SaasBanner;
 
-public class VehicleServerBanner extends SaasBanner {
+public class ScpServerBanner extends SaasBanner {
 
     @Override
     protected String getTitle() {

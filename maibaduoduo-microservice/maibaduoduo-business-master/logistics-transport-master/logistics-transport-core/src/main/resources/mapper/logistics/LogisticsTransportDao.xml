@@ -22,6 +22,7 @@
                     <result property="transportMobile" column="transport_mobile"/>
                     <result property="transportEmail" column="transport_email"/>
                     <result property="transportStatus" column="transport_status"/>
+                    <result property="transportReceipt" column="transport_receipt"/>
                     <result property="status" column="status"/>
                     <result property="createUserId" column="create_user_id"/>
                     <result property="createTime" column="create_time"/>

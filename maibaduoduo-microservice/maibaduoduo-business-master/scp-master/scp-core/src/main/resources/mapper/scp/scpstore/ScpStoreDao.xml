@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  * Copyright (c) 2019-2023 SAAS开源 All rights reserved. lifengwork@yeah.net
+  * SAAS系统设计研发交流
+  * https://www.maibaduoduo.com
+-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.maibaduoduo.scp.dao.ScpStoreDao">
+
+    <!-- 映射 -->
+    <resultMap type="com.maibaduoduo.scp.entity.ScpStoreEntity" id="scpStoreMap">
+                    <result property="id" column="id"/>
+                    <result property="scpStoreCode" column="scp_store_code"/>
+                    <result property="scpStoreKpi" column="scp_store_kpi"/>
+                    <result property="scpStoreTotal" column="scp_store_total"/>
+                    <result property="scpStoreGoal" column="scp_store_goal"/>
+                    <result property="scpStoreActualQuantityMonth" column="scp_store_actual_quantity_month"/>
+                    <result property="scpStoreGoalAchievementDegree" column="scp_store_goal_achievement_degree"/>
+                    <result property="scpStoreWeight" column="scp_store_weight"/>
+                    <result property="scpStoreGoalAchievementDegreeWeight" column="scp_store_goal_achievement_degree_weight"/>
+                    <result property="scpStoreCurrentGoal" column="scp_store_current_goal"/>
+                    <result property="scpStoreCurrentAssessment" column="scp_store_current_assessment"/>
+                    <result property="scpStoreStatus" column="scp_store_status"/>
+                    <result property="status" column="status"/>
+                    <result property="createUserId" column="create_user_id"/>
+                    <result property="createTime" column="create_time"/>
+                    <result property="tenantId" column="tenant_id"/>
+            </resultMap>
+
+</mapper>

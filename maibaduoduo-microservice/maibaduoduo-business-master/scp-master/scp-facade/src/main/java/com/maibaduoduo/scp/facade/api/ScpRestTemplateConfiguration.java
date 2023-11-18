@@ -3,7 +3,7 @@
  * SAAS系统设计研发交流
  * https://www.maibaduoduo.com
  */
-package com.maibaduoduo.logistics.vehicle.facade.api;
+package com.maibaduoduo.scp.facade.api;
 import feign.Feign;
 import feign.InvocationHandlerFactory;
 import org.dromara.myth.springcloud.feign.MythFeignCircuitBreakerInvocationHandler;
@@ -21,7 +21,7 @@ import org.springframework.context.annotation.Scope;
  * @author xiaoyu
  */
 @Configuration
-public class LogisticsRestTemplateConfiguration {
+public class ScpRestTemplateConfiguration {
     /**
      * Feign builder feign . builder.
      * @return the feign . builder
@@ -30,7 +30,7 @@ public class LogisticsRestTemplateConfiguration {
     private CircuitBreakerFactory factory;
 
     @Autowired
-    private LogisticsApiFallbackFactory programApiFallbackFactory;
+    private ScpApiFallbackFactory programApiFallbackFactory;
     @Bean
     @Scope("prototype")
     public Feign.Builder feignBuilder() {

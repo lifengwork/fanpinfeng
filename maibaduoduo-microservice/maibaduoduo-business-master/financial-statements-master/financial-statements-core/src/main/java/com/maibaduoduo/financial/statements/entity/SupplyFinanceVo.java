@@ -95,7 +95,7 @@ public class SupplyFinanceVo {
     public BigDecimal getGrossMargin() {
         //主营业务收入净额 - 主营业务成本
         if (null != incomeEntity.getOperatingRevenue() && null != incomeEntity.getSalesCosts()) {
-            grossMargin = incomeEntity.getOperatingRevenue().subtract(incomeEntity.getSalesCosts()).divide(incomeEntity.getOperatingRevenue())
+            grossMargin = incomeEntity.getOperatingRevenue().subtract(incomeEntity.getSalesCosts()).divide(incomeEntity.getOperatingRevenue(),BigDecimal.ROUND_HALF_UP)
                     .setScale(2).multiply(BigDecimal.valueOf(100));
         }
         return grossMargin;
@@ -104,7 +104,7 @@ public class SupplyFinanceVo {
     public BigDecimal getReturnOnAssets() {
         //净利润总额/平均资产总额（(年初+年末)/2）
         if (null != incomeEntity.getTotalProfit() && null != assetsEntity.getTotalAssets()) {
-            returnOnAssets = incomeEntity.getTotalProfit().divide(assetsEntity.getTotalAssets())
+            returnOnAssets = incomeEntity.getTotalProfit().divide(assetsEntity.getTotalAssets(),BigDecimal.ROUND_HALF_UP)
                     .setScale(2).multiply(BigDecimal.valueOf(100));
         }
         return returnOnAssets;
@@ -113,12 +113,12 @@ public class SupplyFinanceVo {
     @Override
     public String toString() {
         return new StringJoiner(", ", SupplyFinanceVo.class.getSimpleName() + "[", "]")
-                .add("assetsLiabilitiesRatio=" + assetsLiabilitiesRatio)
-                .add("CurrentAssetsOfTotalAssetsRatio=" + CurrentAssetsOfTotalAssetsRatio)
-                .add("currentRation=" + currentRation)
-                .add("stockTurnover=" + stockTurnover)
-                .add("grossMargin=" + grossMargin)
-                .add("returnOnAssets=" + returnOnAssets)
+                .add("assetsLiabilitiesRatio:" + assetsLiabilitiesRatio)
+                .add("CurrentAssetsOfTotalAssetsRatio:" + CurrentAssetsOfTotalAssetsRatio)
+                .add("currentRation:" + currentRation)
+                .add("stockTurnover:" + stockTurnover)
+                .add("grossMargin:" + grossMargin)
+                .add("returnOnAssets:" + returnOnAssets)
                 .toString();
     }
 }

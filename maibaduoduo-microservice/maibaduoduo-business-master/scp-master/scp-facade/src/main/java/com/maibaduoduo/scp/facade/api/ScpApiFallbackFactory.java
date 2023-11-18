@@ -3,7 +3,7 @@
  * SAAS系统设计研发交流
  * https://www.maibaduoduo.com
  */
-package com.maibaduoduo.logistics.vehicle.facade.api;
+package com.maibaduoduo.scp.facade.api;
 
 import com.maibaduoduo.api.ApiFallbackFactory;
 import org.slf4j.Logger;
@@ -13,10 +13,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Primary
-public class LogisticsApiFallbackFactory extends ApiFallbackFactory {
+public class ScpApiFallbackFactory extends ApiFallbackFactory {
     Logger logger = LoggerFactory.getLogger(this.getClass());
     @Override
-    public LogisticsFacade fallbackFactory(Throwable throwable) {
+    public ScpFacade fallbackFactory(Throwable throwable) {
         return null;
     }
 }

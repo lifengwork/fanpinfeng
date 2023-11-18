@@ -3,64 +3,57 @@
  * SAAS系统设计研发交流
  * https://www.maibaduoduo.com
  */
-package com.maibaduoduo.logistics.vehicle.entity;
+package com.maibaduoduo.scp.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
+import java.math.BigDecimal;
 import java.io.Serializable;
 import java.util.Date;
 import lombok.Data;
 
 /**
- * 车辆
+ * 
  * 
  * @author saas
  * @email lifengwork@yeah.net
- * @date 2023-11-13 13:29:44
+ * @date 2023-11-18 22:34:39
  */
 @Data
-@TableName("saas_logistics_vehicle")
-public class LogisticsVehicleEntity implements Serializable {
+@TableName("saas_scp_financial")
+public class ScpFinancialEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * 运输方式ID
+	 * 财务绩效ID
 	 */
 	@TableId
 	private Long id;
 	/**
-	 * 名称
+	 * 财务绩效代码
 	 */
-	private String vehicleName;
+	private String scpFinancialCode;
 	/**
-	 * 运输ID
+	 * 现金流量周期
 	 */
-	private String transportId;
+	private String scpCashTimeCycle;
 	/**
-	 * 简述
+	 * 供应链管理总成本
 	 */
-	private String vehicleDesc;
+	private BigDecimal scpTotalSupplyChainManagementCosts;
 	/**
-	 * 陆运、空运、水运
+	 * 应收账款周转天数
 	 */
-	private String vehicleType;
+	private Integer scpDaySalesOutstanding;
 	/**
-	 * 运输工具标识（车牌号、航班号等）
+	 * 财务绩效状态
 	 */
-	private String vehicleIdentification;
-	/**
-	 * 当前运输工具状态
-	 */
-	private Integer vehicleStatus;
-	/**
-	 * 当前所在位置
-	 */
-	private String vehicleCurrentPosition;
+	private Integer scpFinancialStatus;
 	/**
 	 * 状态
 	 */
-	private String status;
+	private Integer status;
 	/**
 	 * 创建者ID
 	 */

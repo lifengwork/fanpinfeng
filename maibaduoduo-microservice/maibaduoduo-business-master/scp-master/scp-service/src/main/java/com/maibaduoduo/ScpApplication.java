@@ -25,9 +25,9 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableFeignClients(basePackages = {"com.maibaduoduo"})
 @EnableHystrix
 @EnableHystrixDashboard
-public class LogisticsVehicleApplication {
+public class ScpApplication {
 	public static void main(String[] args) {
-		new SpringApplicationBuilder(LogisticsVehicleApplication.class).banner(new VehicleServerBanner()).run(args);
+		new SpringApplicationBuilder(ScpApplication.class).banner(new ScpServerBanner()).run(args);
 	}
 
 }
