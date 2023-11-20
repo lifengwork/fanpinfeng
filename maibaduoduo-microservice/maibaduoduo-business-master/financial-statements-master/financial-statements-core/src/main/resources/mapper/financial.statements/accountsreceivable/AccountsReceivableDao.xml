@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  * Copyright (c) 2019-2023 SAAS开源 All rights reserved. lifengwork@yeah.net
+  * SAAS系统设计研发交流
+  * https://www.maibaduoduo.com
+-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.maibaduoduo.accountsreceivable.dao.AccountsReceivableDao">
+
+    <!-- 映射 -->
+    <resultMap type="com.maibaduoduo.accountsreceivable.entity.AccountsReceivableEntity" id="accountsReceivableMap">
+                    <result property="id" column="id"/>
+                    <result property="accountsReceivableCode" column="accounts_receivable_code"/>
+                    <result property="accountsReceivableDate" column="accounts_receivable_date"/>
+                    <result property="accountsReceivablePurchaseId" column="accounts_receivable_purchase_id"/>
+                    <result property="accountsReceivableSupplyId" column="accounts_receivable_supply_id"/>
+                    <result property="invoiceNumber" column="invoice_number"/>
+                    <result property="accountsReceivableDesc" column="accounts_receivable_desc"/>
+                    <result property="transactionAmount" column="transaction_amount"/>
+                    <result property="creditPeriod" column="credit_period"/>
+                    <result property="amountReceived" column="amount_received"/>
+                    <result property="amountNreceived" column="amount_nreceived"/>
+                    <result property="remark" column="remark"/>
+                    <result property="purchaseAddr" column="purchase_addr"/>
+                    <result property="purchasePhone" column="purchase_phone"/>
+                    <result property="purchaseEmail" column="purchase_email"/>
+                    <result property="purchaseBank" column="purchase_bank"/>
+                    <result property="purchaseAccount" column="purchase_account"/>
+                    <result property="overdue" column="overdue"/>
+                    <result property="collectionTime" column="collection_time"/>
+                    <result property="collectionMethod" column="collection_method"/>
+                    <result property="collectionContent" column="collection_content"/>
+                    <result property="purchaseFeedback" column="purchase_feedback"/>
+                    <result property="nextCollectionTime" column="next_collection_time"/>
+                    <result property="approver" column="approver"/>
+                    <result property="approveTime" column="approve_time"/>
+                    <result property="approveRemark" column="approve_remark"/>
+                    <result property="accountsReceivableStatus" column="accounts_receivable_status"/>
+                    <result property="status" column="status"/>
+                    <result property="createUserId" column="create_user_id"/>
+                    <result property="createTime" column="create_time"/>
+                    <result property="tenantId" column="tenant_id"/>
+            </resultMap>
+
+</mapper>

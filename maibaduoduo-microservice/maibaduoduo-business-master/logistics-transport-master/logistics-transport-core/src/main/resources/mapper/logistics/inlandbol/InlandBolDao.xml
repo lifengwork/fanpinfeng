@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  * Copyright (c) 2019-2023 SAAS开源 All rights reserved. lifengwork@yeah.net
+  * SAAS系统设计研发交流
+  * https://www.maibaduoduo.com
+-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.maibaduoduo.logistics.transport.dao.InlandBolDao">
+
+    <!-- 映射 -->
+    <resultMap type="com.maibaduoduo.logistics.transport.entity.InlandBolEntity" id="inlandBolMap">
+                    <result property="id" column="id"/>
+                    <result property="inlandBolCode" column="inland_bol_code"/>
+                    <result property="consingn" column="consingn"/>
+                    <result property="contractNo" column="contract_no"/>
+                    <result property="lcNo" column="lc_no"/>
+                    <result property="notify" column="notify"/>
+                    <result property="shipmentDate" column="shipment_date"/>
+                    <result property="truckNo" column="truck_no"/>
+                    <result property="from" column="from"/>
+                    <result property="via" column="via"/>
+                    <result property="to" column="to"/>
+                    <result property="marksNos" column="marks_nos"/>
+                    <result property="numberKindPkgs" column="number_kind_pkgs"/>
+                    <result property="descriptionGoods" column="description_goods"/>
+                    <result property="gw" column="gw"/>
+                    <result property="measurement" column="measurement"/>
+                    <result property="total" column="total"/>
+                    <result property="totalPkgs" column="total_pkgs"/>
+                    <result property="freightPayableAt" column="freight_payable_at"/>
+                    <result property="forDeliveryApplyTo" column="for_delivery_apply_to"/>
+                    <result property="numberOriginal" column="number_original"/>
+                    <result property="shipperEndorsement" column="shipper_endorsement"/>
+                    <result property="consigneeSignature" column="consignee_signature"/>
+                    <result property="place" column="place"/>
+                    <result property="issueDate" column="issue_date"/>
+                    <result property="airwayBolStatus" column="airway_bol_status"/>
+                    <result property="status" column="status"/>
+                    <result property="createUserId" column="create_user_id"/>
+                    <result property="createTime" column="create_time"/>
+                    <result property="tenantId" column="tenant_id"/>
+            </resultMap>
+
+</mapper>

@@ -21,5 +21,6 @@ import java.util.Map;
 public interface FinancialAgreementService extends IService<FinancialAgreementEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+    void signatureCallBack(String signatureInfo);
 }
 

@@ -12,6 +12,6 @@ public class FinanceServerBanner extends SaasBanner {
 
     @Override
     protected String getTitle() {
-        return "Vehicle Server";
+        return "Finance Server";
     }
 }

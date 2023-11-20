@@ -6,6 +6,8 @@
 package com.maibaduoduo.order.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.maibaduoduo.mq.sender.RabbitSender;
+import com.maibaduoduo.purchase.entity.PurchaseEntity;
 import com.maibaduoduo.purchase.entity.PurchaseItemEntity;
 import com.maibaduoduo.store.facade.api.StoreFacade;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,8 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
     @Autowired
     private StoreFacade storeFacade;
 
+    @Autowired
+    private RabbitSender rabbitSender;
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
         IPage<OrderEntity> page = this.page(
@@ -42,15 +46,44 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
     /**
      * 订单结算
      *
-     * @param purchaseItemEntity
+     * @param purchaseEntity
      */
     @Override
-    public void orderSettlement(PurchaseItemEntity purchaseItemEntity) {
+    public void orderSettlement(PurchaseEntity purchaseEntity) {
         /**
          * TODO 订单结算
          */
         //备货
-        storeFacade.stockUp(JSON.toJSONString(purchaseItemEntity));
+        storeFacade.stockUp(JSON.toJSONString(purchaseEntity));
     }
 
+    @Override
+    public void createPurchaseOrder(OrderEntity orderEntity) {
+        /**
+         * TODO 生成采购订单
+         */
+    }
+
+    @Override
+    public void callBack(String callBackInfo) {
+        /**
+         * 征信异常融资业务办理失败
+         * 记录明细
+         * 返回
+         * TODO
+         */
+         if(true){
+             /**
+              * 记录明细
+              * 备货
+              * TODO
+              */
+             String CONTRACT_STORE_EXCHANGE = "";
+             String CONTRACT_STORE_QUEUE = "";
+             OrderEntity orderEntity = new OrderEntity();
+             rabbitSender.sendMessage(CONTRACT_STORE_EXCHANGE,CONTRACT_STORE_QUEUE, JSON.toJSON(orderEntity));
+         }else{
+             //征信不通过记录明细
+         }
+    }
 }

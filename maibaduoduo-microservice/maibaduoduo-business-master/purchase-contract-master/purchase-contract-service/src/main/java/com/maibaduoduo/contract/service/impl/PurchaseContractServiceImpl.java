@@ -12,6 +12,7 @@ import com.maibaduoduo.contract.entity.PurchaseContractEntity;
 import com.maibaduoduo.contract.service.PurchaseContractService;
 import com.maibaduoduo.mq.sender.RabbitSender;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -22,6 +23,7 @@ import com.maibaduoduo.configuration.utils.Query;
 
 @Service("purchaseContractService")
 public class PurchaseContractServiceImpl extends ServiceImpl<PurchaseContractDao, PurchaseContractEntity> implements PurchaseContractService {
+
     @Autowired
     private RabbitSender rabbitSender;
     @Override
@@ -48,9 +50,18 @@ public class PurchaseContractServiceImpl extends ServiceImpl<PurchaseContractDao
         /**
          * TODO
          */
-        String CONTRACT_EXCHANGE = "";
-        String CONTRACT_QUEUE = "";
-        rabbitSender.sendMessage(CONTRACT_EXCHANGE,CONTRACT_QUEUE, JSON.toJSON(purchaseContractEntity));
+        String CONTRACT_STORE_EXCHANGE = "";
+        String CONTRACT_STORE_QUEUE = "";
+
+        String PURCHASE_ORDER_FINANCING_EXCHANGE="";
+        String PURCHASE_ORDER_FINANCING_QUEUE="";
+
+        //根据签订协议是否需要融资
+        if(true){
+            rabbitSender.sendMessage(PURCHASE_ORDER_FINANCING_EXCHANGE,PURCHASE_ORDER_FINANCING_QUEUE, JSON.toJSON(purchaseContractEntity));
+        }else{
+            rabbitSender.sendMessage(CONTRACT_STORE_EXCHANGE,CONTRACT_STORE_QUEUE, JSON.toJSON(purchaseContractEntity));
+        }
     }
 
 }

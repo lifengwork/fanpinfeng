@@ -31,4 +31,12 @@ public class FinancialAgreementServiceImpl extends ServiceImpl<FinancialAgreemen
         return new PageUtils(page);
     }
 
+    @Override
+    public void signatureCallBack(String signatureInfo) {
+        /**
+         * 更新融资协议状态
+         * TODO
+         */
+    }
+
 }

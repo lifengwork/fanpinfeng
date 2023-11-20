@@ -10,7 +10,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
 import lombok.Data;
-
 /**
  * @author saas
  * @email lifengwork@yeah.net

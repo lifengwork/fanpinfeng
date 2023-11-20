@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  * Copyright (c) 2019-2023 SAAS开源 All rights reserved. lifengwork@yeah.net
+  * SAAS系统设计研发交流
+  * https://www.maibaduoduo.com
+-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.maibaduoduo.logistics.transport.dao.AirwayBolDao">
+
+    <!-- 映射 -->
+    <resultMap type="com.maibaduoduo.logistics.transport.entity.AirwayBolEntity" id="airwayBolMap">
+                    <result property="id" column="id"/>
+                    <result property="airwayBolCode" column="airway_bol_code"/>
+                    <result property="mawbNo" column="mawb_no"/>
+                    <result property="hawbNo" column="hawb_no"/>
+                    <result property="shipperNameAddress" column="shipper_name_address"/>
+                    <result property="airWaybillIssuedBy" column="air_waybill_issued_by"/>
+                    <result property="consigneeNameAddress" column="consignee_name_address"/>
+                    <result property="issuingCarrierAgentNameCity" column="issuing_carrier_agent_name_city"/>
+                    <result property="agentIataCode" column="agent_iata_code"/>
+                    <result property="accountNo" column="account_no"/>
+                    <result property="accountingInformation" column="accounting_information"/>
+                    <result property="airportDeparture" column="airport_departure"/>
+                    <result property="referenceNumber" column="reference_number"/>
+                    <result property="to" column="to"/>
+                    <result property="byFirstCarrierToByToBy" column="by_first_carrier_to_by_to_by"/>
+                    <result property="currency" column="currency"/>
+                    <result property="chgsCod" column="chgs_cod"/>
+                    <result property="wtVal" column="wt_val"/>
+                    <result property="other" column="other"/>
+                    <result property="declaredValueCarriage" column="declared_value_carriage"/>
+                    <result property="declaredValueCustoms" column="declared_value_customs"/>
+                    <result property="airportDestination" column="airport_destination"/>
+                    <result property="flightDate" column="flight_date"/>
+                    <result property="amountInsurance" column="amount_insurance"/>
+                    <result property="handlingInformation" column="handling_information"/>
+                    <result property="noPieceRcp" column="no_piece_rcp"/>
+                    <result property="grossWeight" column="gross_weight"/>
+                    <result property="rateClass" column="rate_class"/>
+                    <result property="commodityItemNo" column="commodity_item_no"/>
+                    <result property="chargeableWeight" column="chargeable_weight"/>
+                    <result property="rateCharge" column="rate_charge"/>
+                    <result property="totalFreight" column="total_freight"/>
+                    <result property="natureQuantityGood" column="nature_quantity_good"/>
+                    <result property="weightCharge" column="weight_charge"/>
+                    <result property="valuationCharge" column="valuation_charge"/>
+                    <result property="tax" column="tax"/>
+                    <result property="totalOtherChargesDueAgent" column="total_other_charges_due_agent"/>
+                    <result property="totalOtherChargesDueCarrier" column="total_other_charges_due_carrier"/>
+                    <result property="toalPrepaidTotalCollect" column="toal_prepaid_total_collect"/>
+                    <result property="currencyConversionRates" column="currency_conversion_rates"/>
+                    <result property="ccChargesInDestCurrency" column="cc_charges_in_dest_currency"/>
+                    <result property="otherCharges" column="other_charges"/>
+                    <result property="signatureShipperHisAgent" column="signature_shipper_his_agent"/>
+                    <result property="executedOnDateAtPlaceSignatureIssuingBranch" column="executed_on_date_at_place_signature_issuing_branch"/>
+                    <result property="chargesAtDestination" column="charges_at_destination"/>
+                    <result property="totalCollectCharges" column="total_collect_charges"/>
+                    <result property="airwayBolStatus" column="airway_bol_status"/>
+                    <result property="status" column="status"/>
+                    <result property="createUserId" column="create_user_id"/>
+                    <result property="createTime" column="create_time"/>
+                    <result property="tenantId" column="tenant_id"/>
+            </resultMap>
+
+</mapper>

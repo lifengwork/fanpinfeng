@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.Map;
 
 import com.alibaba.fastjson.JSON;
+import com.maibaduoduo.purchase.entity.PurchaseEntity;
 import com.maibaduoduo.purchase.entity.PurchaseItemEntity;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,7 +75,7 @@ public class OrderController {
     @PostMapping("/settlement")
     @RequiresPermissions("order:order:save")
     public R settlement(@RequestBody String purchaseInfo){
-        orderService.orderSettlement(JSON.parseObject(purchaseInfo,PurchaseItemEntity.class));
+        orderService.orderSettlement(JSON.parseObject(purchaseInfo, PurchaseEntity.class));
         return R.ok();
     }
 
@@ -100,4 +101,16 @@ public class OrderController {
         return R.ok();
     }
 
+    /**
+     * 金融机构放款后或者信用核实不通过回调
+     * （1）如果征信不通过记录明细
+     * （2）如果征信核实通过放款后，进入备货流程
+     * @param callBackInfo
+     * @return
+     */
+    @PostMapping("callBack")
+    public R callBack(@RequestBody String callBackInfo){
+        orderService.callBack(callBackInfo);
+        return R.ok();
+    }
 }

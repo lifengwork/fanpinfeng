@@ -96,5 +96,6 @@
 		<module>scp-master</module>
 		<module>supply-chains-finance-master</module>
 		<module>financial-statements-master</module>
+		<module>payment-master</module>
     </modules>
 </project>

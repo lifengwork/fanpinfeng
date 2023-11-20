@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  * Copyright (c) 2019-2023 SAAS开源 All rights reserved. lifengwork@yeah.net
+  * SAAS系统设计研发交流
+  * https://www.maibaduoduo.com
+-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.maibaduoduo.logistics.transport.dao.SeaBolDao">
+
+    <!-- 映射 -->
+    <resultMap type="com.maibaduoduo.logistics.transport.entity.SeaBolEntity" id="seaBolMap">
+                    <result property="id" column="id"/>
+                    <result property="blNo" column="bl_no"/>
+                    <result property="shipper" column="shipper"/>
+                    <result property="consignee" column="consignee"/>
+                    <result property="notifyParty" column="notify_party"/>
+                    <result property="prCarriageBy" column="pr_carriage_by"/>
+                    <result property="placeReceipt" column="place_receipt"/>
+                    <result property="oceanVesselVoyNo" column="ocean_vessel_voy_no"/>
+                    <result property="portLoading" column="port_loading"/>
+                    <result property="portDischarge" column="port_discharge"/>
+                    <result property="placeDelivery" column="place_delivery"/>
+                    <result property="finalDestinationMerchantsReference" column="final_destination_merchants_reference"/>
+                    <result property="marks" column="marks"/>
+                    <result property="nosKindsPkgs" column="nos_kinds_pkgs"/>
+                    <result property="descriptionGoods" column="description_goods"/>
+                    <result property="gw" column="gw"/>
+                    <result property="meas" column="meas"/>
+                    <result property="totalNumber" column="total_number"/>
+                    <result property="freightCharges" column="freight_charges"/>
+                    <result property="revenueTons" column="revenue_tons"/>
+                    <result property="freghtRate" column="freght_rate"/>
+                    <result property="per" column="per"/>
+                    <result property="prepaid" column="prepaid"/>
+                    <result property="freightCollect" column="freight_collect"/>
+                    <result property="prepaidAt" column="prepaid_at"/>
+                    <result property="payableAt" column="payable_at"/>
+                    <result property="placeDate" column="place_date"/>
+                    <result property="totalPrepaid" column="total_prepaid"/>
+                    <result property="numberOriginalBl" column="number_original_bl"/>
+                    <result property="loadDate" column="load_date"/>
+                    <result property="loadingBoardVessel" column="loading_board_vessel"/>
+                    <result property="signedCarrier" column="signed_carrier"/>
+                    <result property="seaBolCode" column="sea_bol_code"/>
+                    <result property="status" column="status"/>
+                    <result property="createUserId" column="create_user_id"/>
+                    <result property="createTime" column="create_time"/>
+                    <result property="tenantId" column="tenant_id"/>
+            </resultMap>
+
+</mapper>

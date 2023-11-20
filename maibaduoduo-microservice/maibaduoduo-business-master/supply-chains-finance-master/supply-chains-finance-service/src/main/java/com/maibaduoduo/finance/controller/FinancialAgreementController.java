@@ -65,6 +65,14 @@ public class FinancialAgreementController {
 
         return R.ok();
     }
+    /**
+     * 金融机构回调更新融资协议状态
+     */
+    @PostMapping("/signatureCallBack")
+    public R signatureCallBack(@RequestBody String agreementInfo){
+		financialAgreementService.signatureCallBack(agreementInfo);
+        return R.ok();
+    }
 
     /**
      * 修改

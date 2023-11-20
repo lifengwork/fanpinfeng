@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.Map;
 
 import com.maibaduoduo.logistics.transport.entity.LogisticsTransportEntity;
-import com.maibaduoduo.logistics.service.LogisticsTransportService;
+import com.maibaduoduo.logistics.transport.service.LogisticsTransportService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
