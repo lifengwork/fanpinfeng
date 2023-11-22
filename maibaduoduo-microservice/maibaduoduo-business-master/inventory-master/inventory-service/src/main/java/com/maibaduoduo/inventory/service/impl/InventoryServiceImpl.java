@@ -29,4 +29,14 @@ public class InventoryServiceImpl extends ServiceImpl<InventoryDao, InventoryEnt
         return new PageUtils(page);
     }
 
+    @Override
+    public InventoryEntity judgeWarehouse(Map<String, Object> judgeInfo) {
+        /**
+         * TODO
+         * 根据仓库地址和采购商地址选择最优仓库
+         */
+        return null;
+    }
+
+
 }

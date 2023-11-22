@@ -3,20 +3,18 @@
  * SAAS系统设计研发交流
  * https://www.maibaduoduo.com
  */
-package com.maibaduoduo.store.controller;
+package com.maibaduoduo.logistics.transport.controller;
 
-import java.util.Arrays;
-import java.util.Map;
-
-import com.maibaduoduo.store.entity.FreightChargeEntity;
-import com.maibaduoduo.store.service.FreightChargeService;
+import com.maibaduoduo.configuration.utils.PageUtils;
+import com.maibaduoduo.configuration.utils.R;
+import com.maibaduoduo.logistics.transport.entity.FreightChargeEntity;
+import com.maibaduoduo.logistics.transport.service.FreightChargeService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.maibaduoduo.configuration.utils.PageUtils;
-import com.maibaduoduo.configuration.utils.R;
-
+import java.util.Arrays;
+import java.util.Map;
 
 
 /**

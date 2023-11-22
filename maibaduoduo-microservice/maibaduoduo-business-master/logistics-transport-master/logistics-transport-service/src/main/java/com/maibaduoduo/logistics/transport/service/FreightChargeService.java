@@ -3,11 +3,11 @@
  * SAAS系统设计研发交流
  * https://www.maibaduoduo.com
  */
-package com.maibaduoduo.store.service;
+package com.maibaduoduo.logistics.transport.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.maibaduoduo.configuration.utils.PageUtils;
-import com.maibaduoduo.store.entity.FreightChargeEntity;
+import com.maibaduoduo.logistics.transport.entity.FreightChargeEntity;
 
 import java.util.Map;
 

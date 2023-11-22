@@ -20,5 +20,11 @@ import java.util.Map;
 public interface InventoryService extends IService<InventoryEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    /**
+     * 选择最优仓库
+     * @param judgeInfo
+     */
+    InventoryEntity judgeWarehouse(Map<String,Object> judgeInfo);
 }
 

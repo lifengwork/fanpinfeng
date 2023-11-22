@@ -6,10 +6,10 @@
 -->
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.maibaduoduo.store.dao.FreightChargeDao">
+<mapper namespace="com.maibaduoduo.logistics.transport.dao.FreightChargeDao">
 
     <!-- 映射 -->
-    <resultMap type="com.maibaduoduo.store.entity.FreightChargeEntity" id="freightChargeMap">
+    <resultMap type="com.maibaduoduo.logistics.transport.entity.FreightChargeEntity" id="freightChargeMap">
                     <result property="id" column="id"/>
                     <result property="freightChargeNo" column="freight_charge_no"/>
                     <result property="purchaseNo" column="purchase_no"/>

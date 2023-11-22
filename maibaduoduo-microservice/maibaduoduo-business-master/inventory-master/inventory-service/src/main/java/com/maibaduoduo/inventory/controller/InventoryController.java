@@ -42,6 +42,15 @@ public class InventoryController {
 
         return R.ok().put("page", page);
     }
+    /**
+     * 列表
+     */
+    @RequestMapping("/judgeWarehouse")
+    public R judgeWarehouse(@RequestParam Map<String, Object> params){
+        InventoryEntity inventoryEntity = inventoryService.judgeWarehouse(params);
+
+        return R.ok().put("inventory", inventoryEntity);
+    }
 
 
     /**

@@ -5,7 +5,7 @@
  * <p>
  * https://www.maibaduoduo.com
  */
-package com.maibaduoduo.finance.mq;
+package com.maibaduoduo.inventory.mq;
 
 import cn.hutool.core.exceptions.ExceptionUtil;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -23,35 +23,19 @@ import java.io.IOException;
 
 @Slf4j
 @Service
-public class FinancingOrderListener {
+public class StoreInventorySynchListener {
     private static final ObjectMapper MAPPER = new ObjectMapper();
-    private final Logger logger = LoggerFactory.getLogger(FinancingOrderListener.class);
-    private static final String CONTRACT_QUEUE = "";
+    private final Logger logger = LoggerFactory.getLogger(StoreInventorySynchListener.class);
+    private final String STORE_INVENTORY_QUEUE = "";
 
-    private final String PURCHASE_ORDER_FINANCING_QUEUE="";
-
-    @RabbitListener(queues = PURCHASE_ORDER_FINANCING_QUEUE)
+    @RabbitListener(queues = STORE_INVENTORY_QUEUE)
     public void process(Channel channel, Message message) throws Exception {
         try {
             JsonNode jsonData = MAPPER.readTree(message.getBody());
             /**
-             * 订单信息同步金融机构
-             * 记录明细
              * TODO
+             * 同步RDC库存数据
              */
-
-            /**
-             * 向金融机构申请资金
-             * 记录明细
-             * TODO
-             */
-
-            /**
-             *  创建融资协议
-             *
-             *  TODO
-             */
-
             this.basicACK(message, channel);
         } catch (Exception e) {
             this.basicNACK(message, channel);

@@ -3,18 +3,19 @@
  * SAAS系统设计研发交流
  * https://www.maibaduoduo.com
  */
-package com.maibaduoduo.store.service.impl;
+package com.maibaduoduo.logistics.transport.service.impl;
 
-import com.maibaduoduo.store.dao.FreightChargeDao;
-import com.maibaduoduo.store.entity.FreightChargeEntity;
-import com.maibaduoduo.store.service.FreightChargeService;
-import org.springframework.stereotype.Service;
-import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.maibaduoduo.configuration.utils.PageUtils;
 import com.maibaduoduo.configuration.utils.Query;
+import com.maibaduoduo.logistics.transport.dao.FreightChargeDao;
+import com.maibaduoduo.logistics.transport.entity.FreightChargeEntity;
+import com.maibaduoduo.logistics.transport.service.FreightChargeService;
+import org.springframework.stereotype.Service;
+
+import java.util.Map;
 
 @Service("freightChargeService")
 public class FreightChargeServiceImpl extends ServiceImpl<FreightChargeDao, FreightChargeEntity> implements FreightChargeService {

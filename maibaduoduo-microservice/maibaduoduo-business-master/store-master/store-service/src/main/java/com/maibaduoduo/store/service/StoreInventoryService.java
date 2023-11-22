@@ -19,7 +19,6 @@ import java.util.Map;
  * @date 2023-11-12 11:48:30
  */
 public interface StoreInventoryService extends IService<StoreInventoryEntity> {
-
     PageUtils queryPage(Map<String, Object> params);
 }
 

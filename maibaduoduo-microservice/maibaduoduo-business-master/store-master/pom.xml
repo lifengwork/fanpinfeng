@@ -170,6 +170,11 @@
 		</dependency>
 		<dependency>
 			<groupId>com.maibaduoduo</groupId>
+			<artifactId>inventory-facade</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.maibaduoduo</groupId>
 			<artifactId>swagger2-starter</artifactId>
 			<exclusions>
 				<exclusion>

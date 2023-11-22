@@ -3,10 +3,10 @@
  * SAAS系统设计研发交流
  * https://www.maibaduoduo.com
  */
-package com.maibaduoduo.store.dao;
+package com.maibaduoduo.logistics.transport.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.maibaduoduo.store.entity.FreightChargeEntity;
+import com.maibaduoduo.logistics.transport.entity.FreightChargeEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
